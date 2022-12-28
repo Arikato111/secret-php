@@ -1,0 +1,26 @@
+{
+    "name": "myenv",
+    "version": "1.0.0",
+    "description": "spelte template",
+    "author": "",
+    "license": "ISC",
+    "package": {
+        "use-import": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/use-import/tree/master"
+        },
+        "spelte": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/spelte-php/tree/module"
+        }
+    },
+    "scripts": {
+        "build": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"
+    },
+    "devDependencies": {
+        "tailwindcss": "^3.2.4"
+    },
+    "dependencies": {
+        "daisyui": "^2.46.0"
+    }
+}

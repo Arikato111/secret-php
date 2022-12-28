@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply bg-zinc-100 min-h-screen;
+    }
+}
+
+@layer components {
+    .menu a:active {
+        @apply bg-zinc-100;
+    } 
+    .frame {
+        @apply mx-3 lg:mx-80;
+    }
+    .input-text {
+        @apply focus:outline-blue-400 focus:border border border-zinc-400 rounded-lg  w-full p-2 mb-3;
+    }
+}
