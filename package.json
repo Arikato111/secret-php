@@ -12,6 +12,10 @@
         "spelte": {
             "version": "main",
             "url": "https://github.com/Arikato111/spelte-php/tree/module"
+        },
+        "dotenv": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/php-dotenv/tree/main"
         }
     },
     "scripts": {

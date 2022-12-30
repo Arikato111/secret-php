@@ -1,6 +1,6 @@
-<title>เข้าสู่ระบบ</title>
+<title>เข้าสู่ระบบ - aden</title>
 <main class="frame">
-    <form class="bg-white rounded-md drop-shadow-md p-3 my-3 shadow-zinc-300 fill-none" method="post">
+    <form class="bg-white rounded-md drop-shadow-md p-5 my-5 shadow-zinc-300 fill-none" method="post">
         <h3 class="text-center text-4xl  p-3">เข้าสู่ระบบ</h3>    
         <input class="input-text" placeholder="ชื่อผู้ใช้" type="text" required>
         <input class="input-text" type="password" placeholder="รหัสผ่าน" required>
