@@ -18,4 +18,10 @@
     .input-text {
         @apply focus:outline-blue-400 focus:border border border-zinc-400 rounded-lg  w-full p-2 mb-3;
     }
+    .input-label {
+        @apply min-w-fit py-2 px-3 mb-3 mr-1 bg-zinc-200 rounded-lg;
+    }
+    .form-control {
+        @apply bg-white rounded-md drop-shadow-md p-5 my-5 shadow-zinc-300 fill-none;
+    }
 }

@@ -7,7 +7,7 @@ function checkPath($path)
 }
 ?>
 
-<nav class=" sticky top-0 bg-base-100 py-1 shadow-md shadow-zinc-200">
+<nav class=" sticky z-10 top-0 bg-base-100 py-1 shadow-md shadow-zinc-200">
   <div class="grid grid-cols-3 justify-items-center">
 
     <div class="flex">
