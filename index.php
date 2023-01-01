@@ -1,6 +1,14 @@
 <?php
+ob_start();
+session_start();
 require('./modules/use-import/main.m.php');
-require('./Database/conn.php');
+require('./components/lib/getAlert.php');
+
+$getParams = import('wisit-router/getParams');
+// use for api
+if($getParams(0) == 'api') {
+    return require('./pages/_main.php');
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,6 +28,8 @@ require('./Database/conn.php');
     require('./pages/_main.php');
     /********* Content ***********/
     ?>
+    <script src="https://unpkg.com/flowbite@1.5.5/dist/flowbite.js"></script>
+
 </body>
 
 </html>

@@ -1,3 +1,6 @@
+[data-title] {
+    position: inherit;
+}
 [data-title]:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.5s;
@@ -6,8 +9,7 @@
 [data-title]:after {
     content: attr(data-title);
     position: absolute;
-    bottom: -1.6em;
-    left: 50%;
+    bottom: -1.3em;
     padding: 1px 4px;
     font-size: 14px;
     border-radius: 6px;
@@ -15,7 +17,4 @@
     box-shadow: 0 0 2px 2px rgb(223, 223, 223);
     width: max-content;
     visibility: hidden;
-}
-[data-title] {
-    position: relative;
 }

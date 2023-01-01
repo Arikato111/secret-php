@@ -16,6 +16,10 @@
         "dotenv": {
             "version": "main",
             "url": "https://github.com/Arikato111/php-dotenv/tree/main"
+        },
+        "wisit-router": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/wisit-router/tree/master"
         }
     },
     "scripts": {

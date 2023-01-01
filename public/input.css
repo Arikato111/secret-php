@@ -9,6 +9,9 @@
 }
 
 @layer components {
+    .row {
+        @apply block sm:grid grid-cols-12 gap-0;
+    }
     .menu a:active {
         @apply bg-zinc-100;
     } 
@@ -23,5 +26,9 @@
     }
     .form-control {
         @apply bg-white rounded-md drop-shadow-md p-5 my-5 shadow-zinc-300 fill-none;
+    }
+
+    .nav-item {
+        @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-zinc-300 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700;
     }
 }
