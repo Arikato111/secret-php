@@ -52,8 +52,11 @@ if (isset($_POST['regis'])) {
             <label class="input-label" for="">รูปโปรไฟล์</label>
             <input class="input-text" type="file" accept="image/*" name="usr_img" required>
         </div>
-
-        <button name="regis" class="bg-blue-600 text-white py-2 px-3 rounded-lg">สมัคร</button>
+        <div>
+            <button name="regis" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">สมัคร</button>
+        </div>
+        
+        <div class="text-center mt-3">มีบัญชีแล้ว <a class="hover:underline text-blue-700" href="/login">เข้าสู่ระบบ</a></div>    
     </form>
     <br>
 </main>
