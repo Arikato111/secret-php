@@ -10,7 +10,7 @@ function checkPath($path)
 ?>
 
 
-<nav class="bg-white border-gray-200 px-2 py-2 sm:py-0 sm:px-4 rounded dark:bg-gray-900 sticky top-0">
+<nav class="bg-white border-gray-200 px-2 py-2 sm:py-0 sm:px-4 rounded dark:bg-gray-900 sticky top-0 z-50">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
         <a href="/" class="flex items-center">
             <span class="text-blue-500 font-normal text-2xl">a<span class="font-bold">den</span></span>

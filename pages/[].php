@@ -5,6 +5,8 @@ $db = import('./Database/db');
 $username = $getParams(0);
 $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_username = '$username'"));
 if (!$usr_profile) return require('./pages/_error.php');
+if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');
+if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
 ?>
 
 <title><?php echo $username; ?> | โปรไฟล์</title>
@@ -23,17 +25,22 @@ if (!$usr_profile) return require('./pages/_error.php');
                 </button>
                 <!-- Dropdown menu -->
                 <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                    <ul class="py-1" aria-labelledby="dropdownButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Edit</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-                        </li>
-                    </ul>
+                    <form method="post">
+                        <ul class="py-1" aria-labelledby="dropdownButton">
+                            <li>
+                                <button name="editProfile" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">แก้ไข</button>
+                            </li>
+                            <li>
+                                <button name="editPassword" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">เปลี่ยนรหัสผ่าน</button>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Export Data</a>
+                            </li>
+                            <li>
+                                <a href="#" class="block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
+                            </li>
+                        </ul>
+                    </form>
                 </div>
             </div>
             <div class="flex flex-col items-center pb-10">
