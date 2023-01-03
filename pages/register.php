@@ -1,5 +1,15 @@
 <?php
 $db = import('./Database/db');
+?>
+<?php if (isset($_SESSION['usr'])) :
+    return (function () {
+?>
+    <main class="frame">
+        <div class="heading">คุณเข้าสู่ระบบแล้ว</div>
+    </main>
+    <?php
+    })(); ?>
+<?php endif;
 
 if (isset($_POST['regis'])) {
     [
@@ -33,8 +43,8 @@ if (isset($_POST['regis'])) {
 
 <title>สมัครสมาชิก - aden</title>
 <main class="frame">
+    <h3 class="heading">สมัครสมาชิก</h3>
     <form class="form-control" enctype="multipart/form-data" method="post">
-        <h3 class="text-4xl text-center p-3">สมัครสมาชิก</h3>
         <input class="input-text" type="text" name="usr_name" value="<?php echo $name ?? ""; ?>" placeholder="ชื่อ - สกุล" required>
         <textarea class="input-text" name="usr_address" placeholder="ที่อยู่" required><?php echo $address ?? ""; ?></textarea>
         <div class="flex">

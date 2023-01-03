@@ -7,7 +7,7 @@ function getAlert($text, $status = 'base') {
     <div class="row">
         <div class="col-span-4"></div>
         <div class="col-span-4 px-3">
-            <div class=" text-2xl z-10 bg-white drop-shadow-xl shadow-zinc-300 p-3 rounded-lg <?php echo $color; ?>">
+            <div class=" text-xl z-10 bg-white drop-shadow-xl shadow-zinc-300 p-3 rounded-lg <?php echo $color; ?>">
                 <?php echo $text; ?>
             </div>
         </div>

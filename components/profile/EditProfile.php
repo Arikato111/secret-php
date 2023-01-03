@@ -24,10 +24,10 @@ $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
             <div class="text-right">
                 <a class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" href="/<?php echo $usr_profile['usr_username']; ?>">ย้อนกลับ</a>
             </div>
+            <h3 class="heading">แก้ไขโปรไฟล์</h3>
             <form class="form-control" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="editProfile">
 
-                <h3 class="text-4xl text-center p-3">แก้ไขโปรไฟล์</h3>
                 <input class="input-text" type="text" name="usr_name" value="<?php echo $usr_profile['usr_name'] ?? ""; ?>" placeholder="ชื่อ - สกุล" required>
                 <textarea class="input-text" name="usr_address" placeholder="ที่อยู่" required><?php echo $usr_profile['usr_address'] ?? ""; ?></textarea>
                 <div class="flex">

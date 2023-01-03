@@ -1,2 +1,6 @@
 <?php
-header("Location: /home");die;
+if(isset($_SESSION['usr'])) {
+    header("Location: /home");die;
+} else {
+    header("Location: /explore/");die;
+}

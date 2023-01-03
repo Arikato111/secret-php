@@ -4,13 +4,13 @@ $db = import('./Database/db');
 function checkPath($path)
 {
     if ($path == parse_url($_SERVER['REQUEST_URI'], 5)) {
-        echo " bg-blue-200";
+        echo " bg-zinc-300";
     }
 }
 ?>
 
 
-<nav class="bg-white border-gray-200 px-2 py-2 sm:py-0 sm:px-4 rounded dark:bg-gray-900 sticky top-0 z-50">
+<nav class="bg-white border-gray-200 px-2 py-2 sm:py-0 sm:px-4 rounded dark:bg-gray-900 sticky top-0 z-50 shadow">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
         <a href="/" class="flex items-center">
             <span class="text-blue-500 font-normal text-2xl">a<span class="font-bold">den</span></span>
@@ -31,10 +31,18 @@ function checkPath($path)
         endif; ?>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
             <ul class="flex flex-col p-2 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                <?php if(isset($_SESSION['usr'])): ?>
                 <li>
                     <a href="/home" data-title="หน้าหลัก" class="<?php checkPath('/home'); ?> nav-item">
                         <img class="w-5 sm:w-10 inline-block" src="/public/icons/home.svg" alt="home">
                         <span class="sm:hidden">หน้าหลัก</span>
+                    </a>
+                </li>
+                <?php endif; ?>
+                <li>
+                    <a href="/explore/" data-title="หน้าหลัก" class="<?php checkPath('/explore/'); ?> nav-item">
+                        <img class="w-5 sm:w-10 inline-block" src="/public/icons/explore.svg" alt="explore">
+                        <span class="sm:hidden">สำรวจ</span>
                     </a>
                 </li>
                 <li>

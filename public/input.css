@@ -19,7 +19,7 @@
         @apply mx-3 lg:mx-80;
     }
     .input-text {
-        @apply focus:outline-none focus:ring-2 focus:ring-blue-300 border focus:border-blue-400 border-zinc-400 rounded-lg  w-full p-2 mb-3;
+        @apply focus:outline-none focus:ring-2 focus:ring-blue-300 border focus:border-blue-400 border-zinc-400/70 rounded-lg  w-full p-2 mb-3;
     }
     .input-label {
         @apply min-w-fit py-2 px-3 mb-3 mr-1 bg-zinc-200 rounded-lg;
@@ -30,5 +30,14 @@
 
     .nav-item {
         @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-zinc-300 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700;
+    }
+    .heading {
+        @apply text-center text-3xl p-3 bg-white mt-5 drop-shadow shadow-zinc-300 rounded-lg;
+    }
+    .menu-nav {
+        @apply px-5 mt-5 ;
+    }
+    .menu-item {
+        @apply bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
     }
 }
