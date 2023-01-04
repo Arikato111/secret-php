@@ -5,7 +5,7 @@ $Post = import('./components/Post');
 $allPost = $db->query("SELECT * FROM post ORDER BY post_id DESC LIMIT 40");
 ?>
 
-<title>explore | aden</title>
+<title>สำรวจ | aden</title>
 <main class="py-3">
     <div class="row">
         <div class="col-span-3">

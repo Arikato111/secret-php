@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2023 at 05:42 AM
+-- Generation Time: Jan 04, 2023 at 03:21 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -64,7 +64,11 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES
-(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 0);
+(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 78),
+(7, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 1, '53bdc3d17a12319e4f6ca38039cc7539.jpg', 84),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 2, 'db76392ac9ba3e50b34f75972c0486d4.jpg', 83),
+(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 4, '3ab5f56c443d245e21cea3478bd1d800.jpg', 77),
+(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 6, '91f3382a3b691792a9627f33162b6ec2.jpg', 77);
 
 -- --------------------------------------------------------
 
@@ -79,6 +83,16 @@ CREATE TABLE `post_detail` (
   `pd_date` date NOT NULL,
   `usr_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `post_detail`
+--
+
+INSERT INTO `post_detail` (`pd_id`, `post_id`, `pd_name`, `pd_date`, `usr_id`) VALUES
+(1, 5, 'hello world', '2023-01-04', 5),
+(3, 4, 'hello world', '2023-01-04', 5),
+(4, 4, 'world com', '2023-01-04', 5),
+(6, 5, 'hello world', '2023-01-04', 5);
 
 -- --------------------------------------------------------
 
@@ -98,7 +112,9 @@ CREATE TABLE `post_like` (
 
 INSERT INTO `post_like` (`pl_id`, `post_id`, `usr_id`) VALUES
 (5, 4, 5),
-(6, 4, 5);
+(6, 4, 5),
+(7, 5, 5),
+(8, 7, 5);
 
 -- --------------------------------------------------------
 
@@ -177,19 +193,19 @@ ALTER TABLE `cat`
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `post_detail`
 --
 ALTER TABLE `post_detail`
-  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `post_like`
 --
 ALTER TABLE `post_like`
-  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `usr`

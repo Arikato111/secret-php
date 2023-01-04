@@ -19,6 +19,7 @@ if($getParams(0) == 'api') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/public/style.css">
     <link rel="stylesheet" href="/public/output.css">
+    <link rel="shortcut icon" href="/public/icons/grass.svg" type="image/x-icon">
 </head>
 
 <body>

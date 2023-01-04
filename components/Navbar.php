@@ -60,7 +60,8 @@ function checkPath($path)
                 </li>
                 <li>
                     <a href="/people" data-title="ผู้คน" class="<?php checkPath('/people'); ?> block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-zinc-300 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
-                        <img class="w-10" src="/public/icons/group.svg" alt="home">
+                        <img class="w-5 sm:w-10 inline-block" src="/public/icons/group.svg" alt="home">
+                        <span class="sm:hidden">ผู้คน</span>
                     </a>
                 </li>
             </ul>

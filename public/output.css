@@ -2809,10 +2809,6 @@ body {
   z-index: 30;
 }
 
-.z-40 {
-  z-index: 40;
-}
-
 .col-span-3 {
   grid-column: span 3 / span 3;
 }
