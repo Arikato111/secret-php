@@ -1,5 +1,12 @@
 <?php
 $db = import('./Database/db');
+$getParams = import('wisit-router/getParams');
+
+if($getParams(0) == 'admin') {
+    if(isset($_SESSION['status']) && $_SESSION['status'] == 'admin') {
+        return require('./components/AdminNavbar.php');
+    }
+}
 
 function checkPath($path)
 {
