@@ -58,7 +58,7 @@ $allPost = $db->query("SELECT * FROM post ORDER BY post_id DESC LIMIT 40");
                             <?php else : ?>
                                 <span class="py-2 cursor-pointer px-3 text-rose-500 hover:bg-gray-200 rounded-lg"><img class="inline-block w-6" src="/public/icons/heart-red.svg" alt="heart icon"> ถูกใจแล้ว</span>
                             <?php endif; ?>
-                            <a href="/post/1" class="py-2 px-3 hover:bg-gray-200 rounded-lg">
+                            <a href="/post/<?php echo $post['post_id'] ?? ""; ?>" class="py-2 px-3 hover:bg-gray-200 rounded-lg">
                                 <img class="inline-block w-6" src="/public/icons/comment.svg" alt="comment icon">
                                 ความคิดเห็น
                             </a>
