@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 04, 2023 at 04:29 PM
+-- Generation Time: Jan 04, 2023 at 08:53 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -20,6 +20,58 @@ SET time_zone = "+00:00";
 --
 -- Database: `aden`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `board`
+--
+
+CREATE TABLE `board` (
+  `b_id` int(11) NOT NULL,
+  `b_name` varchar(200) NOT NULL,
+  `b_date` date NOT NULL,
+  `usr_id` int(11) NOT NULL,
+  `b_view` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `board`
+--
+
+INSERT INTO `board` (`b_id`, `b_name`, `b_date`, `usr_id`, `b_view`, `cat_id`) VALUES
+(1, 'วิ่งตอนเช้าหรือตอนนี้ดี', '2023-01-04', 5, 0, 1),
+(4, 'ตอนเช้ากินอะไรดี', '2023-01-04', 5, 0, 2),
+(5, 'sfasfasfasf', '2023-01-04', 5, 1, 1),
+(6, 'อาหารสุดโปรดของคุณคือ', '2023-01-04', 5, 1, 2),
+(7, 'เทคนิคการเก็บเงินที่ใช้บ่อย?', '2023-01-04', 5, 4, 4);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `board_detail`
+--
+
+CREATE TABLE `board_detail` (
+  `bd_id` int(11) NOT NULL,
+  `b_id` int(11) NOT NULL,
+  `bd_name` varchar(200) NOT NULL,
+  `bd_date` date NOT NULL,
+  `usr_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `board_detail`
+--
+
+INSERT INTO `board_detail` (`bd_id`, `b_id`, `bd_name`, `bd_date`, `usr_id`) VALUES
+(1, 7, 'hello', '2023-01-04', 5),
+(2, 7, 'world', '2023-01-04', 5),
+(3, 5, 'blockdont', '2023-01-04', 5),
+(4, 5, 'asdfasdf', '2023-01-04', 5),
+(8, 4, 'ไม่รู้สิ', '2023-01-04', 5),
+(9, 4, 'เอ้า ! ถามเองตอบเอง', '2023-01-04', 5);
 
 -- --------------------------------------------------------
 
@@ -61,7 +113,8 @@ CREATE TABLE `follow` (
 --
 
 INSERT INTO `follow` (`fol_id`, `fol_atk`, `fol_def`, `fol_date`) VALUES
-(3, 4, 5, '2023-01-04');
+(6, 4, 5, '2023-01-04'),
+(7, 5, 4, '2023-01-04');
 
 -- --------------------------------------------------------
 
@@ -84,11 +137,12 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES
-(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 109),
-(7, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 1, '53bdc3d17a12319e4f6ca38039cc7539.jpg', 116),
-(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 2, 'db76392ac9ba3e50b34f75972c0486d4.jpg', 114),
-(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 4, '3ab5f56c443d245e21cea3478bd1d800.jpg', 110),
-(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 6, '91f3382a3b691792a9627f33162b6ec2.jpg', 105);
+(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 340),
+(7, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 1, '53bdc3d17a12319e4f6ca38039cc7539.jpg', 345),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 2, 'db76392ac9ba3e50b34f75972c0486d4.jpg', 349),
+(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 4, '3ab5f56c443d245e21cea3478bd1d800.jpg', 335),
+(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 6, '91f3382a3b691792a9627f33162b6ec2.jpg', 313),
+(11, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 4, 2, '2d55a1eb9f6412aaf7879375f16934af.jpg', 185);
 
 -- --------------------------------------------------------
 
@@ -113,7 +167,8 @@ INSERT INTO `post_detail` (`pd_id`, `post_id`, `pd_name`, `pd_date`, `usr_id`) V
 (3, 4, 'hello world', '2023-01-04', 5),
 (4, 4, 'world com', '2023-01-04', 5),
 (6, 5, 'hello world', '2023-01-04', 5),
-(7, 9, 'hello world', '2023-01-04', 4);
+(7, 9, 'hello world', '2023-01-04', 4),
+(8, 7, 'comment', '2023-01-04', 4);
 
 -- --------------------------------------------------------
 
@@ -135,7 +190,10 @@ INSERT INTO `post_like` (`pl_id`, `post_id`, `usr_id`) VALUES
 (5, 4, 5),
 (6, 4, 5),
 (7, 5, 5),
-(8, 7, 5);
+(8, 7, 5),
+(9, 11, 4),
+(10, 10, 4),
+(11, 9, 4);
 
 -- --------------------------------------------------------
 
@@ -169,6 +227,18 @@ INSERT INTO `usr` (`usr_id`, `usr_name`, `usr_address`, `usr_date`, `usr_email`,
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `board`
+--
+ALTER TABLE `board`
+  ADD PRIMARY KEY (`b_id`);
+
+--
+-- Indexes for table `board_detail`
+--
+ALTER TABLE `board_detail`
+  ADD PRIMARY KEY (`bd_id`);
 
 --
 -- Indexes for table `cat`
@@ -211,6 +281,18 @@ ALTER TABLE `usr`
 --
 
 --
+-- AUTO_INCREMENT for table `board`
+--
+ALTER TABLE `board`
+  MODIFY `b_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `board_detail`
+--
+ALTER TABLE `board_detail`
+  MODIFY `bd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- AUTO_INCREMENT for table `cat`
 --
 ALTER TABLE `cat`
@@ -220,25 +302,25 @@ ALTER TABLE `cat`
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `fol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `fol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `post`
 --
 ALTER TABLE `post`
-  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `post_detail`
 --
 ALTER TABLE `post_detail`
-  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `post_like`
 --
 ALTER TABLE `post_like`
-  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `usr`
