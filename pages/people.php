@@ -16,9 +16,10 @@ if (isset($_GET['search'])) {
 
 <title>ผู้คน | aden</title>
 <div class="row">
-    <div class="col-span-3"></div>
-    <div class="col-span-6">
+    <div class="col-span-3">
         <?php import('./components/people/SearchPeople'); ?>
+    </div>
+    <div class="col-span-6">
 
         <?php
         while ($usr = fetch($allUser)) : ?>
@@ -33,7 +34,11 @@ if (isset($_GET['search'])) {
                     </div>
                 </a>
             </div>
-        <?php endwhile; ?>
+        <?php endwhile;
+        if($allUser->num_rows == 0): ?>
+        <div class="heading">ไม่พบผู้ใช้งาน</div>
+        <?php endif; ?>
+
     </div>
     <div class="col-span-3">
         <?php import('./components/NavContact'); ?>

@@ -26,6 +26,7 @@ $Post = function ($post_id) {
     $allPost = $db->query("SELECT * FROM post WHERE post_id = $post_id");
     $post = fetch($allPost);
     $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$post['post_usr_id']}"));
+    $cat = fetch($db->query("SELECT * FROM cat WHERE cat_id = {$post['post_cat_id']}"));
 ?>
 
 
@@ -63,7 +64,7 @@ $Post = function ($post_id) {
             </div>
             <div class="px-3">
                 <a class="hover:underline" href="/<?php echo $usr_post['usr_username']; ?>"><?php echo $usr_post['usr_name'] ?? ""; ?></a>
-                <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?></div>
+                <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?> ⦁ <?php echo $cat['cat_name'] ?? ""; ?></div>
             </div>
         </div>
         <div class="my-3 px-3">

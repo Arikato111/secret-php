@@ -32,7 +32,7 @@ $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$post['post_usr_
         </div>
         <div class="col-span-6">
             <div class="mt-5 mb-3 text-right px-3">
-                <a class="inline-block bg-gray-500 px-3  py-2 text-white rounded-lg" href="/explore/">ย้อนกลับ</a>
+                <a class="inline-block bg-gray-500 px-3  py-2 text-white rounded-lg" onclick="window.history.back()" href="#">ย้อนกลับ</a>
             </div>
             <?php $Post($post_id); ?>
             <form class="form-control-group" method="post">

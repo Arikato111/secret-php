@@ -13,7 +13,7 @@ if (isset($_POST['editImg'])) return import('./components/profile/EditImg');
 if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
 ?>
 
-<title>โพสต์ | <?php echo $username; ?> | โปรไฟล์</title>
+<title>กระทู้ | <?php echo $username; ?> | โปรไฟล์</title>
 <div class="row">
     <div class="col-span-3">
         <?php import('./components/profile/Nav'); ?>
@@ -23,19 +23,7 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
         <?php $ProfileCard($username); ?>
         <!-- Content -->
         <div class="w-full">
-
-            <?php
-            $allPost = $db->query("SELECT * FROM post WHERE post_usr_id = {$usr_profile['usr_id']} ORDER BY post_id DESC LIMIT 100");
-            if ($allPost->num_rows == 0) : ?>
-                <div class="heading w-full block">
-                    ยังไม่มีโพสต์
-                </div>
-            <?php
-            endif;
-            while ($post = fetch($allPost)) :
-                $Post($post['post_id']);
-            ?>
-            <?php endwhile; ?>
+            <?php import('./components/profile/ShowBoard'); ?>
         </div>
     </div>
     <div class="col-span-3">

@@ -3,7 +3,7 @@ function getAlert($text, $status = 'base') {
     $color = $status == 'base'? "text-black" : 
         ($status == 'success'? "text-green-500": "text-red-400");
 ?>
-<div id="getAlert" class="fixed top-0 my-5 z-30 w-full mt-16 text-center">
+<div id="getAlert" class="fixed top-0 left-0 my-5 z-30 w-full mt-16 text-center">
     <div class="row">
         <div class="col-span-4"></div>
         <div class="col-span-4 px-3">

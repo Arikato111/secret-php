@@ -44,6 +44,6 @@
         @apply px-5 mt-5 ;
     }
     .menu-item {
-        @apply bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
+        @apply text-center bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
     }
 }
