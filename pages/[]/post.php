@@ -77,10 +77,16 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
             </div>
         </div>
         <!-- Content -->
-        <div>
+        <div class="w-full">
 
             <?php
             $allPost = $db->query("SELECT * FROM post WHERE post_usr_id = {$usr_profile['usr_id']} ORDER BY post_id DESC LIMIT 100");
+            if($allPost->num_rows == 0): ?>
+            <div class="heading w-full block">
+                ยังไม่มีโพสต์
+            </div>
+            <?php
+            endif;
             while($post = fetch($allPost)):
                 $Post($post['post_id']);
                 ?>

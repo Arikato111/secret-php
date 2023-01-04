@@ -9,6 +9,7 @@ if(isset($_POST['saveEditImg'])) {
     move_uploaded_file($_FILES['usr_img']['tmp_name'], './public/profile/' . $img_name);
     unlink('./public/profile/' . $usr_profile['usr_img']);
     $db->query("UPDATE usr SET usr_img = '$img_name' WHERE usr_id = $usr_id");
+    header("Refresh:0");die;
 }
 
 $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));

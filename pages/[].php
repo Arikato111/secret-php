@@ -4,13 +4,32 @@ $db = import('./Database/db');
 $username = $getParams(0);
 $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_username = '$username'"));
 
-if(isset($_POST['deleteProfile'])) {
+if(isset($_POST['follow'])) {
+    if(!isset($_SESSION['usr'])) {
+        header('Location: /login');die;
+    }
+    if($db->query("SELECT * FROM follow WHERE 
+    fol_atk = {$_SESSION['usr']} AND fol_def = {$_POST['usr_id']}")->num_rows == 0) {
+        $date = date('Y-m-d');
+        $db->query("INSERT INTO `follow`
+        (`fol_id`, `fol_atk`, `fol_def`, `fol_date`) VALUES 
+        (NULL, {$_SESSION['usr']}, {$_POST['usr_id']},'$date')");
+        header("Refresh:0");die;
+    } else {
+        $db->query("DELETE FROM follow WHERE 
+    fol_atk = {$_SESSION['usr']} AND fol_def = {$_POST['usr_id']}");
+    }
+}
+
+if (isset($_POST['deleteProfile'])) {
     $db->query("DELETE FROM usr WHERE usr_username = '$username'");
     unlink('./public/profile/' . $usr_profile['usr_img']);
-    if($_SESSION['usr'] == $usr_profile['usr_id']) {
-        header('Location: /login?logout');die;
+    if ($_SESSION['usr'] == $usr_profile['usr_id']) {
+        header('Location: /login?logout');
+        die;
     } else {
-        header("Location: /home");die;
+        header("Location: /home");
+        die;
     }
 }
 
@@ -64,14 +83,25 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
                 <img class="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src="/public/profile/<?php echo $usr_profile['usr_img'] ?? ""; ?>" alt="Bonnie image" />
                 <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?php echo $usr_profile['usr_name']; ?></h5>
                 <span class="text-sm text-gray-500 dark:text-gray-400">@<?php echo $usr_profile['usr_username']; ?></span>
-                <div class="flex mt-4 space-x-3 md:mt-6">
-                    <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                        Follow</a>
+                <span class="text-sm text-gray-500 dark:text-gray-400">วันเกิด : <?php echo $usr_profile['usr_date']; ?></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">ที่อยู่ : <?php echo $usr_profile['usr_address']; ?></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">เบอร์โทร : <?php echo $usr_profile['usr_tel']; ?></span>
+                <form method="POST" class="flex mt-4 space-x-3 md:mt-6">
+                    <input type="hidden" name="usr_id" value="<?php echo $usr_profile['usr_id']; ?>">
+                    <?php if (isset($_SESSION['usr']) && $db->query("SELECT * FROM follow WHERE 
+                    fol_atk = {$_SESSION['usr']} AND fol_def = {$usr_profile['usr_id']}")->num_rows != 0) : ?>
+                        <button name="follow" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            <img class="w-6" src="/public/icons/right.svg" alt="right icon">
+                            ติดตามแล้ว</button>
+                    <?php else : ?>
+                        <button name="follow" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                            ติดตาม</button>
+                    <?php endif; ?>
                     <a href="#" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-700 dark:focus:ring-gray-700">
                         <img class="w-5 mx-1" src="/public/icons/share.svg" alt="share icon">
                         share
                     </a>
-                </div>
+                </form>
             </div>
         </div>
 
