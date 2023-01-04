@@ -40,7 +40,7 @@ function checkPath($path)
                 </li>
                 <?php endif; ?>
                 <li>
-                    <a href="/explore/" data-title="หน้าหลัก" class="<?php checkPath('/explore/'); ?> nav-item">
+                    <a href="/explore/" data-title="สำรวจ" class="<?php checkPath('/explore/'); ?> nav-item">
                         <img class="w-5 sm:w-10 inline-block" src="/public/icons/explore.svg" alt="explore">
                         <span class="sm:hidden">สำรวจ</span>
                     </a>

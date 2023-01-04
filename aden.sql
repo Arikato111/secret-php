@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 03, 2023 at 04:47 AM
+-- Generation Time: Jan 04, 2023 at 05:42 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -20,6 +20,85 @@ SET time_zone = "+00:00";
 --
 -- Database: `aden`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cat`
+--
+
+CREATE TABLE `cat` (
+  `cat_id` int(11) NOT NULL,
+  `cat_name` varchar(50) NOT NULL,
+  `cat_path` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `cat`
+--
+
+INSERT INTO `cat` (`cat_id`, `cat_name`, `cat_path`) VALUES
+(1, 'สุขภาพ', 'health'),
+(2, 'อาหาร', 'foods'),
+(4, 'การเงิน', 'finance'),
+(6, 'อื่นๆ', 'others');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post`
+--
+
+CREATE TABLE `post` (
+  `post_id` int(11) NOT NULL,
+  `post_detail` text NOT NULL,
+  `post_date` date NOT NULL,
+  `post_usr_id` int(11) NOT NULL,
+  `post_cat_id` int(11) NOT NULL,
+  `post_img` varchar(50) NOT NULL,
+  `post_view` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `post`
+--
+
+INSERT INTO `post` (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES
+(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_detail`
+--
+
+CREATE TABLE `post_detail` (
+  `pd_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `pd_name` varchar(200) NOT NULL,
+  `pd_date` date NOT NULL,
+  `usr_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `post_like`
+--
+
+CREATE TABLE `post_like` (
+  `pl_id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `usr_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `post_like`
+--
+
+INSERT INTO `post_like` (`pl_id`, `post_id`, `usr_id`) VALUES
+(5, 4, 5),
+(6, 4, 5);
 
 -- --------------------------------------------------------
 
@@ -47,12 +126,36 @@ CREATE TABLE `usr` (
 --
 
 INSERT INTO `usr` (`usr_id`, `usr_name`, `usr_address`, `usr_date`, `usr_email`, `usr_tel`, `usr_username`, `usr_password`, `usr_status`, `usr_view`, `usr_regis_date`, `usr_img`) VALUES
-(2, 'Nawasan Wisitsingkhon', '221b', '2001-11-29', 'email@email', '0982039402', 'nawasan', '0cc175b9c0f1b6a831c399e269772661', 'user', 0, '2023-01-01', 'dafb428413bd231e7d41a71711f8db21.jpg'),
-(4, 'name last-name', 'address', '2002-02-22', 'e@e', '0293039240', 'name', '900150983cd24fb0d6963f7d28e17f72', 'user', 0, '2023-01-03', '3d2ce37ae52e87bab6b305619ac7cb9e.jpg');
+(4, 'name last-name', 'address', '2002-02-22', 'e@e', '0293039240', 'name', '900150983cd24fb0d6963f7d28e17f72', 'user', 0, '2023-01-03', '3d2ce37ae52e87bab6b305619ac7cb9e.jpg'),
+(5, 'Nawasan Wisitsingkhon', '221b', '2001-11-29', 'arikato110011@gmail.com', '0920392039', 'nawasan', '83878c91171338902e0fe0fb97a8c47a', 'user', 0, '2023-01-03', '6b6f8debe9fea43347ffb4b9ebe28253.jpg');
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cat`
+--
+ALTER TABLE `cat`
+  ADD PRIMARY KEY (`cat_id`);
+
+--
+-- Indexes for table `post`
+--
+ALTER TABLE `post`
+  ADD PRIMARY KEY (`post_id`);
+
+--
+-- Indexes for table `post_detail`
+--
+ALTER TABLE `post_detail`
+  ADD PRIMARY KEY (`pd_id`);
+
+--
+-- Indexes for table `post_like`
+--
+ALTER TABLE `post_like`
+  ADD PRIMARY KEY (`pl_id`);
 
 --
 -- Indexes for table `usr`
@@ -65,10 +168,34 @@ ALTER TABLE `usr`
 --
 
 --
+-- AUTO_INCREMENT for table `cat`
+--
+ALTER TABLE `cat`
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `post`
+--
+ALTER TABLE `post`
+  MODIFY `post_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `post_detail`
+--
+ALTER TABLE `post_detail`
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `post_like`
+--
+ALTER TABLE `post_like`
+  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT for table `usr`
 --
 ALTER TABLE `usr`
-  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
