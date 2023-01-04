@@ -38,7 +38,7 @@ $allPost = $db->query("SELECT * FROM post ORDER BY post_id DESC LIMIT 40");
                         <?php echo $post['post_detail'] ?? ""; ?>
                     </div>
                     <div>
-                        <img src="/public/posts/<?php echo $post['post_img'] ?>" alt="image post">
+                        <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?>" alt="image post">
                     </div>
                     <div class="m-3">
                         <span><img class="inline-block w-6" src="/public/icons/f-heart.svg" alt="full heart icon">
