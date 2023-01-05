@@ -25,7 +25,17 @@
             </a>
         </div>
     </div>
-    <div class="px-3 text-gray-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nam fugit obcaecati dolores corrupti laudantium suscipit earum provident sunt perferendis numquam.
+    <div class="px-5 text-gray-500">
+        <div>
+            © 2023 aden
+        </div>
+        ⦁ เกี่ยวกับ
+        ⦁ ช่วยเหลือ
+        ⦁ คำถามที่พบบ่อย
+        ⦁ นโยบายการโฆษณา
+        ⦁ นโยบายความเป็นส่วนตัว
+        ⦁ แนวทางการใช้แบรนด์ aden
+        ⦁ aden เพื่อธุรกิจ
+        ⦁ ไทย
     </div>
 </div>

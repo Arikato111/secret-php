@@ -53,7 +53,7 @@ function checkPath($path)
                     </a>
                 </li>
                 <li>
-                    <a href="/poll" data-title="แบบประเมิน" class="<?php checkPath('/poll'); ?> nav-item">
+                    <a href="/poll/" data-title="แบบประเมิน" class="<?php checkPath('/poll/'); ?> nav-item">
                         <img class="w-5 sm:w-10 inline-block" src="/public/icons/poll.svg" alt="home">
                         <span class="sm:hidden">แบบประเมิน</span>
 
