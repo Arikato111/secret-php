@@ -33,7 +33,7 @@ $Post = function ($post_id) {
     <div class="mb-3 mx-3 bg-white rounded-lg shadow py-3">
 
         <?php if (
-            isset($_SESSION['usr']) && $_SESSION['usr'] == $usr_post['usr_id']
+            isset($_SESSION['usr']) && $_SESSION['usr'] == ($usr_post['usr_id'] ?? 0)
             || (isset($_SESSION['status']) && $_SESSION['status'] == 'admin')
         ) : ?>
             <!-- Dropdown menu -->
