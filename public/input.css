@@ -33,6 +33,9 @@
     .primary {
         @apply mx-1 bg-blue-600 hover:bg-blue-700 border-none;
     }
+    .danger {
+        @apply mx-1 bg-rose-600 hover:bg-rose-700 border-none;
+    }
 
     .nav-item {
         @apply block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-zinc-300 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700;

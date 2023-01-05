@@ -26,7 +26,7 @@ if (isset($_GET['search'])) {
             <div class="form-control mx-3">
                 <a href="/<?php echo $usr['usr_username'] ?? ""; ?>" class="flex items-center px-3">
                     <div>
-                        <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr['usr_img'] ?? ""; ?>" alt="profile image">
+                        <img class="w-9 h-9 rounded-full inline-block object-cover" src="/public/profile/<?php echo $usr['usr_img'] ?? ""; ?>" alt="profile image">
                     </div>
                     <div class="px-3">
                         <div><?php echo $usr['usr_name'] ?? ""; ?></div>
