@@ -18,10 +18,12 @@ array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
 <title>หน้าหลัก | aden</title>
 <div class="row">
     <div class="col-span-3">
-        <aside class="menu-nav">
-            <a class="menu-item" href="/create-post">สร้างโพสต์</a>
-            <div class="menu-item hover:bg-white">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</div>
-        </aside>
+        <div class="overflow-x-auto mt-3 sm:mt-0">
+            <aside class="menu-nav">
+                <a class="menu-item" href="/create-post">สร้างโพสต์</a>
+                <div class="menu-item hover:bg-white">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</div>
+            </aside>
+        </div>
     </div>
     <div class="col-span-6">
         <div class="my-5">
@@ -29,7 +31,7 @@ array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
                 $Post($fp['post_id']); ?>
             <?php endforeach; ?>
         </div>
-        <?php if($your_follow->num_rows == 0): ?>
+        <?php if ($your_follow->num_rows == 0) : ?>
             <h3 class="heading">คุณยังไม่มีการติดตาม</h3>
             <div class="form-control mx-3 ">
                 <a class="btn primary text-xl" href="/people">ค้นหาผู้คนเพิ่มเติม</a>

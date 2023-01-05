@@ -44,9 +44,9 @@
         @apply text-center text-3xl p-3 bg-white mt-5 drop-shadow shadow-zinc-300 rounded-lg;
     }
     .menu-nav {
-        @apply px-5 mt-5 ;
+        @apply px-5 sm:mt-3 min-w-max overflow-x-auto;
     }
     .menu-item {
-        @apply text-center bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
+        @apply text-center mx-1 bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
     }
 }
