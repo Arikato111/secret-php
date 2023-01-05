@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 05, 2023 at 04:13 AM
+-- Generation Time: Jan 05, 2023 at 06:44 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -44,9 +44,9 @@ INSERT INTO `board` (`b_id`, `b_name`, `b_date`, `usr_id`, `b_view`, `cat_id`) V
 (1, 'วิ่งตอนเช้าหรือตอนนี้ดี', '2023-01-04', 5, 1, 1),
 (4, 'ตอนเช้ากินอะไรดี', '2023-01-04', 5, 0, 2),
 (6, 'อาหารสุดโปรดของคุณคือ', '2023-01-04', 5, 3, 2),
-(7, 'เทคนิคการเก็บเงินที่ใช้บ่อย?', '2023-01-04', 5, 7, 4),
-(8, 'ใครเคยกินน้ำแข็งต้มบ้าง อร่อยไหม', '2023-01-05', 5, 3, 6),
-(9, 'ขอวิธีนอน 8 ชม. ใน 3 ชม.', '2023-01-05', 5, 5, 1);
+(7, 'เทคนิคการเก็บเงินที่ใช้บ่อย?', '2023-01-04', 5, 14, 4),
+(8, 'ใครเคยกินน้ำแข็งต้มบ้าง อร่อยไหม', '2023-01-05', 5, 4, 6),
+(9, 'ขอวิธีนอน 8 ชม. ใน 3 ชม.', '2023-01-05', 5, 11, 1);
 
 -- --------------------------------------------------------
 
@@ -114,8 +114,8 @@ CREATE TABLE `follow` (
 --
 
 INSERT INTO `follow` (`fol_id`, `fol_atk`, `fol_def`, `fol_date`) VALUES
-(6, 4, 5, '2023-01-04'),
-(7, 5, 4, '2023-01-04');
+(7, 5, 4, '2023-01-04'),
+(8, 4, 5, '2023-01-05');
 
 -- --------------------------------------------------------
 
@@ -137,9 +137,9 @@ CREATE TABLE `poll` (
 
 INSERT INTO `poll` (`poll_id`, `poll_name`, `poll_date`, `usr_id`, `poll_view`) VALUES
 (1, 'block or inline ?', '2023-01-05', 5, 0),
-(3, 'asdfasdf', '2023-01-05', 5, 0),
-(4, 'asdfsadfads', '2023-01-05', 5, 0),
-(5, 'sadfsafasf', '2023-01-05', 5, 0);
+(3, 'asdfasdf', '2023-01-05', 5, 1),
+(4, 'asdfsadfads', '2023-01-05', 5, 11),
+(6, 'a or b or c?', '2023-01-05', 5, 114);
 
 -- --------------------------------------------------------
 
@@ -154,6 +154,14 @@ CREATE TABLE `poll_detail` (
   `pd_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
+--
+-- Dumping data for table `poll_detail`
+--
+
+INSERT INTO `poll_detail` (`pd_id`, `poll_id`, `pd_name`, `pd_count`) VALUES
+(1, 6, 'hello world', 11),
+(2, 6, 'blockdont', 5);
+
 -- --------------------------------------------------------
 
 --
@@ -165,6 +173,13 @@ CREATE TABLE `poll_log` (
   `poll_id` int(11) NOT NULL,
   `usr_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `poll_log`
+--
+
+INSERT INTO `poll_log` (`pl_id`, `poll_id`, `usr_id`) VALUES
+(1, 6, 5);
 
 -- --------------------------------------------------------
 
@@ -187,12 +202,12 @@ CREATE TABLE `post` (
 --
 
 INSERT INTO `post` (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES
-(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 398),
-(7, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 1, '53bdc3d17a12319e4f6ca38039cc7539.jpg', 409),
-(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 2, 'db76392ac9ba3e50b34f75972c0486d4.jpg', 411),
-(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 4, '3ab5f56c443d245e21cea3478bd1d800.jpg', 393),
-(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 6, '91f3382a3b691792a9627f33162b6ec2.jpg', 371),
-(11, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 4, 2, '2d55a1eb9f6412aaf7879375f16934af.jpg', 270);
+(4, 'asdfasdfasdfasfasfasf', '2023-01-03', 5, 4, '0c6aa560d2eef28e44a10e01cecba117.jpg', 432),
+(7, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 1, '53bdc3d17a12319e4f6ca38039cc7539.jpg', 444),
+(8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 2, 'db76392ac9ba3e50b34f75972c0486d4.jpg', 447),
+(9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 4, '3ab5f56c443d245e21cea3478bd1d800.jpg', 427),
+(10, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 5, 6, '91f3382a3b691792a9627f33162b6ec2.jpg', 404),
+(11, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore excepturi nesciunt eveniet similique beatae. Quibusdam delectus adipisci repellat voluptas esse eos, doloribus voluptatem vel hic ullam quo ratione odit perspiciatis fugit accusantium ipsam nam ad, dicta rem amet? At dignissimos reprehenderit, veritatis illo perferendis ut rem ipsa? Fugit a soluta distinctio magnam officiis nulla ducimus cupiditate suscipit quas et veritatis officia, minus voluptatem nihil quis commodi accusamus? Reprehenderit exercitationem beatae sequi cupiditate, repudiandae minima vero nihil fugiat, et qui reiciendis eum itaque vel voluptatem officia officiis debitis, quaerat natus! Vitae qui sunt modi dolores quo explicabo quaerat facere eius recusandae!', '2023-01-04', 4, 2, '2d55a1eb9f6412aaf7879375f16934af.jpg', 327);
 
 -- --------------------------------------------------------
 
@@ -364,31 +379,31 @@ ALTER TABLE `board_detail`
 -- AUTO_INCREMENT for table `cat`
 --
 ALTER TABLE `cat`
-  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `cat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `follow`
 --
 ALTER TABLE `follow`
-  MODIFY `fol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `fol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `poll`
 --
 ALTER TABLE `poll`
-  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `poll_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `poll_detail`
 --
 ALTER TABLE `poll_detail`
-  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pd_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `poll_log`
 --
 ALTER TABLE `poll_log`
-  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `pl_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `post`
