@@ -45,7 +45,7 @@ $allCat = $db->query("SELECT * FROM cat ");
                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">คลิกเพื่ออัพโหลด</span>หรือ ลากไฟล์วางลงที่นี่</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
                     </div>
-                    <input id="dropzone-file" type="file" name="post_img" accept="image/*" class="hidden" required />
+                    <input id="dropzone-file" type="file" name="post_img" accept="image/jpeg" class="hidden" required />
                     <script>
                         const input_img = document.getElementById("dropzone-file")
                         input_img.onchange = evt => {
