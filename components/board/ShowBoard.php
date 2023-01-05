@@ -70,4 +70,10 @@ while ($board = fetch($allBoard)) :
         </a>
     </div>
 
-<?php endwhile; ?>
+<?php endwhile;
+if($allBoard->num_rows == 0): ?>
+<div class="heading text-lg mx-3">ยังไม่มีกระทู้ในหมวดหมู่นี้</div>
+<div class="form-control">
+    <a class="btn primary" href="/board/">ดูกระทู้ทั้งหมด</a>
+</div>
+<?php endif; ?>

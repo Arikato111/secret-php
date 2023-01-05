@@ -19,7 +19,7 @@ if (isset($_GET['search'])) {
     <div class="col-span-3">
         <?php import('./components/people/SearchPeople'); ?>
     </div>
-    <div class="col-span-6">
+    <div class="col-span-6 text-zinc-800">
 
         <?php
         while ($usr = fetch($allUser)) : ?>

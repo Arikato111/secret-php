@@ -7,7 +7,7 @@ $db = import('./Database/db');
     <div class="col-span-3">
         <?php import('./components/board/Nav'); ?>
     </div>
-    <div class="col-span-6">
+    <div class="col-span-6 text-zinc-800">
         <?php import('./components/board/CreateBoard'); ?>
         <?php import('./components/board/ShowBoard'); ?>
     </div>

@@ -1,20 +1,32 @@
 [data-title] {
-    position: inherit;
+  position: inherit;
 }
 [data-title]:hover:after {
-    opacity: 1;
-    transition: all 0.1s ease 0.5s;
-    visibility: visible;
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
 }
 [data-title]:after {
-    content: attr(data-title);
-    position: absolute;
-    bottom: -1.3em;
-    padding: 1px 4px;
-    font-size: 14px;
-    border-radius: 6px;
-    background-color: white;
-    box-shadow: 0 0 2px 2px rgb(223, 223, 223);
-    width: max-content;
-    visibility: hidden;
+  content: attr(data-title);
+  position: absolute;
+  bottom: -1.3em;
+  padding: 1px 4px;
+  font-size: 14px;
+  border-radius: 6px;
+  background-color: white;
+  box-shadow: 0 0 2px 2px rgb(223, 223, 223);
+  width: max-content;
+  visibility: hidden;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: white;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  width: 5px;
+  background-color: rgb(196, 196, 196);
 }

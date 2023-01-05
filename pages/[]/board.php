@@ -18,7 +18,7 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
     <div class="col-span-3">
         <?php import('./components/profile/Nav'); ?>
     </div>
-    <div class="col-span-6 flex px-3 flex-col items-center">
+    <div class="col-span-6 text-zinc-800 flex px-3 flex-col items-center">
         <!-- Content -->
         <?php $ProfileCard($username); ?>
         <!-- Content -->

@@ -11,7 +11,7 @@ if (isset($_GET['search'])) {
 while ($poll = fetch($allPoll)) :
     $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$poll['usr_id']} LIMIT 1"));
 ?>
-    <div class="form-control">
+    <div class="form-control mx-3">
         <div class="flex items-center px-3">
             <div>
                 <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" alt="profile image">

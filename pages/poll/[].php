@@ -3,7 +3,7 @@
     <div class="col-span-3">
     <?php import('./components/poll-user/PollSearch'); ?>
 </div>
-<div class="col-span-6">
+<div class="col-span-6 text-zinc-800">
         <?php import('./components/poll-user/ShowPollDetail'); ?>
         <?php import('./components/poll-user/ShowChoice'); ?>
     </div>

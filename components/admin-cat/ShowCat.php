@@ -1,10 +1,22 @@
 <?php
 $db = import('./Database/db');
 
-if(isset($_POST['deleteCat'])) {
+if (isset($_POST['updateCat'])) {
+    $cat_id = (int) $_POST['cat_id'];
+    $cat_name = $_POST['cat_name'];
+    $cat_path = $_POST['cat_path'];
+    $db->query("UPDATE cat SET
+    `cat_name`='$cat_name', 
+    `cat_path`='$cat_path'
+    WHERE cat_id = $cat_id ;");
+    header("Refresh:0");
+    die;
+}
+if (isset($_POST['deleteCat'])) {
     $cat_id = (int) $_POST['cat_id'];
     $db->query("DELETE FROM cat WHERE cat_id = $cat_id LIMIT 1");
-    header("Refresh:0");die;
+    header("Refresh:0");
+    die;
 }
 
 $allCat = $db->query("SELECT * FROM cat ORDER BY cat_id DESC");
@@ -22,27 +34,33 @@ $allCat = $db->query("SELECT * FROM cat ORDER BY cat_id DESC");
                     path
                 </th>
                 <th scope="col" class="px-6 py-3">
+                    แก้ไข
+                </th>
+                <th scope="col" class="px-6 py-3">
                     ลบ
                 </th>
             </tr>
         </thead>
         <tbody>
-            <?php while($cat = fetch($allCat)): ?>
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                    <?php echo $cat['cat_name'] ?? ""; ?>
-                </td>
-                <td class="px-6 py-4">
-                    <?php echo $cat['cat_path'] ?? ""; ?>
-                </td>
-                <td class="px-6 py-4">
-                    <form method="post">
-                        <input type="hidden" name="cat_id" value="<?php echo $cat['cat_id']; ?>">
-                        <button name="deleteCat" class="btn btn-sm danger">ลบ</button>
-                    </form>
-                </td>
-            </tr>
-        <?php endwhile; ?>
+            <?php while ($cat = fetch($allCat)) : ?>
+                <form method="POST">
+                    <input type="hidden" name="cat_id" value="<?php echo $cat['cat_id']; ?>">
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            <input class="p-3 w-full" name="cat_name" value="<?php echo $cat['cat_name'] ?? ""; ?>" type="text" required>
+                        </td>
+                        <td class="px-6 py-4">
+                            <input class="p-3 w-full" name="cat_path" value="<?php echo $cat['cat_path'] ?? ""; ?>" type="text" required>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button name="updateCat" class="btn btn-sm btn-dark">บันทึก</button>
+                        </td>
+                        <td class="px-6 py-4">
+                            <button name="deleteCat" class="btn btn-sm danger">ลบ</button>
+                        </td>
+                    </tr>
+                </form>
+            <?php endwhile; ?>
         </tbody>
     </table>
 </div>
