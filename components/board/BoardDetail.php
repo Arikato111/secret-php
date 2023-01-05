@@ -19,7 +19,7 @@ $board = fetch($allBoard);
     <div class="col-span-3">
         <?php import('./components/board/Nav'); ?>
     </div>
-    <div class="col-span-6">
+    <div class="col-span-6 text-zinc-800">
 
         <?php
         $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$board['usr_id']}"));

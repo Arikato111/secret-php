@@ -5,7 +5,7 @@
         <div class="col-span-3">
             <?php import('./components/member/SearchMember'); ?>
         </div>
-        <div class="col-span-6">
+        <div class="col-span-6 text-zinc-800">
             <?php import('./components/member/ShowMember'); ?>
         </div>
         <div class="col-span-3">

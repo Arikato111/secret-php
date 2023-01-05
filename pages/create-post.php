@@ -36,7 +36,8 @@ $allCat = $db->query("SELECT * FROM cat ");
 
             <div class="flex items-center justify-center w-full">
                 <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                    <div class="flex flex-col items-center  overflow-hidden justify-center pt-5 pb-6">
+                        <img style="display: none;" id="blah" class="w-fit h-fit object-cover" src="" alt="">
                         <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
                         </svg>
@@ -45,9 +46,20 @@ $allCat = $db->query("SELECT * FROM cat ");
                         <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
                     </div>
                     <input id="dropzone-file" type="file" name="post_img" accept="image/*" class="hidden" required />
+                    <script>
+                        const input_img = document.getElementById("dropzone-file")
+                        input_img.onchange = evt => {
+                            const [file] = input_img.files
+                            if (file) {
+                                const img_tag = document.getElementById("blah");
+                                img_tag.src = URL.createObjectURL(file)
+                                img_tag.style.display = 'block'
+                            }
+                        }
+                    </script>
                 </label>
             </div>
-            <button name="createPost" class="btn bg-blue-600 border-none mt-3 hover:bg-blue-700">โพสต์</button>
+            <button name="createPost" class="btn primary mt-3">โพสต์</button>
         </form>
     </div>
     <div class="col-span-3">

@@ -9,7 +9,7 @@ $db = import('./Database/db');
     <div class="col-span-3">
         <?php import('./components/poll/CreatePoll'); ?>
     </div>
-    <div class="col-span-6">
+    <div class="col-span-6 text-zinc-800">
         <?php
         if (isset($_GET['p_id'])) {
             $p_id = (int) $_GET['p_id'];

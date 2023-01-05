@@ -41,7 +41,7 @@ if (isset($_GET['search'])) {
         </thead>
         <tbody>
             <?php while ($usr = fetch($allMember)) : ?>
-                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                <tr class="bg-white border-b ">
                     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         <a class="hover:underline" href="/<?php echo $usr['usr_username']; ?>">
                             <?php echo $usr['usr_username']; ?>
@@ -55,7 +55,7 @@ if (isset($_GET['search'])) {
                     <td class="px-6 py-4">
                         <form method="post">
                             <input type="hidden" name="usr_id" value="<?php echo $usr['usr_id']; ?>">
-                            <select name="usr_status" id="">
+                            <select class="bg-white" name="usr_status" id="">
                                 <option value="admin" <?php echo $usr['usr_status'] == 'admin' ? "selected" : ""; ?>>admin</option>
                                 <option value="user" <?php echo $usr['usr_status'] != 'admin' ? "selected" : ""; ?>>user</option>
                             </select>

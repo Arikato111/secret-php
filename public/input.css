@@ -34,7 +34,7 @@
         @apply text-white mx-1 bg-blue-600 hover:bg-blue-700 border-none;
     }
     .danger {
-        @apply mx-1 bg-rose-600 hover:bg-rose-700 border-none;
+        @apply text-white mx-1 bg-rose-600 hover:bg-rose-700 border-none;
     }
 
     .nav-item {
@@ -48,5 +48,8 @@
     }
     .menu-item {
         @apply text-center mx-1 bg-white sm:m-3 p-3 text-lg rounded-lg shadow inline-block sm:block hover:bg-gray-50;
+    }
+    .btn-dark {
+        @apply text-white;
     }
 }

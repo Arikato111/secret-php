@@ -2,14 +2,15 @@
 $db = import('./Database/db');
 $usr_id = $_SESSION['usr'];
 
-if(isset($_POST['saveEditImg'])) {
+if (isset($_POST['saveEditImg'])) {
     $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
 
     $img_name = md5($_FILES['usr_img']['name'] . rand()) . '.jpg';
     move_uploaded_file($_FILES['usr_img']['tmp_name'], './public/profile/' . $img_name);
     unlink('./public/profile/' . $usr_profile['usr_img']);
     $db->query("UPDATE usr SET usr_img = '$img_name' WHERE usr_id = $usr_id");
-    header("Refresh:0");die;
+    header("Refresh:0");
+    die;
 }
 
 $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
@@ -28,17 +29,16 @@ $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
             <form class="form-control" enctype="multipart/form-data" method="post">
                 <input type="hidden" name="editImg">
                 <div>
-                    <div class="p-3 text-center"><img class="w-24 h-24 object-cover rounded-full inline-block" src="/public/profile/<?php echo $usr_profile['usr_img']; ?>" alt=""></div>
+                    <div class="p-3 text-center"><img id="blah" class="w-24 h-24 object-cover rounded-full inline-block" src="/public/profile/<?php echo $usr_profile['usr_img']; ?>" alt=""></div>
                 </div>
 
                 <div class="flex">
-                    <label class="input-label" for="">รูปโปรไฟล์</label>
-                    <input class="input-text" type="file" accept="image/*" name="usr_img" required>
+                    <label class="input-label text-zinc-800" for="">รูปโปรไฟล์</label>
+                    <input id="dropzone-file" class="input-text" type="file" accept="image/*" name="usr_img" required>
                 </div>
                 <div>
                     <button name="saveEditImg" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
                 </div>
-                
             </form>
         </div>
         <div class="col-span-3"></div>
@@ -46,6 +46,13 @@ $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
     <br>
 </main>
 
-
-<!-- <input class="input-text" type="password" name="usr_password" placeholder="รหัสผ่าน" required>
-<input class="input-text" type="password" name="usr_password1" placeholder="ยืนยันรหัสผ่าน" required> -->
+<script>
+    const input_img = document.getElementById("dropzone-file")
+    input_img.onchange = evt => {
+        const [file] = input_img.files
+        if (file) {
+            const img_tag = document.getElementById("blah");
+            img_tag.src = URL.createObjectURL(file)
+        }
+    }
+</script>
