@@ -63,7 +63,7 @@ $Post = function ($post_id) {
                 <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" alt="profile image">
             </div>
             <div class="px-3">
-                <a class="hover:underline" href="/<?php echo $usr_post['usr_username']; ?>"><?php echo $usr_post['usr_name'] ?? ""; ?></a>
+                <a class="hover:underline" href="/<?php echo $usr_post['usr_username'] ?? ""; ?>"><?php echo $usr_post['usr_name'] ?? ""; ?></a>
                 <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?> ⦁ <?php echo $cat['cat_name'] ?? ""; ?></div>
             </div>
         </div>
@@ -71,7 +71,7 @@ $Post = function ($post_id) {
             <?php echo $post['post_detail'] ?? ""; ?>
         </div>
         <div>
-            <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?>" alt="image post">
+            <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?? ""; ?>" alt="image post">
         </div>
         <div class="m-3">
             <span><img class="inline-block w-6" src="/public/icons/f-heart.svg" alt="full heart icon">
