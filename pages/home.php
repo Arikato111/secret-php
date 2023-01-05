@@ -12,7 +12,7 @@ while ($fol = fetch($your_follow)) {
         array_push($feedPost, $p);
     }
 }
-array_multisort(array_column($feedPost, 'post_date'), SORT_DESC, $feedPost);
+array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
 ?>
 
 <title>หน้าหลัก | aden</title>
