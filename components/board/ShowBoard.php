@@ -19,7 +19,7 @@ while ($board = fetch($allBoard)) :
     $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$board['usr_id']}"));
     $cat = fetch($db->query("SELECT * FROM cat WHERE cat_id = {$board['cat_id']}"));
 ?>
-    <div class="form-control z-0 relative">
+    <div class="form-control z-0 relative mx-3">
         <?php if (
             isset($_SESSION['usr']) && $_SESSION['usr'] == $usr_post['usr_id']
             || (isset($_SESSION['status']) && $_SESSION['status'] == 'admin')

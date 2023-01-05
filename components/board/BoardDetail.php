@@ -1,8 +1,14 @@
 <?php
 $db = import('./Database/db');
 $getParams = import('wisit-router/getParams');
-
 $b_id = (int) $getParams();
+
+if (isset($_POST['deleteBoard'])) {
+    $db->query("DELETE FROM board WHERE b_id = {$_POST['b_id']}");
+    header("Location: /explore/");
+    die;
+}
+
 $db->query("UPDATE board SET `b_view`=`b_view`+1 WHERE b_id = $b_id");
 $allBoard = $db->query("SELECT * FROM board WHERE b_id = $b_id LIMIT 1");
 $board = fetch($allBoard);
