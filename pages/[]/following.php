@@ -28,7 +28,8 @@ $AllFollowing = $db->query("SELECT * FROM follow WHERE fol_atk = {$usr_profile['
         </h3>
         <div class="w-full mx-3">
             <?php while ($fol = fetch($AllFollowing)) :
-            $usr = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$fol['fol_def']} LIMIT 1")); ?>
+            $usr = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$fol['fol_def']} LIMIT 1"));
+            if(!$usr) continue; ?>
             <div class="form-control w-full text-zinc-800">
                 <a href="/<?php echo $usr['usr_username'] ?? ""; ?>" class="flex items-center px-3">
                     <div>

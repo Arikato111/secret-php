@@ -1,6 +1,4 @@
 <?php
-$db = import('./Database/db');
-
 if (isset($_GET['logout'])) {
     session_unset();
     header('Location: /login');
@@ -8,18 +6,18 @@ if (isset($_GET['logout'])) {
 }
 
 if (isset($_POST['login'])) {
-    $username = $_POST['usr_username'];
-    $password = md5($_POST['usr_password']);
-    $usr = fetch($db->query("SELECT * FROM usr WHERE 
-    usr_username = '$username' AND 
-    usr_password = '$password'"));
-    if (!$usr) {
-        getAlert('username หรือ รหัสผ่านไม่ถูกต้อง', 'danger');
-    } else {
+    $db = new Database;
+
+    $username = $_POST['usr_username'] ?? "";
+    $password = md5($_POST['usr_password'] ?? "");
+    $usr = $db->getLogin($username, $password);
+    if ($usr) {
         $_SESSION['usr'] = $usr['usr_id'];
         $_SESSION['status'] = $usr['usr_status'];
         header('Location: /');
         die;
+    } else {
+        getAlert('username หรือ รหัสผ่านไม่ถูกต้อง', 'danger');
     }
 }
 ?>
@@ -28,9 +26,9 @@ if (isset($_POST['login'])) {
 <?php if (isset($_SESSION['usr'])) :
     return (function () {
 ?>
-    <main class="frame">
-        <div class="heading">คุณเข้าสู่ระบบแล้ว</div>
-    </main>
+        <main class="frame">
+            <div class="heading">คุณเข้าสู่ระบบแล้ว</div>
+        </main>
     <?php
     })() ?>
 <?php endif; ?>

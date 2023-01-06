@@ -1,6 +1,3 @@
-<?php
-$db = import('./Database/db');
-?>
 <?php if (isset($_SESSION['usr'])) :
     return (function () {
 ?>
@@ -23,6 +20,8 @@ if (isset($_POST['regis'])) {
         'usr_password' => $password,
         'usr_password1' => $password1,
     ] = $_POST;
+    $db = new Database;
+
     $address = htmlspecialchars($address);
     $img_type = mime_content_type($_FILES['usr_img']['tmp_name']);
     // check size
@@ -52,7 +51,7 @@ if (isset($_POST['regis'])) {
         getAlert('คำอธิบาย ต้องเป็นภาษาไทย อังกฤษ หรือตัวเลขเท่านั้น', 'danger');
     } elseif (preg_match('/[^\d-]/', $date)) {
         getAlert('วันเกิด ไม่ถูกต้อง', 'danger');
-    } elseif (preg_match('[a-z0-9]+@[a-z]+\.[a-z]{2,3}', $email)) {
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         getAlert('อีเมล ไม่ถูกต้อง', 'danger');
     } elseif (preg_match('/\D/', $tel)) {
         getAlert('เบอร์โทรต้องเป็นตัวเลขเท่านั้น', 'danger');
@@ -60,14 +59,13 @@ if (isset($_POST['regis'])) {
         getAlert('ชื่อผู้ใช้ต้องเป็นภาษาอังกฤษและตัวเลขเท่านั้น', 'danger');
     } elseif ($password != $password1) {
         getAlert('รหัสผ่านไม่ตรงกัน', 'danger');
-    } elseif ($db->query("SELECT * FROM usr WHERE usr_username = '$username'")->num_rows != 0) {
+    } elseif ($db->getUser_ByUsername($username)) {
         getAlert('username นี้ถูกใช้แล้ว', 'danger');
     } else {
         $img_name = md5($_FILES['usr_img']['name'] . rand()) . '.jpg';
         move_uploaded_file($_FILES['usr_img']['tmp_name'], "./public/profile/$img_name");
         $regisDate = date('Y-m-d');
         $password = md5($password);
-        $db = new Database;
         $db->insetUser(
             $name,
             $bio,

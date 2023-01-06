@@ -56,8 +56,8 @@ $export = function ($username) {
             <?php endif; ?>
             <!-- Dropdown menu -->
             <div id="dropdown" class="z-10 hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
-                <form method="post">
-                    <ul class="py-1" aria-labelledby="dropdownButton">
+                <ul class="py-1" aria-labelledby="dropdownButton">
+                    <form method="post">
                         <li>
                             <button name="editImg" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">เปลี่ยนรูปโปรไฟล์</button>
                         </li>
@@ -67,13 +67,13 @@ $export = function ($username) {
                         <li>
                             <button name="editPassword" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">เปลี่ยนรหัสผ่าน</button>
                         </li>
-                        <li>
-                            <form method="post">
-                                <button name="deleteProfile" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
-                            </form>
-                        </li>
-                    </ul>
-                </form>
+                    </form>
+                    <li>
+                        <form method="post" onsubmit="return confirm('ยืนยันการลบบัญชีของคุณ');">
+                            <button name="deleteProfile" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
+                        </form>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="flex flex-col items-center pb-10">

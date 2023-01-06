@@ -1,20 +1,26 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $usr_id = $_SESSION['usr'];
+$usr_profile = $db->getUser_ByID($usr_id);
 
 if (isset($_POST['saveEditImg'])) {
-    $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
-
-    $img_name = md5($_FILES['usr_img']['name'] . rand()) . '.jpg';
-    move_uploaded_file($_FILES['usr_img']['tmp_name'], './public/profile/' . $img_name);
-    unlink('./public/profile/' . $usr_profile['usr_img']);
-    $db->query("UPDATE usr SET usr_img = '$img_name' WHERE usr_id = $usr_id");
-    header("Refresh:0");
-    die;
+    $img_type = mime_content_type($_FILES['usr_img']['tmp_name']) ?? "";
+    if (!($_FILES['usr_img'] ?? false)) {
+        getAlert('ไม่พบรูปภาพ กรุณาอัพโหลดใหม่อีกครั้ง', 'danger');
+    } elseif ($_FILES['usr_img']['size'] > 2048000) {
+        getAlert('รูปภาพต้องมีขนาดไม่เกิน 2mb', 'danger');
+    } elseif ($img_type != 'image/jpeg' && $img_type != 'image/png') {
+        getAlert('รูปภาพต้องเป็น jpeg, png เท่านั้น', 'danger');
+    } else {
+        $img_name = md5($_FILES['usr_img']['name'] . rand()) . '.jpg';
+        move_uploaded_file($_FILES['usr_img']['tmp_name'], './public/profile/' . $img_name);
+        if (file_exists('/public/profile/' . $usr_profile['usr_img']))
+            unlink('./public/profile/' . $usr_profile['usr_img']);
+        $db->updateImgProfile($usr_profile['usr_id'], $img_name);
+        header("Refresh:0");
+        die;
+    }
 }
-
-$usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
-
 ?>
 
 <title><?php echo $usr_profile['usr_username']; ?> | แก้ไขโปรไฟล์</title>
@@ -34,7 +40,7 @@ $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
 
                 <div class="flex">
                     <label class="input-label text-zinc-800" for="">รูปโปรไฟล์</label>
-                    <input id="dropzone-file" class="input-text" type="file" accept="image/jpeg" name="usr_img" required>
+                    <input id="dropzone-file" class="input-text" type="file" accept="image/jpeg,image/png" name="usr_img" required>
                 </div>
                 <div>
                     <button name="saveEditImg" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>

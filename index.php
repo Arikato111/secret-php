@@ -5,6 +5,7 @@ session_start();
 require('./modules/use-import/main.m.php');
 require('./Database/Database.php');
 require('./components/lib/getAlert.php');
+require('./components/lib/htmlchar.php');
 
 $getParams = import('wisit-router/getParams');
 // use for api
