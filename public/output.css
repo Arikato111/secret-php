@@ -3296,6 +3296,10 @@ body {
   border-color: rgb(243 244 246 / var(--tw-divide-opacity));
 }
 
+.overflow-auto {
+  overflow: auto;
+}
+
 .overflow-hidden {
   overflow: hidden;
 }
@@ -3694,6 +3698,10 @@ body {
   color: rgb(225 29 72 / var(--tw-text-opacity));
 }
 
+.text-inherit {
+  color: inherit;
+}
+
 .text-rose-500 {
   --tw-text-opacity: 1;
   color: rgb(244 63 94 / var(--tw-text-opacity));
@@ -3712,6 +3720,11 @@ body {
 .text-red-400 {
   --tw-text-opacity: 1;
   color: rgb(248 113 113 / var(--tw-text-opacity));
+}
+
+.text-warning {
+  --tw-text-opacity: 1;
+  color: hsl(var(--wa) / var(--tw-text-opacity));
 }
 
 .shadow {
