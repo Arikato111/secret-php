@@ -2,7 +2,7 @@
 $db = import('./Database/db');
 $CatList = $db->query("SELECT * FROM cat");
 ?>
-<div class="overflow-x-auto">
+<div class="menu-aside">
     <aside class="menu-nav">
         <a href="/explore/" class="menu-item">ทั้งหมด</a>
         <?php while ($cat = fetch($CatList)) { ?>

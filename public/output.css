@@ -2906,6 +2906,21 @@ body {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
+.menu-aside {
+  margin-top: 0.75rem;
+  overflow-x: auto;
+}
+
+@media (min-width: 640px) {
+  .menu-aside {
+    position: sticky;
+    top: 4rem;
+    margin-top: 0px;
+    height: 90vh;
+    overflow-y: auto;
+  }
+}
+
 .menu-nav {
   min-width: -moz-max-content;
   min-width: max-content;
@@ -2993,6 +3008,10 @@ body {
 
 .left-0 {
   left: 0px;
+}
+
+.top-16 {
+  top: 4rem;
 }
 
 .z-50 {
@@ -3188,6 +3207,10 @@ body {
 
 .h-4 {
   height: 1rem;
+}
+
+.max-h-\[90vh\] {
+  max-height: 90vh;
 }
 
 .w-40 {
@@ -3543,6 +3566,10 @@ body {
   padding-right: 1rem;
 }
 
+.pb-5 {
+  padding-bottom: 1.25rem;
+}
+
 .pt-4 {
   padding-top: 1rem;
 }
@@ -3745,6 +3772,10 @@ body {
 .drop-shadow-xl {
   --tw-drop-shadow: drop-shadow(0 20px 13px rgb(0 0 0 / 0.03)) drop-shadow(0 8px 5px rgb(0 0 0 / 0.08));
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.duration-300 {
+  transition-duration: 300ms;
 }
 
 .hover\:bg-gray-100:hover {
@@ -3959,6 +3990,18 @@ body {
 }
 
 @media (min-width: 640px) {
+  .sm\:fixed {
+    position: fixed;
+  }
+
+  .sm\:sticky {
+    position: sticky;
+  }
+
+  .sm\:top-16 {
+    top: 4rem;
+  }
+
   .sm\:mt-0 {
     margin-top: 0px;
   }
@@ -3973,6 +4016,10 @@ body {
 
   .sm\:w-10 {
     width: 2.5rem;
+  }
+
+  .sm\:overflow-x-auto {
+    overflow-x: auto;
   }
 
   .sm\:px-4 {

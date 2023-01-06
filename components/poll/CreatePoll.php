@@ -10,7 +10,7 @@ if(isset($_POST['createPoll'])) {
 }
 ?>
 
-<form class="form-control-group" method="POST">
+<form class="form-control-group sm:sticky sm:top-16" method="POST">
     <input type="text" name="poll_name" class="input-text m-0" placeholder="สร้างแบบประเมิน" required>
     <button name="createPoll" class="btn btn-dark ml-1">สร้าง</button>
 </form>

@@ -43,6 +43,9 @@
     .heading {
         @apply text-zinc-700 text-center text-3xl p-3 bg-white mt-5 drop-shadow shadow-zinc-300 rounded-lg;
     }
+    .menu-aside {
+        @apply sm:sticky sm:top-16 sm:h-[90vh] sm:overflow-y-auto  mt-3 sm:mt-0 overflow-x-auto ;
+    }
     .menu-nav {
         @apply text-zinc-800 px-5 sm:mt-3 min-w-max overflow-x-auto;
     }

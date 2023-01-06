@@ -8,7 +8,7 @@ if(isset($_POST['createCat'])) {
 }
 ?>
 
-<form method="post" class="form-control">
+<form method="post" class="form-control sm:sticky sm:top-16">
     <input type="text" name="cat_name" placeholder="ชื่อหมวดหมู่" id="" class="input-text" required>
     <input type="text" name="cat_path" placeholder="path directory" id="" class="input-text" reauired>
     <div class="text-right">

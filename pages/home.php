@@ -18,10 +18,10 @@ array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
 <title>หน้าหลัก | aden</title>
 <div class="row">
     <div class="col-span-3">
-        <div class="overflow-x-auto mt-3 sm:mt-0">
+        <div class="menu-aside">
             <aside class="menu-nav">
                 <a class="menu-item" href="/create-post">สร้างโพสต์</a>
-                <div class="menu-item hover:bg-white">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</div>
+                <a class="menu-item" href="#top">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</a>
             </aside>
         </div>
     </div>

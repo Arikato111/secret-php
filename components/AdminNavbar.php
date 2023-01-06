@@ -1,4 +1,4 @@
-<nav class="bg-black border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
+<nav class="sticky top-0 z-50 bg-black border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
     <div class="container flex flex-wrap items-center justify-between mx-auto">
         <a href="/" class="flex items-center">
             <span class="text-white font-normal text-2xl">a<span class="font-bold">den</span></span>
