@@ -80,9 +80,14 @@ $export = function ($username) {
             <img class="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src="/public/profile/<?php echo $usr_profile['usr_img'] ?? ""; ?>" alt="Bonnie image" />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?php echo $usr_profile['usr_name']; ?></h5>
             <span class="text-sm text-gray-500 dark:text-gray-400">@<?php echo $usr_profile['usr_username']; ?></span>
-            <span class="text-sm text-gray-500 dark:text-gray-400">วันเกิด : <?php echo $usr_profile['usr_date']; ?></span>
-            <span class="text-sm text-gray-500 dark:text-gray-400">ที่อยู่ : <?php echo $usr_profile['usr_address']; ?></span>
-            <span class="text-sm text-gray-500 dark:text-gray-400">เบอร์โทร : <?php echo $usr_profile['usr_tel']; ?></span>
+            <div class="mx-10 px-3">
+                <span class="text-sm text-gray-500 dark:text-gray-400">วันเกิด : <?php echo $usr_profile['usr_date']; ?></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">ที่อยู่ : <?php echo $usr_profile['usr_address']; ?></span>
+                <span class="text-sm text-gray-500 dark:text-gray-400">เบอร์โทร : <?php echo $usr_profile['usr_tel']; ?></span>
+            </div>
+            <div class="mx-10 text-sm p-3 border-zinc-300 rounded-lg">
+                <?php echo $usr_profile['usr_bio'] ?? ""; ?>
+            </div>
             <form method="POST" class="flex mt-4 space-x-3 md:mt-6">
                 <input type="hidden" name="usr_id" value="<?php echo $usr_profile['usr_id']; ?>">
                 <?php if (!isset($_SESSION['usr']) || $_SESSION['usr'] != $usr_profile['usr_id']) : ?>

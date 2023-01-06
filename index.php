@@ -3,6 +3,7 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 ob_start();
 session_start();
 require('./modules/use-import/main.m.php');
+require('./Database/Database.php');
 require('./components/lib/getAlert.php');
 
 $getParams = import('wisit-router/getParams');
