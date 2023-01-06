@@ -86,7 +86,7 @@ $Post = function ($post_id) {
             </span>
         </div>
         <hr class="border">
-        <div class="p-3 text-gray-600">
+        <div class="p-3 pb-0 text-gray-600">
             <form method="post">
                 <?php if (!isset($_SESSION['usr']) || $db->query("SELECT * FROM post_like WHERE post_id = {$post['post_id']} AND usr_id = {$_SESSION['usr']}")->num_rows == 0) : ?>
                     <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">

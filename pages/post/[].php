@@ -39,7 +39,9 @@ $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$post['post_usr_
                 <input class="input-text m-0" type="text" name="pd_name" id="" required>
                 <button name="createComment" class="btn primary">แสดงความคิดเห็น</button>
             </form>
-            <?php import('./components/post/ShowComment'); ?>
+            <div class="mx-3">
+                <?php import('./components/post/ShowComment'); ?>
+            </div>
         </div>
         <div class="col-span-3">
             <?php import('./components/NavContact'); ?>
