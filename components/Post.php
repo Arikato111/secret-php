@@ -67,8 +67,8 @@ $Post = function ($post_id) {
                 <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?> ⦁ <?php echo $cat['cat_name'] ?? ""; ?></div>
             </div>
         </div>
-        <div class="my-3 px-3 overflow-hidden">
-            <?php echo $post['post_detail'] ?? ""; ?>
+        <div class="my-3 px-3 overflow-hidden ">
+            <?php echo str_replace("\n", '<br>', $post['post_detail']) ?? ""; ?>
         </div>
         <div>
             <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?? ""; ?>" alt="image post">

@@ -21,7 +21,7 @@ $allCat = $db->query("SELECT * FROM cat ");
     <div class="col-span-6">
         <h3 class="heading">สร้างโพสต์</h3>
         <form method="post" class="form-control" enctype="multipart/form-data">
-            <textarea name="post_detail" class="input-text" rows="7" placeholder="ข้อความโพสต์" required></textarea>
+            <textarea name="post_detail" maxlength="1300" class="input-text" rows="7" placeholder="ข้อความโพสต์" required></textarea>
 
             <div class="mb-3">
 
