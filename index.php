@@ -1,5 +1,5 @@
 <?php
-header("Cache-Control: no-cache");
+header("Cache-Control: no-cache, no-store, must-revalidate");
 ob_start();
 session_start();
 require('./modules/use-import/main.m.php');
