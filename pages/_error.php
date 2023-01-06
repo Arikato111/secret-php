@@ -1,3 +1,14 @@
+<?php
+$getParams = import('wisit-router/getParams');
+if($getParams(0) == 'api') {
+    echo json_encode([
+        "status"=> 0,
+        "msg"=>"error not found"
+    ]);
+    die;
+}
+?>
+
 <title>not found page</title>
 <main>
     <div class="text-center mt-5 mx-3">
