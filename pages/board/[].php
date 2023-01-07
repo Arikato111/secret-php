@@ -1,12 +1,11 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $getParams = import('wisit-router/getParams');
 $cat_path = $getParams(1);
-$cat_path = str_replace("'", '', $cat_path);
-$cate = fetch($db->query("SELECT * FROM cat WHERE cat_path = '$cat_path'"));
+$cate = $db->getCate_ByPath($cat_path);
 if (!$cate) {
-    $cat_path = (int) $cat_path;
-    $board = fetch($db->query("SELECT * FROM board WHERE b_id = {$cat_path}"));
+    $b_id = (int) $cat_path;
+    $board = $db->getBoard_ByID($b_id);
     if ($board) return import('./components/board/BoardDetail');
     return import('./pages/_error');
 }

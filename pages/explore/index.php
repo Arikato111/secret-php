@@ -1,8 +1,8 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $Post = import('./components/Post');
 
-$allPost = $db->query("SELECT * FROM post ORDER BY post_id DESC LIMIT 40");
+$allPost = $db->getAllPost(limit: 100, desc: true);
 ?>
 
 <title>สำรวจ | aden</title>
@@ -12,10 +12,10 @@ $allPost = $db->query("SELECT * FROM post ORDER BY post_id DESC LIMIT 40");
             <?php import('./components/explore/Nav'); ?>
         </div>
         <div class="col-span-6 mt-5">
-        <?php 
-        while($post =fetch($allPost)):
-        $Post($post['post_id']); ?>
-        <?php endwhile; ?>
+            <?php
+            foreach ($allPost as $post) {
+                $Post($post['post_id']);
+            } ?>
         </div>
         <div class="col-span-3">
             <?php import('./components/NavContact'); ?>

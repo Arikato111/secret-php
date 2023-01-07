@@ -44,7 +44,7 @@ $db = import('./Database/db');
                         $Allpoll = $db->query("SELECT * FROM board");
                         $total_view = 0;
                         while($poll = fetch($Allpoll)){
-                            $total_view += (int) $poll['b_view'];
+                            $total_view += (int) ($poll['b_view'] ?? 0);
                         }
                         echo $total_view;
                          ?>

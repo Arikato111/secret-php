@@ -1,14 +1,14 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $getParams = import('wisit-router/getParams');
 $Post = import('./components/Post');
 
-$cat_path = $getParams(1);
+$cat_path = $getParams(1) ?? "";
 
-$cate = fetch($db->query("SELECT * FROM cat WHERE cat_path = '$cat_path'"));
+$cate = $db->getCate_ByPath($cat_path);
 if (!$cate) return import('./pages/_error');
 
-$allPost = $db->query("SELECT * FROM post WHERE post_cat_id = {$cate['cat_id']} ORDER BY post_id DESC LIMIT 40");
+$allPost = $db->getAllPost(limit: 100, desc: true, cat_id: $cate['cat_id']);
 ?>
 
 <title>สำรวจ | aden</title>
@@ -19,7 +19,7 @@ $allPost = $db->query("SELECT * FROM post WHERE post_cat_id = {$cate['cat_id']} 
         </div>
         <div class="col-span-6">
             <div class="mt-5">
-                <?php if ($allPost->num_rows == 0) : ?>
+                <?php if (sizeof($allPost) == 0) : ?>
                     <div class="mx-3">
                         <div class="heading">ยังไม่มีโพสต์ในหมวดหมู่นี้</div>
                         <div class="form-control">
@@ -28,9 +28,11 @@ $allPost = $db->query("SELECT * FROM post WHERE post_cat_id = {$cate['cat_id']} 
                     </div>
                 <?php endif; ?>
                 <?php
-                while ($post = fetch($allPost)) :
-                    $Post($post['post_id']); ?>
-                <?php endwhile; ?>
+                foreach ($allPost as $post) {
+
+                    $Post($post['post_id']);
+                }
+                ?>
             </div>
         </div>
         <div class="col-span-3">

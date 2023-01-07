@@ -1,30 +1,38 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $getParams = import('wisit-router/getParams');
 $Post = import('./components/Post');
+$post_id = (int) $getParams(1) ?? 0;
 
+$post = $db->getPost_ByID($post_id);
 
-$post_id = (int) $getParams(1);
-
-
-$re_Post = $db->query("SELECT * FROM post WHERE post_id = $post_id");
-$post = fetch($re_Post);
 if (!$post) {
     return import('./pages/_error');
 }
 
 if (isset($_POST['createComment'])) {
-    $date = date('Y-m-d');
-    $db->query("INSERT INTO `post_detail`
-    (`pd_id`, `post_id`, `pd_name`, `pd_date`, `usr_id`) VALUES
-    (NULL, $post_id,'{$_POST['pd_name']}','$date', {$_SESSION['usr']})");
-    header("Refresh:0");
-    die;
+    $pd_name = $_POST['pd_name'] ?? "";
+
+    if (!isset($_SESSION['usr'])) {
+        header('Location: /login');
+        die;
+    } elseif (
+        strlen($pd_name) > 500 ||
+        strlen($pd_name) == 0
+    ) {
+        getAlert('ข้อความต้องมีขนาดไม่เกิน 500 ตัวอักษร', 'danger');
+    } else {
+        $pd_name = htmlchar($pd_name);
+        $db->insertPostComment($post_id, $pd_name, $_SESSION['usr']);
+        header("Refresh:0");
+        die;
+    }
 }
 
-$usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$post['post_usr_id']}")); ?>
+$usr_post = $db->getUser_ByID($post['post_usr_id']);
+?>
 
-<title>โพสต์ | <?php echo $usr_post['usr_name'] ?? ""; ?></title>
+<title>โพสต์ | <?php echo $usr_post['usr_name'] ?? "ไม่พบผู้ใช้งานนี้"; ?></title>
 <main class="py-3">
     <div class="row">
         <div class="col-span-3">
@@ -36,7 +44,7 @@ $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$post['post_usr_
             </div>
             <?php $Post($post_id); ?>
             <form class="form-control-group" method="post">
-                <input class="input-text m-0" type="text" name="pd_name" id="" required>
+                <input class="input-text m-0" maxlength="500" type="text" name="pd_name" id="" required>
                 <button name="createComment" class="btn primary">แสดงความคิดเห็น</button>
             </form>
             <div class="mx-3">

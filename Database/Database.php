@@ -221,7 +221,7 @@ class Database
         $query->execute();
         return $query->rowCount();
     }
-    public function findFollow(int $atk = 0, int $def = 0): array
+    public function findFollow(int $atk = 0, int $def = 0): array | bool
     {
         $query = $this->conn->prepare("SELECT * FROM follow WHERE fol_atk = :atk OR fol_def = :def LIMIT 100;");
         $query->bindParam(':atk', $atk, PDO::PARAM_INT);
@@ -247,17 +247,20 @@ class Database
             return false;
         }
     }
-    public function getAllPost_ByID(int $id): array | bool
+    public function getAllPost(int $limit = 0, bool $desc = false, int $cat_id = 0): array | bool
     {
-        $query = $this->conn->prepare("SELECT * FROM post WHERE post_id = :id;");
-        $query->bindParam(':id', $id, PDO::PARAM_INT);
-        $query->execute();
-        if ($query->rowCount() > 0) {
-            return $query->fetchAll(PDO::FETCH_ASSOC);
+        $sort = $desc ? "ORDER BY post_id DESC " : "";
+        $cat = $cat_id == 0 ? "" : " WHERE post_cat_id = $cat_id ";
+        if ($limit > 0) {
+            $query = $this->conn->prepare("SELECT * FROM post $cat $sort LIMIT $limit ;");
         } else {
-            return false;
+            $query = $this->conn->prepare("SELECT * FROM post $cat $sort;");
         }
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
     public function getPost_ByUsrID(int $id): array | bool
     {
         $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id LIMIT 1;");
@@ -316,14 +319,15 @@ class Database
     {
         $query = $this->conn->prepare("INSERT INTO `post_like`
         (`pl_id`, `post_id`, `usr_id`) VALUES 
-        (NULL, :post_id , :usr_id ;)");
+        (NULL, :post_id , :usr_id )");
         $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
         return $query->execute();
     }
     public function isLikePost(int $post_id, int $usr_id): bool
     {
-        $query = $this->conn->prepare("SELECT * FROM post_like WHERE post_id = :post_id AND usr_id = :usr_id LIMIT 1;");
+        $query = $this->conn->prepare("SELECT * FROM post_like 
+        WHERE post_id = :post_id AND usr_id = :usr_id LIMIT 1;");
         $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
         $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
         $query->execute();
@@ -336,10 +340,17 @@ class Database
         $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
         return $query->execute();
     }
-    public function getCate_ByID(int $cat_id): array
+    public function getCate_ByID(int $cat_id): array | bool
     {
         $query = $this->conn->prepare("SELECT * FROM cat WHERE cat_id = :cat_id LIMIT 1;");
         $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getCate_ByPath(string $cat_path): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM cat WHERE cat_path = :cat_path LIMIT 1;");
+        $query->bindParam(':cat_path', $cat_path, PDO::PARAM_STR);
         $query->execute();
         return $query->fetch(PDO::FETCH_ASSOC);
     }
@@ -370,7 +381,7 @@ class Database
         $query->bindParam(':img_name', $img_name, PDO::PARAM_STR);
         return $query->execute();
     }
-    public function getAllCategory(bool $desc = false): array
+    public function getAllCategory(bool $desc = false): array | bool
     {
         if ($desc) {
             $query = $this->conn->prepare("SELECT * FROM cat ORDER BY cat_id DESC");
@@ -388,7 +399,7 @@ class Database
         $post_size = sizeof($your_follow) == 0 ? 0 : 50 / sizeof($your_follow);
         foreach ($your_follow as $fol) {
             $getPost = $this->getAllPost_ByUsrID($fol['fol_def']);
-            if(!$getPost) continue;
+            if (!$getPost) continue;
             $post_limit = $post_size;
             foreach ($getPost as $p) {
                 if ($post_limit == 0) {
@@ -400,5 +411,130 @@ class Database
         }
         array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
         return $feedPost;
+    }
+    public function getPostComment_ByID(int $pd_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post_detail WHERE pd_id = :pd_id LIMIT 1");
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getAllPostComment_ByPostID(int $post_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post_detail WHERE post_id = :post_id ORDER BY pd_id DESC LIMIT 1000");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function deletePostComment__ByID(int $pd_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM post_detail WHERE pd_id = :pd_id LIMIT 1 ;");
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function insertPostComment(int $post_id, string $pd_name, int $usr_id): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO `post_detail`
+        (`pd_id`, `post_id`, `pd_name`, `pd_date`, `usr_id`) VALUES
+        (NULL, :post_id , :pd_name , :date , :usr_id )");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->bindParam(':pd_name', $pd_name, PDO::PARAM_STR);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function getBoard_ByID(int $b_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM board WHERE b_id = :b_id LIMIT 1 ;");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getAllBoard(int $limit = 0, bool $desc = false, int $cat = 0): array | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : "";
+        $sort = $desc ? " ORDER BY b_id DESC " : "";
+        $cate = $cat != 0 ? " WHERE cat_id = $cat " : "";
+        $query = $this->conn->prepare("SELECT * FROM board $cate $sort $limitor ;");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getAllBoard_ByUsrID(int $usr_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM board WHERE usr_id = :usr_id ORDER BY b_id DESC LIMIT 1000");
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getBoardDetailCount_ByBID(int $b_id): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM board_detail WHERE b_id = :b_id ;");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function deleteBoard_ByID(int $b_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM board WHERE b_id = :b_id LIMIT 1 ;");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function insertBoard(string $b_name, int $usr_id, int $cat_id): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO `board`
+        (`b_id`, `b_name`, `b_date`, `usr_id`, `b_view`, `cat_id`) VALUES 
+        (NULL, :b_name , :date , :usr_id , 0, :cat_id )");
+        $query->bindParam(':b_name', $b_name, PDO::PARAM_STR);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteAllBoardDetail_ByBID($b_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM board_detail WHERE b_id = :b_id ");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function Board_ViewUp(int $b_id): bool
+    {
+        $query = $this->conn->prepare("UPDATE board SET `b_view`=`b_view`+1 WHERE b_id = :b_id LIMIT 1 ");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public  function insertBoardDetail(int $b_id, string $bd_name, int $usr_id): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO `board_detail`
+        (`bd_id`, `b_id`, `bd_name`, `bd_date`, `usr_id`) VALUES 
+        (NULL, :b_id , :bd_name , :date , :usr_id )");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        $query->bindParam(':bd_name', $bd_name, PDO::PARAM_STR);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteBoardDetail_ByID(int $bd_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM board_detail WHERE bd_id = :bd_id LIMIT 1;");
+        $query->bindParam(':bd_id', $bd_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function getBoardDetail_ByID(int $bd_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM board_detail WHERE bd_id = :bd_id LIMIT 1;");
+        $query->bindParam(':bd_id', $bd_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getAllBoardDetail(int $limit = 0, bool $desc = false): array | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : "";
+        $sort = $desc ? "ORDER BY bd_id DESC" : "";
+        $query = $this->conn->prepare("SELECT * FROM board_detail $sort $limitor ;");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }

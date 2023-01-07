@@ -1,6 +1,5 @@
 <?php
 if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) return import('./pages/_error');
-$db = import('./Database/db');
 $Post = import('./components/Post');
 $db = new Database;
 $feedPost = $db->myFeed($_SESSION['usr']);
@@ -23,7 +22,7 @@ $feedPost = $db->myFeed($_SESSION['usr']);
             <?php endforeach; ?>
         </div>
         <?php if (sizeof($feedPost) == 0) : ?>
-            <h3 class="heading">คุณยังไม่มีการติดตาม</h3>
+            <h3 class="heading mx-3">คุณยังไม่มีการติดตาม</h3>
             <div class="form-control mx-3 ">
                 <a class="btn primary text-xl" href="/people">ค้นหาผู้คนเพิ่มเติม</a>
             </div>

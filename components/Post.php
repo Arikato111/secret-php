@@ -8,9 +8,8 @@ $Post = function ($post_id) {
             header("Location: /login");
             die;
         }
-        $usr_id = (int) $_SESSION['usr'];
-        $post_id = (int) $_POST['post_id'] ?? 0;
-
+        $usr_id = $_SESSION['usr'];
+        $post_id = $_POST['post_id'];
         if ($db->isLikePost($post_id, $usr_id)) {
             $db->deleteLikePost($post_id, $usr_id);
         } else {
@@ -27,6 +26,7 @@ $Post = function ($post_id) {
         } else {
             unlink('./public/posts/' . $getPost['post_img']);
             $db->deletePost_ByID($post_id);
+            $db->deletePostDetail_ByPostID($post_id);
             header("Refresh:0");
             die;
         }
@@ -75,9 +75,7 @@ $Post = function ($post_id) {
                 <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?> ⦁ <?php echo $cat['cat_name'] ?? "ไม่พบหมวดหมู่"; ?></div>
             </div>
         </div>
-        <pre class="whitespace-pre-wrap my-3 px-3 max-h-[500px] overflow-y-auto">
-            <?php echo $post['post_detail'] ?? ""; ?>
-        </pre>
+        <pre class="whitespace-pre-wrap break-words my-3 px-3 max-h-[500px] overflow-y-auto"><?php echo $post['post_detail'] ?? ""; ?></pre>
         <div>
             <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/post.png'" alt="image post">
         </div>
@@ -96,11 +94,11 @@ $Post = function ($post_id) {
         <hr class="border">
         <div class="p-3 pb-0 text-gray-600">
             <form method="post">
+                <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
                 <?php if (!isset($_SESSION['usr']) || !$db->isLikePost($post['post_id'], $_SESSION['usr'])) : ?>
-                    <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
                     <button name="like" class="py-1 px-3 hover:bg-gray-200 rounded-lg"><img class="inline-block w-6" src="/public/icons/heart.svg" alt="heart icon"> ถูกใจ</button>
                 <?php else : ?>
-                    <span class="py-2 cursor-pointer px-3 text-rose-500 hover:bg-gray-200 rounded-lg"><img class="inline-block w-6" src="/public/icons/heart-red.svg" alt="heart icon"> ถูกใจแล้ว</span>
+                    <button name="like" class="py-1 px-3 hover:bg-gray-200 rounded-lg text-rose-500"><img class="inline-block w-6" src="/public/icons/heart-red.svg" alt="heart icon"> ถูกใจแล้ว</button>
                 <?php endif; ?>
                 <a href="/post/<?php echo $post['post_id'] ?? ""; ?>" class="py-2 px-3 hover:bg-gray-200 rounded-lg">
                     <img class="inline-block w-6" src="/public/icons/comment.svg" alt="comment icon">

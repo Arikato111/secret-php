@@ -5,8 +5,8 @@ $export = function ($username) {
     $usr_profile = $db->getUser_ByUsername($username);
 
     if (isset($_POST['follow'])) {
-        $atk_id = (int) $_SESSION['usr'];
-        $def_id = (int) $_POST['usr_id'] ?? 0;
+        $atk_id = $_SESSION['usr'];
+        $def_id =(int) ($_POST['usr_id'] ?? 0);
         if (!isset($_SESSION['usr'])) {
             header('Location: /login');
             die;
@@ -91,7 +91,7 @@ $export = function ($username) {
             <form method="POST" class="flex mt-4 space-x-3 md:mt-6">
                 <input type="hidden" name="usr_id" value="<?php echo $usr_profile['usr_id']; ?>">
                 <?php if (!isset($_SESSION['usr']) || $_SESSION['usr'] != $usr_profile['usr_id']) : ?>
-                    <?php if ($db->isFollow($_SESSION['usr'], $usr_profile['usr_id']) != 0) : ?>
+                    <?php if ($db->isFollow($_SESSION['usr'] ?? 0, $usr_profile['usr_id'] ?? 0) != 0) : ?>
                         <button name="follow" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <img class="w-6" src="/public/icons/right.svg" alt="right icon">
                             ติดตามแล้ว</button>

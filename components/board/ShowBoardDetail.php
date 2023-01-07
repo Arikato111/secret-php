@@ -1,17 +1,27 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $getParams = import('wisit-router/getParams');
 $b_id = (int) $getParams();
 
-if(isset($_POST['deleteBD'])) {
-    $db->query("DELETE FROM board_detail WHERE bd_id = {$_POST['bd_id']}");
-    header("Refresh:0");die;
+if (isset($_POST['deleteBD'])) {
+    $bd_id = (int)($_POST['bd_id'] ?? 0);
+    $boardDetail = $db->getBoardDetail_ByID($bd_id);
+
+    if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) {
+        getAlert('กรุณาเข้าสู่ระบบเพื่อใช้งาน', 'danger');
+    } elseif (!$board || $boardDetail['usr_id'] != $_SESSION['usr'] && (!isset($_SESSION['status']) || $_SESSION['status'] != 'admin')) {
+        getAlert('You have no permission', 'danger');
+    } else {
+        $db->deleteBoardDetail_ByID($bd_id);
+        header("Refresh:0");
+        die;
+    }
 }
 
-$allBD = $db->query("SELECT * FROM board_detail WHERE b_id = $b_id ORDER BY bd_id DESC LIMIT 100");
-while ($bd = fetch($allBD)) :
-    $usr_post = fetch($db->query("SELECT * FROM usr WHERE usr_id = {$bd['usr_id']}"));
-     $id = rand();
+$allBD = $db->getAllBoardDetail(desc: true);
+foreach ($allBD as $bd) :
+    $usr_post = $db->getUser_ByID($bd['usr_id']);
+    $id = rand();
 ?>
     <div class="form-control mx-3">
         <?php if (
@@ -29,7 +39,7 @@ while ($bd = fetch($allBD)) :
             </div>
             <div id="dropdownpost<?php echo $id; ?>" class="z-30 hidden text-base list-none bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700">
                 <form method="post">
-                    <input type="hidden" name="bd_id" value="<?php echo $bd['bd_id']; ?>">
+                    <input type="hidden" name="bd_id" value="<?php echo $bd['bd_id'] ?? 0; ?>">
                     <ul class="py-1" aria-labelledby="dropdownPost">
                         <li>
                             <button name="deleteBD" class="text-rose-600 block w-full text-left px-4 py-2 text-sm hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ลบ</button>
@@ -42,15 +52,13 @@ while ($bd = fetch($allBD)) :
 
         <div class="flex items-center px-3">
             <div>
-                <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" alt="profile image">
+                <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/profile.png'" alt="profile image">
             </div>
             <div class="px-3">
-                <a class="hover:underline" href="/<?php echo $usr_post['usr_username']; ?>"><?php echo $usr_post['usr_name'] ?? ""; ?></a>
+                <a class="hover:underline" href="/<?php echo $usr_post['usr_username'] ?? ""; ?>"><?php echo $usr_post['usr_name'] ?? "ไม่พบผู้ใช้งานนี้"; ?></a>
                 <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $bd['bd_date'] ?? ""; ?> </div>
             </div>
         </div>
-        <div class="p-3 text-lg font-bold">
-            <?php echo $bd['bd_name']; ?>
-        </div>
+        <pre class="whitespace-pre-wrap break-words p-3 text-lg font-bold"><?php echo $bd['bd_name']; ?></pre>
     </div>
-<?php endwhile; ?>
+<?php endforeach; ?>

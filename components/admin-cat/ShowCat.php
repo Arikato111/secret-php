@@ -2,7 +2,7 @@
 $db = import('./Database/db');
 
 if (isset($_POST['updateCat'])) {
-    $cat_id = (int) $_POST['cat_id'];
+    $cat_id = (int) ($_POST['cat_id'] ?? 0);
     $cat_name = $_POST['cat_name'];
     $cat_path = $_POST['cat_path'];
     $db->query("UPDATE cat SET
@@ -13,7 +13,7 @@ if (isset($_POST['updateCat'])) {
     die;
 }
 if (isset($_POST['deleteCat'])) {
-    $cat_id = (int) $_POST['cat_id'];
+    $cat_id = (int) ($_POST['cat_id'] ?? 0);
     $db->query("DELETE FROM cat WHERE cat_id = $cat_id LIMIT 1");
     header("Refresh:0");
     die;
