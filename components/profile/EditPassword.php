@@ -1,16 +1,21 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $usr_id = $_SESSION['usr'];
 
-if(isset($_POST['saveEditPassword'])) {
-    if($_POST['usr_password'] != $_POST['usr_password1']) {
+if (isset($_POST['saveEditPassword'])) {
+    $old_password = md5($_POST['old_password'] ?? "z");
+    $password = md5($_POST['usr_password'] ?? "a");
+    $password1 = md5($_POST['usr_password1'] ?? "b");
+    if ($password != $password1) {
         getAlert('รหัสผ่านไม่ตรงกัน', 'danger');
+    } elseif (!$db->checkMachPassword($usr_id, $old_password)) {
+        getAlert('รหัสผ่านเก่าไม่ถูกต้อง', 'danger');
     } else {
-        $db->query("UPDATE usr SET usr_password = MD5('{$_POST['usr_password']}') WHERE usr_id = $usr_id");
+        $db->changePassword($usr_id, $password);
         getAlert('เปลี่ยนรหัสผ่านสำเร็จ', 'success');
     }
 }
-$usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
+$usr_profile = $db->getUser_ByID($usr_id);
 
 ?>
 
@@ -22,12 +27,17 @@ $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_id = $usr_id"));
             <div class="text-right">
                 <a class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" href="/<?php echo $usr_profile['usr_username']; ?>">ย้อนกลับ</a>
             </div>
-            <form class="form-control" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="editPassword">
-                <input class="input-text" type="password" name="usr_password" placeholder="รหัสผ่าน" required>
-                <input class="input-text" type="password" name="usr_password1" placeholder="ยืนยันรหัสผ่าน" required>
-                <div>
-                    <button name="saveEditPassword" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
+            <form method="post">
+                <div class="form-control">
+                    <input class="input-text m-0" type="password" name="old_password" placeholder="รหัสผ่านเก่า" required>
+                </div>
+                <div class="form-control">
+                    <input type="hidden" name="editPassword">
+                    <input class="input-text" type="password" name="usr_password" placeholder="รหัสผ่านใหม่" required>
+                    <input class="input-text" type="password" name="usr_password1" placeholder="ยืนยันรหัสผ่าน" required>
+                    <div>
+                        <button name="saveEditPassword" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
+                    </div>
                 </div>
 
             </form>

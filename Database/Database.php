@@ -17,6 +17,14 @@ class Database
             echo 'Failed to connect database ' . $err;
         }
     }
+    public function searchUser(string $search)
+    {
+        $search = "%$search%";
+        $query = $this->conn->prepare("SELECT * FROM usr WHERE usr_name LIKE :search OR usr_username LIKE :search ORDER BY usr_id DESC LIMIT 100");
+        $query->bindParam(':search', $search, PDO::PARAM_STR);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getUser_All(bool $hide_private = false, bool $desc = false): array | bool
     {
         if ($hide_private) {
@@ -133,6 +141,233 @@ class Database
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->bindParam(':tel', $tel, PDO::PARAM_STR);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function checkMachPassword(int $id, string $password): bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM usr WHERE usr_id = :id AND usr_password = :password LIMIT 1");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->bindParam(':password', $password, PDO::PARAM_STR);
+        $query->execute();
+        return $query->rowCount() > 0;
+    }
+    public function changePassword(int $id, string $password): bool
+    {
+        $query = $this->conn->prepare("UPDATE usr SET `usr_password` = :password WHERE usr_id = :id LIMIT 1;");
+        $query->bindParam(':password', $password, PDO::PARAM_STR);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteAllBoard_ByUsrID(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM board WHERE usr_id = :id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteAllBoardDetail_ByUsrID(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM board_detail WHERE usr_id = :id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteAllFollow_ByUsrID(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM follow WHERE fol_atk = :id OR fol_def = :id");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public  function deleteAllPoll_ByUsrId(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll WHERE usr_id = :id ;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public  function deleteAllPollLog_ByUsrId(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll_log WHERE usr_id = :id ;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteUser_ByID(int $id)
+    {
+        $query = $this->conn->prepare("DELETE FROM usr WHERE usr_id = :id LIMIT 1;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function isFollow(int $atk, int $def): bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM follow WHERE fol_atk = :atk AND fol_def = :def LIMIT 1;");
+        $query->bindParam(':atk', $atk, PDO::PARAM_INT);
+        $query->bindParam(':def', $def, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount() > 0;
+    }
+    public function insertFollow(int $atk, int $def): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO 
+        `follow`(`fol_id`, `fol_atk`, `fol_def`, `fol_date`) 
+        VALUES (NULL, :atk , :def , :date )");
+        $query->bindParam(':atk', $atk, PDO::PARAM_INT);
+        $query->bindParam(':def', $def, PDO::PARAM_INT);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        return $query->execute();
+    }
+    public function FollowCount(int $atk = 0, int $def = 0): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM follow WHERE fol_atk = :atk OR fol_def = :def ;");
+        $query->bindParam(':atk', $atk, PDO::PARAM_INT);
+        $query->bindParam(':def', $def, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function findFollow(int $atk = 0, int $def = 0): array
+    {
+        $query = $this->conn->prepare("SELECT * FROM follow WHERE fol_atk = :atk OR fol_def = :def LIMIT 100;");
+        $query->bindParam(':atk', $atk, PDO::PARAM_INT);
+        $query->bindParam(':def', $def, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function deleteFollow(int $atk, int $def): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM follow WHERE fol_atk = :atk AND fol_def = :def LIMIT 1;");
+        $query->bindParam(':atk', $atk, PDO::PARAM_INT);
+        $query->bindParam(':def', $def, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function getPost_ByID(int $id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post WHERE post_id = :id LIMIT 1;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        if ($query->rowCount() > 0) {
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    public function getAllPost_ByID(int $id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post WHERE post_id = :id;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    public function getPost_ByUsrID(int $id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id LIMIT 1;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        if ($query->rowCount() > 0) {
+            return $query->fetch(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    public function getAllPost_ByUsrID(int $id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+        if ($query->rowCount() > 0) {
+            return $query->fetchAll(PDO::FETCH_ASSOC);
+        } else {
+            return false;
+        }
+    }
+    public function deletePost_ByID(int $id)
+    {
+        $query = $this->conn->prepare("DELETE FROM post WHERE post_id = :id LIMIT 1;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deletePostDetail_ByPostID(int $post_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM post_detail WHERE post_id = :post_id ;");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deletePostDetail_ByUsrID(int $id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM post_detail WHERE usr_id = :id ;");
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deletePostLike(int $pl_id = 0, int $post_id = 0, int $usr_id = 0): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM post_like WHERE pl_id = :pl_id OR post_id = :post_id OR usr_id = :usr_id");
+        $query->bindParam(':pl_id', $pl_id, PDO::PARAM_INT);
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function postView_UP(int $post_id): void
+    {
+        $query = $this->conn->prepare("UPDATE post SET `post_view`=`post_view`+1 WHERE post_id = :post_id LIMIT 1;");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->execute();
+    }
+    public function insertLikePost(int $post_id, int $usr_id): bool
+    {
+        $query = $this->conn->prepare("INSERT INTO `post_like`
+        (`pl_id`, `post_id`, `usr_id`) VALUES 
+        (NULL, :post_id , :usr_id ;)");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function isLikePost(int $post_id, int $usr_id): bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM post_like WHERE post_id = :post_id AND usr_id = :usr_id LIMIT 1;");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount() > 0;
+    }
+    public function deleteLikePost(int $post_id, int $usr_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM post_like WHERE post_id = :post_id AND usr_id = :usr_id LIMIT 1;");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function getCate_ByID(int $cat_id): array
+    {
+        $query = $this->conn->prepare("SELECT * FROM cat WHERE cat_id = :cat_id LIMIT 1;");
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getPostLikeCount(int $post_id): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM post_like WHERE post_id = :post_id");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function getPostCommentCount(int $post_id): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM post_detail WHERE post_id = :post_id ;");
+        $query->bindParam(':post_id', $post_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function insetPost(string $post_detail, int $usr_id, int $cat_id, string $img_name): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO `post`
+    (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES 
+    (NULL, :post_detail ,'$date', :usr_id , :cat_id , :img_name , 0)");
+        $query->bindParam(':post_detail', $post_detail, PDO::PARAM_STR);
+        $query->bindParam(':post_date', $date, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        $query->bindParam(':img_name', $img_name, PDO::PARAM_STR);
         return $query->execute();
     }
 }

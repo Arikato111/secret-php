@@ -1,36 +1,36 @@
 <?php
 $export = function ($username) {
-    $db = import('./Database/db');
+    $db = new Database;
     $username = $username;
-    $usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_username = '$username'"));
+    $usr_profile = $db->getUser_ByUsername($username);
 
     if (isset($_POST['follow'])) {
+        $atk_id = (int) $_SESSION['usr'];
+        $def_id = (int) $_POST['usr_id'] ?? 0;
         if (!isset($_SESSION['usr'])) {
             header('Location: /login');
             die;
         }
-        if ($db->query("SELECT * FROM follow WHERE 
-    fol_atk = {$_SESSION['usr']} AND fol_def = {$_POST['usr_id']}")->num_rows == 0) {
-            $date = date('Y-m-d');
-            $db->query("INSERT INTO `follow`
-        (`fol_id`, `fol_atk`, `fol_def`, `fol_date`) VALUES 
-        (NULL, {$_SESSION['usr']}, {$_POST['usr_id']},'$date')");
+        if (!$db->getUser_ByID($def_id)) {
+            getAlert('ไม่พบผู้ใช้', 'danger');
+        } elseif ($db->isFollow($atk_id, $def_id)) {
+            $db->deleteFollow($atk_id, $def_id);
             header("Refresh:0");
             die;
         } else {
-            $db->query("DELETE FROM follow WHERE 
-    fol_atk = {$_SESSION['usr']} AND fol_def = {$_POST['usr_id']}");
+            $db->insertFollow($atk_id, $def_id);
+            header("Refresh:0");
+            die;
         }
     }
 
     if (isset($_POST['deleteProfile'])) {
-        $db->query("DELETE FROM usr WHERE usr_username = '$username'");
-        unlink('./public/profile/' . $usr_profile['usr_img']);
-        if ($_SESSION['usr'] == $usr_profile['usr_id']) {
-            header('Location: /login?logout');
-            die;
+
+        if (!isset($_SESSION['usr'])) {
+        } elseif ($_SESSION['usr'] != $usr_profile['usr_id']) {
         } else {
-            header("Location: /home");
+            deleteUser($_SESSION['usr']);
+            header('Location: /login?logout');
             die;
         }
     }
@@ -69,7 +69,7 @@ $export = function ($username) {
                         </li>
                     </form>
                     <li>
-                        <form method="post" onsubmit="return confirm('ยืนยันการลบบัญชีของคุณ');">
+                        <form method="post" onsubmit="return confirm('ยืนยันการลบบัญชีของคุณ \n หากคุณลบบัญชี ข้อมูลทั้งหมดที่เกี่ยวกับคุณจะถูกลบไปด้วย คิดดีๆ ก่อนนะ');">
                             <button name="deleteProfile" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
                         </form>
                     </li>
@@ -77,7 +77,7 @@ $export = function ($username) {
             </div>
         </div>
         <div class="flex flex-col items-center pb-10">
-            <img class="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src="/public/profile/<?php echo $usr_profile['usr_img'] ?? ""; ?>" alt="Bonnie image" />
+            <img class="w-24 h-24 mb-3 rounded-full shadow-lg object-cover" src="/public/profile/<?php echo $usr_profile['usr_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/profile.png'" alt="Bonnie image" />
             <h5 class="mb-1 text-xl font-medium text-gray-900 dark:text-white"><?php echo $usr_profile['usr_name']; ?></h5>
             <span class="text-sm text-gray-500 dark:text-gray-400">@<?php echo $usr_profile['usr_username']; ?></span>
             <div class="mx-10 px-3">
@@ -91,8 +91,7 @@ $export = function ($username) {
             <form method="POST" class="flex mt-4 space-x-3 md:mt-6">
                 <input type="hidden" name="usr_id" value="<?php echo $usr_profile['usr_id']; ?>">
                 <?php if (!isset($_SESSION['usr']) || $_SESSION['usr'] != $usr_profile['usr_id']) : ?>
-                    <?php if (isset($_SESSION['usr']) && $db->query("SELECT * FROM follow WHERE 
-                    fol_atk = {$_SESSION['usr']} AND fol_def = {$usr_profile['usr_id']}")->num_rows != 0) : ?>
+                    <?php if ($db->isFollow($_SESSION['usr'], $usr_profile['usr_id']) != 0) : ?>
                         <button name="follow" class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                             <img class="w-6" src="/public/icons/right.svg" alt="right icon">
                             ติดตามแล้ว</button>

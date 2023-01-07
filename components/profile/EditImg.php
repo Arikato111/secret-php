@@ -14,7 +14,7 @@ if (isset($_POST['saveEditImg'])) {
     } else {
         $img_name = md5($_FILES['usr_img']['name'] . rand()) . '.jpg';
         move_uploaded_file($_FILES['usr_img']['tmp_name'], './public/profile/' . $img_name);
-        if (file_exists('/public/profile/' . $usr_profile['usr_img']))
+        if (file_exists('./public/profile/' . $usr_profile['usr_img']))
             unlink('./public/profile/' . $usr_profile['usr_img']);
         $db->updateImgProfile($usr_profile['usr_id'], $img_name);
         header("Refresh:0");

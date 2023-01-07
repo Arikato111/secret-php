@@ -1,10 +1,29 @@
 <?php
 if (!isset($_SESSION['usr'])) return require('./pages/_error.php');
 
-$db = import('./Database/db');
+$db = new Database;
 
 if (isset($_POST['createPost'])) {
+    $post_detail = $_POST['post_detail'] ?? "";
+    $cat_id = $_POST['post_cat_id'] ?? 0;
     $img_name = md5($_FILES['post_img']['name'] . rand()) . '.jpg';
+    $img_type = mime_content_type($_FILES['post_img']['tmp_name']);
+    $img_size = $_FILES['post_img']['size'] ?? 0;
+    if (
+        strlen($post_detail) > 1300 ||
+        strlen($post_detail) == 0
+    ) {
+        getAlert('ข้อมูลไม่ถูกต้อง', 'danger');
+    } elseif (!($db->getCate_ByID($cat_id))) {
+        getAlert('หมวดหมูไม่ถูกต้อง กรุณาเลือกใหม่อีกครั้ง', 'danger');
+    } elseif ($img_type !== 'image/jpeg' && $img_type != 'image/png') {
+        getAlert('รูปภาพต้องเป็น jpg, jpeg หรือ png เท่านั้น', 'danger');
+    } elseif ($img_size > 2048000) {
+        getAlert('รูปภาพต้องมีขนาดไม่เกิน 2mb', 'danger');
+    } else {
+        $post_detail = htmlchar($post_detail);
+    }
+
     move_uploaded_file($_FILES['post_img']['tmp_name'], './public/posts/' . $img_name);
     $date = date('Y-m-d');
     $db->query("INSERT INTO `post`

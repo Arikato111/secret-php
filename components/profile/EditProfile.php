@@ -15,10 +15,14 @@ if (isset($_POST['saveEditProfile'])) {
     // check size
     if (
         strlen($name) > 200 ||
+        strlen($name) == 0 ||
         strlen($bio) > 200 ||
+        strlen($bio) == 0 ||
         strlen($address) > 250 ||
+        strlen($address) == 0  ||
         strlen($email) > 100 ||
-        strlen($tel) > 10
+        strlen($email) == 0 ||
+        strlen($tel) != 10
     ) {
         getAlert('ข้อมูลไม่ถูกต้อง', 'danger');
     } elseif (

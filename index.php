@@ -6,6 +6,8 @@ require('./modules/use-import/main.m.php');
 require('./Database/Database.php');
 require('./components/lib/getAlert.php');
 require('./components/lib/htmlchar.php');
+require('./components/lib/deleteUser.php');
+
 
 $getParams = import('wisit-router/getParams');
 // use for api
