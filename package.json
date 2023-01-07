@@ -23,7 +23,7 @@
         }
     },
     "scripts": {
-        "build": "npx tailwindcss -i ./public/input.css -o ./public/output.css --watch"
+        "build": "npx tailwindcss -i ./public/input.css -o ./public/output.css --minify --watch"
     },
     "devDependencies": {
         "tailwindcss": "^3.2.4"
