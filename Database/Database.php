@@ -357,17 +357,48 @@ class Database
         $query->execute();
         return $query->rowCount();
     }
-    public function insetPost(string $post_detail, int $usr_id, int $cat_id, string $img_name): bool
+    public function insertPost(string $post_detail, int $usr_id, int $cat_id, string $img_name): bool
     {
         $date = date('Y-m-d');
         $query = $this->conn->prepare("INSERT INTO `post`
     (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES 
-    (NULL, :post_detail ,'$date', :usr_id , :cat_id , :img_name , 0)");
+    (NULL, :post_detail ,:post_date, :usr_id , :cat_id , :img_name , 0)");
         $query->bindParam(':post_detail', $post_detail, PDO::PARAM_STR);
         $query->bindParam(':post_date', $date, PDO::PARAM_STR);
         $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
         $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
         $query->bindParam(':img_name', $img_name, PDO::PARAM_STR);
         return $query->execute();
+    }
+    public function getAllCategory(bool $desc = false): array
+    {
+        if ($desc) {
+            $query = $this->conn->prepare("SELECT * FROM cat ORDER BY cat_id DESC");
+        } else {
+            $query = $this->conn->prepare("SELECT * FROM cat");
+        }
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function myFeed(int $usr_id): array
+    {
+        $feedPost = [];
+
+        $your_follow = $this->findFollow(atk: $usr_id);
+        $post_size = sizeof($your_follow) == 0 ? 0 : 50 / sizeof($your_follow);
+        foreach ($your_follow as $fol) {
+            $getPost = $this->getAllPost_ByUsrID($fol['fol_def']);
+            if(!$getPost) continue;
+            $post_limit = $post_size;
+            foreach ($getPost as $p) {
+                if ($post_limit == 0) {
+                    break;
+                }
+                array_push($feedPost, $p);
+                $post_limit--;
+            }
+        }
+        array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
+        return $feedPost;
     }
 }

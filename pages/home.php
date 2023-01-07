@@ -1,18 +1,9 @@
 <?php
-if (!isset($_SESSION['usr'])) return import('./pages/_error');
+if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) return import('./pages/_error');
 $db = import('./Database/db');
 $Post = import('./components/Post');
-
-$feedPost = [];
-$your_follow = $db->query("SELECT * FROM follow WHERE fol_atk = {$_SESSION['usr']}");
-$post_size = $your_follow->num_rows == 0 ? 0 : 50 / $your_follow->num_rows;
-while ($fol = fetch($your_follow)) {
-    $getPost = $db->query("SELECT * FROM post WHERE post_usr_id = {$fol['fol_def']} LIMIT $post_size");
-    while ($p = fetch($getPost)) {
-        array_push($feedPost, $p);
-    }
-}
-array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
+$db = new Database;
+$feedPost = $db->myFeed($_SESSION['usr']);
 ?>
 
 <title>หน้าหลัก | aden</title>
@@ -31,7 +22,7 @@ array_multisort(array_column($feedPost, 'post_id'), SORT_DESC, $feedPost);
                 $Post($fp['post_id']); ?>
             <?php endforeach; ?>
         </div>
-        <?php if ($your_follow->num_rows == 0) : ?>
+        <?php if (sizeof($feedPost) == 0) : ?>
             <h3 class="heading">คุณยังไม่มีการติดตาม</h3>
             <div class="form-control mx-3 ">
                 <a class="btn primary text-xl" href="/people">ค้นหาผู้คนเพิ่มเติม</a>

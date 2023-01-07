@@ -75,9 +75,9 @@ $Post = function ($post_id) {
                 <div class="text-gray-500 text-sm">โพสต์เมื่อ <?php echo $post['post_date'] ?? ""; ?> ⦁ <?php echo $cat['cat_name'] ?? "ไม่พบหมวดหมู่"; ?></div>
             </div>
         </div>
-        <div class="my-3 px-3 ">
-            <?php echo htmlchar($post['post_detail']) ?? ""; ?>
-        </div>
+        <pre class="whitespace-pre-wrap my-3 px-3 max-h-[500px] overflow-y-auto">
+            <?php echo $post['post_detail'] ?? ""; ?>
+        </pre>
         <div>
             <img class="w-full" src="/public/posts/<?php echo $post['post_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/post.png'" alt="image post">
         </div>

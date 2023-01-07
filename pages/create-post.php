@@ -3,7 +3,7 @@ if (!isset($_SESSION['usr'])) return require('./pages/_error.php');
 
 $db = new Database;
 
-if (isset($_POST['createPost'])) {
+if (isset($_POST['createPost']) && isset($_SESSION['usr'])) {
     $post_detail = $_POST['post_detail'] ?? "";
     $cat_id = $_POST['post_cat_id'] ?? 0;
     $img_name = md5($_FILES['post_img']['name'] . rand()) . '.jpg';
@@ -13,7 +13,7 @@ if (isset($_POST['createPost'])) {
         strlen($post_detail) > 1300 ||
         strlen($post_detail) == 0
     ) {
-        getAlert('ข้อมูลไม่ถูกต้อง', 'danger');
+        getAlert('ข้อความมีขนาดยาวเกินไป', 'danger');
     } elseif (!($db->getCate_ByID($cat_id))) {
         getAlert('หมวดหมูไม่ถูกต้อง กรุณาเลือกใหม่อีกครั้ง', 'danger');
     } elseif ($img_type !== 'image/jpeg' && $img_type != 'image/png') {
@@ -21,17 +21,13 @@ if (isset($_POST['createPost'])) {
     } elseif ($img_size > 2048000) {
         getAlert('รูปภาพต้องมีขนาดไม่เกิน 2mb', 'danger');
     } else {
+        move_uploaded_file($_FILES['post_img']['tmp_name'], './public/posts/' . $img_name);
         $post_detail = htmlchar($post_detail);
+        $db->insertPost($post_detail, $_SESSION['usr'], $cat_id, $img_name);
+        getAlert('สร้างโพสต์สำเร็จ', 'success');
     }
-
-    move_uploaded_file($_FILES['post_img']['tmp_name'], './public/posts/' . $img_name);
-    $date = date('Y-m-d');
-    $db->query("INSERT INTO `post`
-    (`post_id`, `post_detail`, `post_date`, `post_usr_id`, `post_cat_id`, `post_img`, `post_view`) VALUES 
-    (NULL,'{$_POST['post_detail']}','$date','{$_SESSION['usr']}',{$_POST['post_cat_id']},'$img_name', 0)");
-    getAlert('สร้างโพสต์สำเร็จ', 'success');
 }
-$allCat = $db->query("SELECT * FROM cat ");
+$allCat = $db->getAllCategory();
 ?>
 
 <title>สร้างโพสต์ | aden</title>
@@ -46,9 +42,9 @@ $allCat = $db->query("SELECT * FROM cat ");
 
                 <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">เลือกหมวดหมู่</label>
                 <select id="categories" name="post_cat_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
-                    <?php while ($cat = fetch($allCat)) : ?>
+                    <?php foreach ($allCat as $cat) : ?>
                         <option value="<?php echo $cat['cat_id']; ?>"><?php echo $cat['cat_name']; ?></option>
-                    <?php endwhile; ?>
+                    <?php endforeach; ?>
                 </select>
 
             </div>
@@ -64,7 +60,7 @@ $allCat = $db->query("SELECT * FROM cat ");
                         <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">คลิกเพื่ออัพโหลด</span>หรือ ลากไฟล์วางลงที่นี่</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG</p>
                     </div>
-                    <input id="dropzone-file" type="file" name="post_img" accept="image/jpeg" class="hidden" required />
+                    <input id="dropzone-file" type="file" name="post_img" accept="image/jpeg,image/png" class="hidden" required />
                     <script>
                         const input_img = document.getElementById("dropzone-file")
                         input_img.onchange = evt => {
