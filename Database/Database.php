@@ -25,8 +25,9 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getUser_All(bool $hide_private = false, bool $desc = false): array | bool
+    public function getUser_All(bool $hide_private = false, bool $desc = false ,int $limit = 0): array | bool
     {
+        $limitor = $limit != 0 ? "LIMIT $limit": '';
         if ($hide_private) {
             $mode = '
             `usr_name`, 
@@ -38,9 +39,9 @@ class Database
             $mode = '*';
         }
         if ($desc) {
-            $query = $this->conn->prepare("SELECT $mode FROM usr ORDER BY usr_id DESC");
+            $query = $this->conn->prepare("SELECT $mode FROM usr ORDER BY usr_id DESC $limitor");
         } else {
-            $query = $this->conn->prepare("SELECT $mode FROM usr WHERE 0");
+            $query = $this->conn->prepare("SELECT $mode FROM usr $limitor");
         }
         $query->execute();
         if ($query->rowCount() > 0) {
@@ -612,9 +613,17 @@ class Database
         $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
         return $query->execute();
     }
-    public function PollView_Up(int $p_id): bool {
+    public function PollView_Up(int $p_id): bool
+    {
         $query = $this->conn->prepare("UPDATE poll SET `poll_view`=`poll_view`+1 WHERE poll_id = :poll_id LIMIT 1;");
         $query->bindParam(':poll_id', $p_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function updateStatusUser(int $usr_id, string  $status): bool
+    {
+        $query = $this->conn->prepare("UPDATE usr SET `usr_status`= :usr_status WHERE usr_id = :usr_id LIMIT  1");
+        $query->bindParam(':usr_status', $status, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
         return $query->execute();
     }
 }
