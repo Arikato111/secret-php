@@ -60,7 +60,24 @@ if (isset($_POST['regis'])) {
         getAlert('อีเมล ไม่ถูกต้อง', 'danger');
     } elseif (preg_match('/\D/', $tel)) {
         getAlert('เบอร์โทรต้องเป็นตัวเลขเท่านั้น', 'danger');
-    } elseif (preg_match('/\W/', $username) || $username == 'admin' || $username == 'api') {
+    } elseif (
+        preg_match('/\W/', $username) ||
+        $username == 'admin' ||
+        $username == 'home' ||
+        $username == 'explore' ||
+        $username == 'poll' ||
+        $username == 'board' ||
+        $username == 'people' ||
+        $username == 'create-post' ||
+        $username == 'about' ||
+        $username == 'contact' ||
+        $username == 'help' ||
+        $username == 'privacy' ||
+        $username == 'question' ||
+        $username == 'business' ||
+        $username == 'ads' ||
+        $username == 'api'
+    ) {
         getAlert('ชื่อผู้ใช้ต้องเป็นภาษาอังกฤษและตัวเลขเท่านั้น', 'danger');
     } elseif ($password != $password1) {
         getAlert('รหัสผ่านไม่ตรงกัน', 'danger');
