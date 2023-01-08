@@ -1,5 +1,6 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
+$Allpoll = $db->getAllPoll();
 ?>
 
 <div class="form-control">
@@ -23,7 +24,7 @@ $db = import('./Database/db');
                         แบบสอบถามทั้งหมด
                     </td>
                     <td class="px-6 py-4">
-                        <?php echo $db->query("SELECT * FROM poll")->num_rows ?? 0; ?>
+                        <?php echo sizeof($Allpoll); ?>
                         คำถาม
                     </td>
                 </tr>
@@ -33,14 +34,13 @@ $db = import('./Database/db');
                         จำนวนครั้งเข้าชมทั้งหมด
                     </td>
                     <td class="px-6 py-4">
-                        <?php 
-                        $Allpoll = $db->query("SELECT * FROM poll");
+                        <?php
                         $total_view = 0;
-                        while($poll = fetch($Allpoll)){
+                        foreach ($Allpoll as $poll) {
                             $total_view += (int) $poll['poll_view'];
                         }
                         echo $total_view;
-                         ?>
+                        ?>
                         ครั้ง
                     </td>
                 </tr>

@@ -1,3 +1,9 @@
+<?php
+    if(isset($_GET['cat'])) {
+        return import('./components/cat/EditCat');
+    }
+?>
+
 <title>หมวดหมู่ | admin</title>
 <main>
     <div class="row">

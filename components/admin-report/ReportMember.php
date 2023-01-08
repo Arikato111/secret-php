@@ -1,5 +1,5 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 ?>
 
 <div class="form-control">
@@ -23,7 +23,7 @@ $db = import('./Database/db');
                         สมาชิกทั้งหมด
                     </td>
                     <td class="px-6 py-4">
-                        <?php echo $db->query("SELECT * FROM usr")->num_rows ?? 0; ?>
+                        <?php echo $db->reportUser_Count(); ?>
                         คน
                     </td>
                 </tr>
@@ -35,7 +35,7 @@ $db = import('./Database/db');
                     <td class="px-6 py-4">
                         <?php 
                         $date = date('Y-m-d');
-                        echo $db->query("SELECT * FROM usr WHERE usr_regis_date = '$date'")->num_rows ?? 0; ?>
+                        echo $db->reportUserRegisToday(); ?>
                         คน
                     </td>
                 </tr>

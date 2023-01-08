@@ -38,10 +38,10 @@ if (isset($_POST['saveEditImg'])) {
                     <div class="p-3 text-center"><img id="blah" class="w-24 h-24 object-cover rounded-full inline-block" src="/public/profile/<?php echo $usr_profile['usr_img']; ?>" alt=""></div>
                 </div>
 
-                <div class="flex">
-                    <label class="input-label text-zinc-800" for="">รูปโปรไฟล์</label>
-                    <input id="dropzone-file" class="input-text" type="file" accept="image/jpeg,image/png" name="usr_img" required>
-                </div>
+                <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">อัฟโหลดรูปภาพ</label>
+                <input id="dropzone-file" class="input-text block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold  mb-1 file:bg-blue-50 file:text-blue-700       hover:file:bg-violet-100" type="file" accept="image/jpeg,image/png" name="usr_img" required>
+                <p class="mb-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">png, jpeg or jpg </p>
+
                 <div>
                     <button name="saveEditImg" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
                 </div>

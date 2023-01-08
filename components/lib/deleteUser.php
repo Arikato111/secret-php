@@ -5,7 +5,7 @@ function deleteUser(int $id)
     $db->deleteAllBoard_ByUsrID($id);
     $db->deleteAllBoardDetail_ByUsrID($id);
     $db->deleteAllFollow_ByUsrID($id);
-    $db->deleteAllPoll_ByUsrId($id);
+    // $db->deleteAllPoll_ByUsrId($id);
     $db->deleteAllPollLog_ByUsrId($id);
     $allPost = $db->getAllPost_ByUsrID($id);
     foreach ($allPost as $post) {

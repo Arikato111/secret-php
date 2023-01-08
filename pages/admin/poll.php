@@ -1,5 +1,5 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 
 
 ?>
@@ -13,7 +13,8 @@ $db = import('./Database/db');
         <?php
         if (isset($_GET['p_id'])) {
             $p_id = (int) $_GET['p_id'];
-            if ($db->query("SELECT * FROM poll WHERE poll_id = $p_id")->num_rows != 0) {
+
+            if ($db->getPoll_ByID($p_id)) {
                 import('./components/poll/EditPoll');
             } else {
                 import('./components/poll/ShowPoll');

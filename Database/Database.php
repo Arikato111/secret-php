@@ -25,9 +25,9 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function getUser_All(bool $hide_private = false, bool $desc = false ,int $limit = 0): array | bool
+    public function getUser_All(bool $hide_private = false, bool $desc = false, int $limit = 0): array | bool
     {
-        $limitor = $limit != 0 ? "LIMIT $limit": '';
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
         if ($hide_private) {
             $mode = '
             `usr_name`, 
@@ -624,6 +624,135 @@ class Database
         $query = $this->conn->prepare("UPDATE usr SET `usr_status`= :usr_status WHERE usr_id = :usr_id LIMIT  1");
         $query->bindParam(':usr_status', $status, PDO::PARAM_STR);
         $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function reporBoardDetail_Count(): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM board_detail");
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function reportUser_Count(): int
+    {
+        $query = $this->conn->prepare("SELECT * FROM usr");
+        $query->execute();
+        return $query->rowCount();
+    }
+    public function reportUserRegisToday(): int
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("SELECT * FROM usr WHERE usr_regis_date = '$date'");
+        $query->execute();
+        return $query->rowCount();
+    }
+
+    public function insertPoll(string $poll_name, int $usr_id): bool
+    {
+        $date = date('Y-m-d');
+        $query = $this->conn->prepare("INSERT INTO `poll`
+        (`poll_id`, `poll_name`, `poll_date`, `usr_id`, `poll_view`) VALUES 
+        (NULL, :poll_name , :date , :usr_id , 0)");
+        $query->bindParam(':poll_name', $poll_name, PDO::PARAM_STR);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function updatePoll(int $poll_id, string $poll_name): bool
+    {
+        $query = $this->conn->prepare("UPDATE poll SET `poll_name`= :poll_name WHERE poll_id = :poll_id LIMIT 1");
+        $query->bindParam(':poll_name', $poll_name, PDO::PARAM_STR);
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function insertPollDetail(int $poll_id, string $pd_name): bool
+    {
+        $query = $this->conn->prepare("INSERT INTO `poll_detail`
+        (`pd_id`, `poll_id`, `pd_name`, `pd_count`) VALUES 
+        (NULL, :poll_id , :pd_name , 0)");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        $query->bindParam(':pd_name', $pd_name, PDO::PARAM_STR);
+        return $query->execute();
+    }
+    public function deletePollDetail_ByID(int $pd_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll_detail WHERE pd_id = :pd_id LIMIT 1");
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function updatePollDetail(int $pd_id, string $pd_name): bool
+    {
+        $query = $this->conn->prepare("UPDATE poll_detail SET pd_name = :pd_name WHERE pd_id = :pd_id LIMIT 1");
+        $query->bindParam(':pd_name', $pd_name, PDO::PARAM_STR);
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deletePoll_ByID(int $poll_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll WHERE poll_id = :poll_id LIMIT 1");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function deleteAllPollDetail_ByPID(int $poll_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll_detail WHERE poll_id = :poll_id ");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function Poll_TopVote(int $poll_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM poll_detail WHERE poll_id = :poll_id ORDER BY pd_count LIMIT 1");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function deleteAllPollLog_ByPID(int $poll_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM poll_log WHERE poll_id = :poll_id");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function insertCategory(string $cat_name, string $cat_path, string $cat_img): bool
+    {
+        $query = $this->conn->prepare("INSERT INTO
+         `cat`(`cat_id`, `cat_name`, `cat_path`, `cat_img`) 
+        VALUES (NULL, :cat_name , :cat_path , :cat_img)");
+        $query->bindParam(':cat_name', $cat_name, PDO::PARAM_STR);
+        $query->bindParam(':cat_path', $cat_path, PDO::PARAM_STR);
+        $query->bindParam(':cat_img', $cat_img, PDO::PARAM_STR);
+        return $query->execute();
+    }
+    public function Cate_check(string $cat_name, string $cat_path, int $not_id = 0): bool
+    {
+        if ($not_id > 0) {
+            $query = $this->conn->prepare("SELECT * FROM cat WHERE ( cat_name = :cat_name OR cat_path = :cat_path ) AND cat_id != :cat_id LIMIT 1");
+            $query->bindParam(':cat_id', $not_id, PDO::PARAM_INT);
+        } else {
+            $query = $this->conn->prepare("SELECT * FROM cat WHERE cat_name = :cat_name OR cat_path = :cat_path LIMIT 1");
+        }
+        $query->bindParam(':cat_name', $cat_name, PDO::PARAM_STR);
+        $query->bindParam(':cat_path', $cat_path, PDO::PARAM_STR);
+        $query->execute();
+        return $query->rowCount() > 0;
+    }
+    public function deleteCate_ByID(int $cat_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM cat WHERE cat_id = :cat_id LIMIT 1;");
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function updateCate(int $cat_id, string $cat_name, string $cat_path): bool
+    {
+        $query = $this->conn->prepare("UPDATE cat SET `cat_name`= :cat_name ,`cat_path` = :cat_path WHERE cat_id = :cat_id LIMIT 1;");
+        $query->bindParam(':cat_name', $cat_name, PDO::PARAM_STR);
+        $query->bindParam(':cat_path', $cat_path, PDO::PARAM_STR);
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function updateCate_Img(int $cat_id, string $cat_img): bool
+    {
+        $query = $this->conn->prepare("UPDATE cat SET `cat_img` = :cat_img WHERE cat_id = :cat_id LIMIT 1 ;");
+        $query->bindParam(':cat_img', $cat_img, PDO::PARAM_STR);
+        $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
         return $query->execute();
     }
 }

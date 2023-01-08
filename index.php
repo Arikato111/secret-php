@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("Asia/Bangkok");
 header("Cache-Control: no-cache, no-store, must-revalidate");
 ob_start();
 session_start();

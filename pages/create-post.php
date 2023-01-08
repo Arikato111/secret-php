@@ -32,8 +32,12 @@ $allCat = $db->getAllCategory();
 
 <title>สร้างโพสต์ | aden</title>
 <div class="row">
-    <div class="col-span-3"></div>
-    <div class="col-span-6">
+    <div class="col-span-3">
+        <div class="text-end mt-5 mx-3">
+            <button class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" onclick="window.history.back(-1)">ย้อนกลับ</button>
+        </div>
+    </div>
+    <div class="col-span-6 px-3">
         <h3 class="heading">สร้างโพสต์</h3>
         <form method="post" class="form-control" enctype="multipart/form-data">
             <textarea name="post_detail" maxlength="1300" class="input-text" rows="7" placeholder="ข้อความโพสต์" required></textarea>

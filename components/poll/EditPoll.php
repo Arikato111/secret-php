@@ -1,14 +1,20 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $p_id = (int) $_GET['p_id'];
-
+$poll = $db->getPoll_ByID($p_id);
 if (isset($_POST['updatePollName'])) {
-    $db->query("UPDATE poll SET `poll_name`='{$_POST['poll_name']}' WHERE poll_id = $p_id");
-    header("Refresh:0");
-    die;
+    $poll_name = $_POST['poll_name'] ?? "";
+
+    if (strlen($poll_name) > 200 || strlen($poll_name) == 0) {
+        getAlert('ข้อความต้องมีความยาวไม่เกิน 200 ตัวอักษร', 'danger');
+    } else {
+        $poll_name = htmlchar($poll_name);
+        $db->updatePoll($p_id, $poll_name);
+        header("Refresh:0");
+        die;
+    }
 }
 
-$poll = fetch($db->query("SELECT * FROM poll WHERE poll_id = $p_id LIMIT 1"));
 ?>
 
 <form class="form-control" method="post">

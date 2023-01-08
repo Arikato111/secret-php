@@ -1,5 +1,7 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
+$allBoard = $db->getAllBoard();
+
 ?>
 
 <div class="form-control">
@@ -23,31 +25,30 @@ $db = import('./Database/db');
                         จำนวนกระทู้ทั้งหมด
                     </td>
                     <td class="px-6 py-4">
-                        <?php echo $db->query("SELECT * FROM board")->num_rows ?? 0; ?>
+                        <?php echo sizeof($allBoard) ?>
                         กระทู้
                     </td>
                 </tr>
                 <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                        จำนวนคำตอบทั้งหมด
-                    </td>
-                    <td class="px-6 py-4">
-                        <?php echo $db->query("SELECT * FROM board_detail")->num_rows ?? 0; ?>
-                        คำตอบ
-                    </td>
+                    จำนวนคำตอบทั้งหมด
+                </td>
+                <td class="px-6 py-4">
+                    <?php echo $db->reporBoardDetail_Count(); ?>
+                    คำตอบ
+                </td>
                 </tr>
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                     <td scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                         จำนวนการเข้าชมกระทู้ทั้งหมด
                     </td>
                     <td class="px-6 py-4">
-                    <?php 
-                        $Allpoll = $db->query("SELECT * FROM board");
+                        <?php
                         $total_view = 0;
-                        while($poll = fetch($Allpoll)){
-                            $total_view += (int) ($poll['b_view'] ?? 0);
+                        foreach ($allBoard as $board) {
+                            $total_view += (int) ($board['b_view'] ?? 0);
                         }
                         echo $total_view;
-                         ?>
+                        ?>
                         ครั้ง
                     </td>
                 </tr>
