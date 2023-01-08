@@ -6,17 +6,19 @@ function getLike(post_id) {
   })
     .then((response) => response.json())
     .then((data) => {
-      const likeCount = document.getElementById(`likecount${post_id}`);
-      if (data.isLike) {
-        document.getElementById(`like${post_id}`).style.display = "none";
-        document.getElementById(`liked${post_id}`).style.display =
-          "inline-block";
-        likeCount.innerText = Math.floor(likeCount.innerText) + 1;
-      } else {
-        document.getElementById(`like${post_id}`).style.display =
-          "inline-block";
-        document.getElementById(`liked${post_id}`).style.display = "none";
-        likeCount.innerText = Math.floor(likeCount.innerText) - 1;
+      if (data.status) {
+        const likeCount = document.getElementById(`likecount${post_id}`);
+        if (data.isLike) {
+          document.getElementById(`like${post_id}`).style.display = "none";
+          document.getElementById(`liked${post_id}`).style.display =
+            "inline-block";
+          likeCount.innerText = Math.floor(likeCount.innerText) + 1;
+        } else {
+          document.getElementById(`like${post_id}`).style.display =
+            "inline-block";
+          document.getElementById(`liked${post_id}`).style.display = "none";
+          likeCount.innerText = Math.floor(likeCount.innerText) - 1;
+        }
       }
     });
 }
