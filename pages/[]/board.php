@@ -1,11 +1,11 @@
 <?php
 $getParams = import('wisit-router/getParams');
-$db = import('./Database/db');
+$db = new Database;
 $Post = import('./components/Post');
 $ProfileCard = import('./components/ProfileCard');
 
 $username = $getParams(0);
-$usr_profile = fetch($db->query("SELECT * FROM usr WHERE usr_username = '$username'"));
+$usr_profile = $db->getUser_ByUsername($username);
 
 if (!$usr_profile) return require('./pages/_error.php');
 if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');

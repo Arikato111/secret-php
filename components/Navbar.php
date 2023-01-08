@@ -1,5 +1,4 @@
 <?php
-$db = import('./Database/db');
 $getParams = import('wisit-router/getParams');
 
 if($getParams(0) == 'admin') {

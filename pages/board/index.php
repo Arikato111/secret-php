@@ -1,7 +1,3 @@
-<?php
-$db = import('./Database/db');
-?>
-
 <title>กระดานสนทนา | aden</title>
 <div class="row">
     <div class="col-span-3">

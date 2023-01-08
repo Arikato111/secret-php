@@ -1,6 +1,7 @@
 <?php
 if (isset($_SESSION['usr'])) {
-    $usr_nav = fetch($db->query("SELECT * FROM usr WHERE usr_id = " . $_SESSION['usr']));
+    $db = new Database;
+    $usr_nav = $db->getUser_ByID($_SESSION['usr']);
 }
 ?>
 
@@ -16,10 +17,10 @@ if (isset($_SESSION['usr'])) {
             <span class="block text-sm font-medium text-gray-500 truncate dark:text-gray-400"><?php echo $usr_nav['usr_email'] ?? ""; ?></span>
         </div>
         <ul class="py-1" aria-labelledby="user-menu-button">
-            <?php if(isset($_SESSION['status']) && $_SESSION['status'] == 'admin'): ?>
-            <li>
-                <a href="/admin/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
-            </li>
+            <?php if (isset($_SESSION['status']) && $_SESSION['status'] == 'admin') : ?>
+                <li>
+                    <a href="/admin/" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                </li>
             <?php endif; ?>
             <li>
                 <a href="/create-post" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">สร้างโพสต์</a>
