@@ -1,7 +1,9 @@
 <?php
 $db = new Database;
 if (isset($_GET['logout'])) {
-    $db->deleteLog_ByID($_SESSION['usr'] ?? 0);
+    $log = $db->getLog_ByToken($_COOKIE['token1'] ?? '', $_COOKIE['token2'] ?? '');
+    if ($log)
+        $db->deleteLog_ByID($log['log_id']);
     unset($_COOKIE['token1']);
     unset($_COOKIE['token2']);
     setcookie('token1', null, -1, "/");

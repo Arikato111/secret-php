@@ -60,7 +60,7 @@ if (isset($_POST['regis'])) {
         getAlert('อีเมล ไม่ถูกต้อง', 'danger');
     } elseif (preg_match('/\D/', $tel)) {
         getAlert('เบอร์โทรต้องเป็นตัวเลขเท่านั้น', 'danger');
-    } elseif (preg_match('/\W/', $username)) {
+    } elseif (preg_match('/\W/', $username) || $username == 'admin' || $username == 'api') {
         getAlert('ชื่อผู้ใช้ต้องเป็นภาษาอังกฤษและตัวเลขเท่านั้น', 'danger');
     } elseif ($password != $password1) {
         getAlert('รหัสผ่านไม่ตรงกัน', 'danger');
