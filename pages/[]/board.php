@@ -1,7 +1,6 @@
 <?php
 $getParams = import('wisit-router/getParams');
 $db = new Database;
-$Post = import('./components/Post');
 $ProfileCard = import('./components/ProfileCard');
 
 $username = $getParams(0);
@@ -20,7 +19,7 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
     </div>
     <div class="col-span-6 text-zinc-800 flex px-3 flex-col items-center">
         <!-- Content -->
-        <?php $ProfileCard($username); ?>
+        <?php $ProfileCard($usr_profile); ?>
         <!-- Content -->
         <div class="w-full">
             <?php import('./components/profile/ShowBoard'); ?>

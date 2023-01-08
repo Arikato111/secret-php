@@ -18,7 +18,7 @@ $feedPost = $db->myFeed($_SESSION['usr']);
     <div class="col-span-6">
         <div class="my-5">
             <?php foreach ($feedPost as $fp) :
-                $Post($fp['post_id']); ?>
+                $Post($fp); ?>
             <?php endforeach; ?>
         </div>
         <?php if (sizeof($feedPost) == 0) : ?>

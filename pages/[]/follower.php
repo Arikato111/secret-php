@@ -20,14 +20,15 @@ $AllFollower = $db->findFollow(def: $usr_profile['usr_id']);
     </div>
     <div class="col-span-6 flex px-3 flex-col items-center">
         <!-- Content -->
-        <?php $ProfileCard($username); ?>
+        <?php $ProfileCard($usr_profile); ?>
         <h3 class="heading w-full">มีผู้ติดตาม
             <?php echo sizeof($AllFollower) ?? 0; ?>
             คน
         </h3>
         <div class="w-full mx-3">
             <?php foreach ($AllFollower as $fol) {
-                $ProfileBar($fol['fol_atk']);
+                $usr_fol = $db->getUser_ByID($fol['fol_atk']);
+                $ProfileBar($usr_fol);
             } ?>
         </div>
         <?php if (sizeof($AllFollower) == 0) : ?>

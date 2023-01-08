@@ -12,7 +12,7 @@ if ($cat) {
     $allBoard = $db->getAllBoard(desc: true);
 }
 foreach ($allBoard as $board) {
-    $BoardCard($board['b_id']);
+    $BoardCard($board);
 }
 if (sizeof($allBoard) == 0) : ?>
     <div class="heading text-lg mx-3">ยังไม่มีกระทู้ในหมวดหมู่นี้</div>

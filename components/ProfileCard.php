@@ -1,12 +1,10 @@
 <?php
-$export = function ($username) {
+$export = function ($usr_profile) {
     $db = new Database;
-    $username = $username;
-    $usr_profile = $db->getUser_ByUsername($username);
 
     if (isset($_POST['follow'])) {
         $atk_id = $_SESSION['usr'];
-        $def_id =(int) ($_POST['usr_id'] ?? 0);
+        $def_id = (int) ($_POST['usr_id'] ?? 0);
         if (!isset($_SESSION['usr'])) {
             header('Location: /login');
             die;

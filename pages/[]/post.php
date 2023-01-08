@@ -20,7 +20,7 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
     </div>
     <div class="col-span-6 flex px-3 flex-col items-center">
         <!-- Content -->
-        <?php $ProfileCard($username); ?>
+        <?php $ProfileCard($usr_profile); ?>
         <!-- Content -->
         <div class="w-full">
 
@@ -32,10 +32,10 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
                 </div>
             <?php
             endif;
-            foreach ($allPost as $post) :
-                $Post($post['post_id']);
+            foreach ($allPost as $post) {
+                $Post($post);
+            }
             ?>
-            <?php endforeach; ?>
         </div>
     </div>
     <div class="col-span-3">

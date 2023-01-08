@@ -20,7 +20,7 @@ if (isset($_GET['search'])) {
 
         <?php
         foreach ($allUser as $usr) {
-            $ProfileBar($usr['usr_id']);
+            $ProfileBar($usr);
         }
         if (sizeof($allUser) == 0) : ?>
             <div class="heading">ไม่พบผู้ใช้งาน</div>

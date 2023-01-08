@@ -278,11 +278,7 @@ class Database
         $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id;");
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
-        if ($query->rowCount() > 0) {
-            return $query->fetchAll(PDO::FETCH_ASSOC);
-        } else {
-            return false;
-        }
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
     public function deletePost_ByID(int $id)
     {

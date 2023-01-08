@@ -30,7 +30,7 @@ $allPost = $db->getAllPost(limit: 100, desc: true, cat_id: $cate['cat_id']);
                 <?php
                 foreach ($allPost as $post) {
 
-                    $Post($post['post_id']);
+                    $Post($post);
                 }
                 ?>
             </div>

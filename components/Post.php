@@ -1,7 +1,7 @@
 <?php
-$Post = function ($post_id) {
+$Post = function ($post) {
     $db = new Database;
-    $db->postView_UP($post_id);
+    $db->postView_UP($post['post_id']);
 
     if (isset($_POST['like'])) {
         if (!isset($_SESSION['usr'])) {
@@ -32,7 +32,6 @@ $Post = function ($post_id) {
         }
     }
 
-    $post = $db->getPost_ByID($post_id);
     $usr_post = $db->getUser_ByID($post['post_usr_id']);
     $cat = $db->getCate_ByID($post['post_cat_id']);
 ?>

@@ -1,5 +1,5 @@
 <?php
-$export = function ($id, $hover = true) {
+$export = function ($board, $hover = true) {
     $db = new Database;
 
 
@@ -20,7 +20,6 @@ $export = function ($id, $hover = true) {
     }
 
 
-    $board = $db->getBoard_ByID($id);
     $usr_post = $db->getUser_ByID($board['usr_id']);
     $cat = $db->getCate_ByID($board['cat_id']);
 ?>

@@ -21,7 +21,7 @@ $AllFollowing = $db->findFollow(atk: $usr_profile['usr_id']);
     </div>
     <div class="col-span-6 flex px-3 flex-col items-center">
         <!-- Content -->
-        <?php $ProfileCard($username); ?>
+        <?php $ProfileCard($usr_profile); ?>
         <h3 class="heading w-full">
             กำลังติดตาม
             <?php echo sizeof($AllFollowing) ?? 0; ?>
@@ -29,7 +29,8 @@ $AllFollowing = $db->findFollow(atk: $usr_profile['usr_id']);
         </h3>
         <div class="w-full mx-3">
             <?php foreach ($AllFollowing as $fol) {
-                $ProfileBar($fol['fol_def']);
+                $usr_fol = $db->getUser_ByID($fol['fol_def']);
+                $ProfileBar($usr_fol);
             } ?>
         </div>
         <?php if (sizeof($AllFollowing) == 0) : ?>

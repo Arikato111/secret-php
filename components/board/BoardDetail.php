@@ -3,8 +3,9 @@ $db = new Database;
 $getParams = import('wisit-router/getParams');
 $b_id = (int) $getParams();
 $BoardCard = import('./components/BoardCard');
-
-$db->Board_ViewUp($b_id);
+$board = $db->getBoard_ByID($b_id);
+if ($board)
+    $db->Board_ViewUp($b_id);
 
 ?>
 <title>กระทู้ | aden</title>
@@ -15,7 +16,7 @@ $db->Board_ViewUp($b_id);
     <div class="col-span-6 text-zinc-800">
 
         <?php
-        $BoardCard($b_id, false);
+        $BoardCard($board, false);
         import('./components/board/CreateBoardDetail'); ?>
         <?php import('./components/board/ShowBoardDetail'); ?>
     </div>

@@ -14,7 +14,7 @@ $allPost = $db->getAllPost(limit: 100, desc: true);
         <div class="col-span-6 mt-5">
             <?php
             foreach ($allPost as $post) {
-                $Post($post['post_id']);
+                $Post($post);
             } ?>
         </div>
         <div class="col-span-3">
