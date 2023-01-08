@@ -28,10 +28,8 @@ $app->post('*', function ($req, $res) {
 
 $app->all('*', function ($req, $res) {
     $res->status(400);
-    $method = $_SERVER['REQUEST_METHOD'];
     $res->json([
         "staus" => 0,
         "msg" => "bad request",
-        "method" => $method
     ]);
 });
