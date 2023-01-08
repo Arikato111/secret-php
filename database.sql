@@ -198,7 +198,7 @@ CREATE TABLE `usr` (
 --
 
 INSERT INTO `usr` (`usr_id`, `usr_name`, `usr_bio`, `usr_address`, `usr_date`, `usr_email`, `usr_tel`, `usr_username`, `usr_password`, `usr_status`, `usr_view`, `usr_regis_date`, `usr_img`) VALUES
-(5, 'Nawasan Wisitsingkhon', 'Hello world\r\n', '221b.', '2001-11-29', 'arikato110011@gmail.com', '0920392039', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, '2023-01-03', 'fd01b05e63706f8b7bccc4e13dac6142.jpg');
+(5, 'Nawasan Wisitsingkhon', 'Hello world\r\n', '221b.', '2001-11-29', 'arikato110011@gmail.com', '0920392039', 'nawasan', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, '2023-01-03', 'fd01b05e63706f8b7bccc4e13dac6142.jpg');
 --
 -- Indexes for dumped tables
 --

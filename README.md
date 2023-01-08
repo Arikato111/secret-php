@@ -21,6 +21,9 @@ but this can be production and I try to write a real use case.
 - `yarn` or `npm i` to install packages
 - if using `linux` don't forget to change permission `public` folders and all inside
 - open [localhost](http://localhost) on your browser
+- login witch the admin account
+  - username : `nawasan`
+  - password : `admin`
 
 ## Inside it
 
