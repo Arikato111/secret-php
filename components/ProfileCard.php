@@ -37,6 +37,7 @@ $export = function ($usr_profile) {
     if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');
     if (isset($_POST['editImg'])) return import('./components/profile/EditImg');
     if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
+    if (isset($_POST['log'])) return import('./components/profile/Log');
 ?>
 
 
@@ -64,6 +65,9 @@ $export = function ($usr_profile) {
                         </li>
                         <li>
                             <button name="editPassword" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">เปลี่ยนรหัสผ่าน</button>
+                        </li>
+                        <li>
+                            <button name="log" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ประวัติการเข้าสู่ระบบ</button>
                         </li>
                     </form>
                     <li>

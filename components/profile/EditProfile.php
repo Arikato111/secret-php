@@ -1,6 +1,7 @@
 <?php
-$usr_id = $_SESSION['usr'];
+$usr_id = $_SESSION['usr'] ?? 0;
 $db = new Database;
+
 if (isset($_POST['saveEditProfile'])) {
     [
         'usr_name' => $name,
@@ -53,38 +54,35 @@ if (isset($_POST['saveEditProfile'])) {
 
 
 $usr_profile = $db->getUser_ByID($usr_id);
+if (!$usr_profile) {
+    header('Refresh:0');
+    die;
+};
+
 
 ?>
 
-<title><?php echo $usr_profile['usr_username']; ?> | แก้ไขโปรไฟล์</title>
-<main>
-    <div class="row">
-        <div class="col-span-3"></div>
-        <div class="col-span-6 px-5">
-            <div class="text-right">
-                <a class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" href="/<?php echo $usr_profile['usr_username']; ?>">ย้อนกลับ</a>
-            </div>
-            <h3 class="heading">แก้ไขโปรไฟล์</h3>
-            <form class="form-control" enctype="multipart/form-data" method="post">
-                <input type="hidden" name="editProfile">
-
-                <input class="input-text" type="text" pattern="[ก-์a-zA-Z\s]{1,50}" name="usr_name" maxlength="50" value="<?php echo $usr_profile['usr_name'] ?? ""; ?>" placeholder="ชื่อ - สกุล" required>
-                <textarea class="input-text" name="usr_bio" maxlength="200" placeholder="คำอธิบายตัวคุณ" rows="5" required><?php echo $usr_profile['usr_bio'] ?? ""; ?></textarea>
-                <textarea class="input-text" name="usr_address" maxlength="200" placeholder="ที่อยู่" rows="3" required><?php echo $usr_profile['usr_address'] ?? ""; ?></textarea>
-                <div class="flex">
-                    <label class="input-label" for="">วันเกิด</label>
-                    <input class="input-text" type="date" name="usr_date" value="<?php echo $usr_profile['usr_date'] ?? ""; ?>" id="" required>
-                </div>
-                <input class="input-text" type="email" maxlength="100" name="usr_email" value="<?php echo $usr_profile['usr_email'] ?? ""; ?>" placeholder="อีเมล" required>
-                <input class="input-text" type="tel" maxlength="10" name="usr_tel" value="<?php echo $usr_profile['usr_tel'] ?? ""; ?>" placeholder="เบอร์โทร" required>
-
-                <div>
-                    <button name="saveEditProfile" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
-                </div>
-
-            </form>
-        </div>
-        <div class="col-span-3"></div>
+<div class="w-full">
+    <div class="text-right">
+        <a class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" href="/<?php echo $usr_profile['usr_username']; ?>">ย้อนกลับ</a>
     </div>
-    <br>
-</main>
+    <h3 class="heading">แก้ไขโปรไฟล์</h3>
+    <form class="form-control" enctype="multipart/form-data" method="post">
+        <input type="hidden" name="editProfile">
+
+        <input class="input-text" type="text" pattern="[ก-์a-zA-Z\s]{1,50}" name="usr_name" maxlength="50" value="<?php echo $usr_profile['usr_name'] ?? ""; ?>" placeholder="ชื่อ - สกุล" required>
+        <textarea class="input-text" name="usr_bio" maxlength="200" placeholder="คำอธิบายตัวคุณ" rows="5" required><?php echo $usr_profile['usr_bio'] ?? ""; ?></textarea>
+        <textarea class="input-text" name="usr_address" maxlength="200" placeholder="ที่อยู่" rows="3" required><?php echo $usr_profile['usr_address'] ?? ""; ?></textarea>
+        <div class="flex">
+            <label class="input-label" for="">วันเกิด</label>
+            <input class="input-text" type="date" name="usr_date" value="<?php echo $usr_profile['usr_date'] ?? ""; ?>" id="" required>
+        </div>
+        <input class="input-text" type="email" maxlength="100" name="usr_email" value="<?php echo $usr_profile['usr_email'] ?? ""; ?>" placeholder="อีเมล" required>
+        <input class="input-text" type="tel" maxlength="10" name="usr_tel" value="<?php echo $usr_profile['usr_tel'] ?? ""; ?>" placeholder="เบอร์โทร" required>
+
+        <div>
+            <button name="saveEditProfile" class="bg-blue-600 text-white py-2 px-3 rounded-lg w-full">บันทึก</button>
+        </div>
+
+    </form>
+</div>

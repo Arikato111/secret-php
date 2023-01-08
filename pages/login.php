@@ -1,12 +1,17 @@
 <?php
+$db = new Database;
 if (isset($_GET['logout'])) {
+    $db->deleteLog_ByID($_SESSION['usr'] ?? 0);
+    unset($_COOKIE['token1']);
+    unset($_COOKIE['token2']);
+    setcookie('token1', null, -1, "/");
+    setcookie('token2', null, -1, "/");
     session_unset();
     header('Location: /login');
     die;
 }
 
 if (isset($_POST['login'])) {
-    $db = new Database;
 
     $username = $_POST['usr_username'] ?? "";
     $password = md5($_POST['usr_password'] ?? "");
@@ -14,8 +19,8 @@ if (isset($_POST['login'])) {
     if ($usr) {
         $_SESSION['usr'] = $usr['usr_id'];
         $_SESSION['status'] = $usr['usr_status'];
+        $db->insertLog($usr['usr_id']);
         header('Location: /');
-        die;
     } else {
         getAlert('username หรือ รหัสผ่านไม่ถูกต้อง', 'danger');
     }

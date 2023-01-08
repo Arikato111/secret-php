@@ -751,4 +751,70 @@ class Database
         $query->bindParam(':cat_id', $cat_id, PDO::PARAM_INT);
         return $query->execute();
     }
+    public function insertLog(int $usr_id): bool
+    {
+        $token1 = sha1($usr_id . time() . rand());
+        $token2 = sha1($usr_id . time() . rand());
+        $date = date('Y-m-d');
+        $query  = $this->conn->prepare("INSERT INTO `login_log`
+        (`log_id`, `token1`, `token2`, `usr_id`, `log_date`) VALUES 
+        (NULL , :token1 , :token2 , :usr_id , :date )");
+        $query->bindParam(':token1', $token1, PDO::PARAM_STR);
+        $query->bindParam(':token2', $token2, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $result = $query->execute();
+        if ($result) {
+            setcookie('token1', $token1, time() + (86400 * 30), "/");
+            setcookie('token2', $token2, time() + (86400 * 30), "/");
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function getAllLog(int $limit = 0, bool $desc = false): array | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
+        $sort = $desc ? "ORDER BY log_id DESC" : '';
+        $query = $this->conn->prepare("SELECT * FROM login_log $sort $limitor ;");
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getLog_ByUsrID(int $usr_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM login_log WHERE usr_id = :usr_id ORDER BY log_id DESC");
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getLog_ByToken(string $token1, string $token2): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM login_log WHERE token1 = :token1 AND token2 = :token2 LIMIT 1 ;");
+        $query->bindParam(':token1', $token1, PDO::PARAM_STR);
+        $query->bindParam(':token2', $token2, PDO::PARAM_STR);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function getLog_ByTokenOne(string $token1): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM login_log WHERE token1 = :token1  LIMIT 1 ;");
+        $query->bindParam(':token1', $token1, PDO::PARAM_STR);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function deleteLog_ByID($log_id): bool
+    {
+        $query = $this->conn->prepare("DELETE FROM login_log WHERE log_id = :log_id LIMIT 1;");
+        $query->bindParam(':log_id', $log_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function getAllLog_ByUsrID(int $usr_id, int $limit = 0, $desc = false): array | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
+        $sort = $desc ? "ORDER BY log_id DESC" : '';
+        $query = $this->conn->prepare("SELECT * FROM login_log WHERE usr_id = :usr_id $sort $limitor ;");
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

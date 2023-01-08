@@ -6,9 +6,6 @@ $ProfileBar = import('./components/ProfileBar');
 $username = $getParams(0);
 $usr_profile = $db->getUser_ByUsername($username);
 if (!$usr_profile) return require('./pages/_error.php');
-if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');
-if (isset($_POST['editImg'])) return import('./components/profile/EditImg');
-if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
 
 $AllFollower = $db->findFollow(def: $usr_profile['usr_id']);
 ?>
