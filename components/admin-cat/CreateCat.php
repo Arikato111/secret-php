@@ -14,7 +14,7 @@ if (isset($_POST['createCat'])) {
         strlen($cat_path) == 0
     ) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 50 ตัวอักษร', 'danger');
-    } elseif (preg_match('/[^ก-ฮa-zA-Z]/', $cat_name)) {
+    } elseif (preg_match('/[^ก-ฮเa-zA-Z]/', $cat_name)) {
         getAlert('ชื่อหมวดหมู่ต้องเป็นภาษาไีทยหรือภาษาอังกฤษเท่านั้น ห้ามเว้นวรรค หรือ ขึ้นบรรทัดใหม่', 'danger');
     } elseif (preg_match('/[^a-z]/', $cat_path)) {
         getAlert('path directory ต้องเป็นภาษาอังกฤษตัวพิมเล็กเท่านั้น', 'danger');
@@ -37,8 +37,8 @@ if (isset($_POST['createCat'])) {
     <div>
         <div class="p-3 text-center"><img id="blah" class="hidden w-12 h-12 object-cover rounded-full" alt=""></div>
     </div>
-    <input type="text" name="cat_name" maxlength="50" pattern="[a-zก-์]{1,50}" placeholder="ชื่อหมวดหมู่" id="" class="input-text" required>
-    <input type="text" name="cat_path" maxlength="50" pattern="[a-z]{1,50}" placeholder="path directory" id="" class="input-text" reauired>
+    <input type="text" name="cat_name" maxlength="50" value="<?php echo $_POST['cat_name'] ?? ''; ?>" pattern="[a-zก-์]{1,50}" placeholder="ชื่อหมวดหมู่" id="" class="input-text" required>
+    <input type="text" name="cat_path" maxlength="50" value="<?php echo $_POST['cat_path'] ?? ''; ?>" pattern="[a-z]{1,50}" placeholder="path directory" id="" class="input-text" reauired>
     <input id="dropzone-file" class="input-text block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold  mb-1 file:bg-blue-50 file:text-blue-700       hover:file:bg-violet-100" type="file" accept="image/svg+xml" name="cat_img" required>
     <p class="mb-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG</p>
     <div class="text-right">

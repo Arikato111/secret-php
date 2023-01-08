@@ -34,7 +34,7 @@ if (isset($_POST['updateCate'])) {
         strlen($cat_path) == 0
     ) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 50 ตัวอักษร', 'danger');
-    } elseif (preg_match('/[^ก-ฮa-zA-Z]/', $cat_name)) {
+    } elseif (preg_match('/[^ก-ฮเa-zA-Z]/', $cat_name)) {
         getAlert('ชื่อหมวดหมู่ต้องเป็นภาษาไีทยหรือภาษาอังกฤษเท่านั้น ห้ามเว้นวรรค หรือ ขึ้นบรรทัดใหม่', 'danger');
     } elseif (preg_match('/[^a-z]/', $cat_path)) {
         getAlert('path directory ต้องเป็นภาษาอังกฤษตัวพิมเล็กเท่านั้น', 'danger');

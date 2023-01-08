@@ -27,10 +27,10 @@ if (isset($_POST['saveEditProfile'])) {
     ) {
         getAlert('ข้อมูลไม่ถูกต้อง', 'danger');
     } elseif (
-        preg_match('/[^a-zA-Zก-ฮ\s]/', $name)
+        preg_match('/[^a-zA-Zก-ฮเ\s]/', $name)
     ) {
         getAlert('ชื่อ - สกุล ต้องเป็นภาษาไทยหรืออังกฤษเท่านั้น', 'danger');
-    } elseif (preg_match('/[^a-zA-Zก-ฮ0-9\s]/', $bio)) {
+    } elseif (preg_match('/[^a-zA-Zก-ฮเ0-9\s]/', $bio)) {
         getAlert('คำอธิบาย ต้องเป็นภาษาไทย อังกฤษ หรือตัวเลขเท่านั้น', 'danger');
     } elseif (preg_match('/[^\d-]/', $date)) {
         getAlert('วันเกิด ไม่ถูกต้อง', 'danger');
