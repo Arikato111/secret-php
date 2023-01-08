@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 06, 2023 at 07:17 PM
+-- Generation Time: Jan 08, 2023 at 06:47 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.1.12
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `board` (
   `b_id` int(11) NOT NULL,
-  `b_name` varchar(200) NOT NULL,
+  `b_name` text NOT NULL,
   `b_date` date NOT NULL,
   `usr_id` int(11) NOT NULL,
   `b_view` int(11) NOT NULL,
@@ -59,7 +59,8 @@ CREATE TABLE `board_detail` (
 CREATE TABLE `cat` (
   `cat_id` int(11) NOT NULL,
   `cat_name` varchar(50) NOT NULL,
-  `cat_path` varchar(50) NOT NULL
+  `cat_path` varchar(50) NOT NULL,
+  `cat_img` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -73,6 +74,20 @@ CREATE TABLE `follow` (
   `fol_atk` int(11) NOT NULL,
   `fol_def` int(11) NOT NULL,
   `fol_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login_log`
+--
+
+CREATE TABLE `login_log` (
+  `log_id` int(11) NOT NULL,
+  `token1` varchar(40) NOT NULL,
+  `token2` varchar(40) NOT NULL,
+  `usr_id` int(11) NOT NULL,
+  `log_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -139,7 +154,7 @@ CREATE TABLE `post` (
 CREATE TABLE `post_detail` (
   `pd_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
-  `pd_name` varchar(200) NOT NULL,
+  `pd_name` text NOT NULL,
   `pd_date` date NOT NULL,
   `usr_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -179,6 +194,12 @@ CREATE TABLE `usr` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
+-- Dumping data for table `usr`
+--
+
+INSERT INTO `usr` (`usr_id`, `usr_name`, `usr_bio`, `usr_address`, `usr_date`, `usr_email`, `usr_tel`, `usr_username`, `usr_password`, `usr_status`, `usr_view`, `usr_regis_date`, `usr_img`) VALUES
+(5, 'Nawasan Wisitsingkhon', 'Hello world\r\n', '221b.', '2001-11-29', 'arikato110011@gmail.com', '0920392039', 'admin', '21232f297a57a5a743894a0e4a801fc3', 'admin', 0, '2023-01-03', 'fd01b05e63706f8b7bccc4e13dac6142.jpg');
+--
 -- Indexes for dumped tables
 --
 
@@ -205,6 +226,12 @@ ALTER TABLE `cat`
 --
 ALTER TABLE `follow`
   ADD PRIMARY KEY (`fol_id`);
+
+--
+-- Indexes for table `login_log`
+--
+ALTER TABLE `login_log`
+  ADD PRIMARY KEY (`log_id`);
 
 --
 -- Indexes for table `poll`
@@ -277,6 +304,12 @@ ALTER TABLE `follow`
   MODIFY `fol_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `login_log`
+--
+ALTER TABLE `login_log`
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `poll`
 --
 ALTER TABLE `poll`
@@ -316,7 +349,7 @@ ALTER TABLE `post_like`
 -- AUTO_INCREMENT for table `usr`
 --
 ALTER TABLE `usr`
-  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `usr_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
