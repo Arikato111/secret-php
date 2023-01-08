@@ -19,7 +19,7 @@ if (isset($_POST['editPassword'])) return import('./components/profile/EditPassw
     </div>
     <div class="col-span-6 flex px-3 flex-col items-center">
         <!-- Content -->
-        <?php $ProfileCard($username); ?>
+        <?php $ProfileCard($usr_profile); ?>
 
         <!-- Content -->
     </div>

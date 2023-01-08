@@ -36,7 +36,7 @@ if ($getParams(0) == 'api') {
     /********* Content ***********/
     ?>
     <script src="/public/flowbite.js"></script>
-
+    <script src="/public/script.js"></script>
 </body>
 
 </html>

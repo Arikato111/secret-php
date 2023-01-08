@@ -20,6 +20,10 @@
         "wisit-router": {
             "version": "main",
             "url": "https://github.com/Arikato111/wisit-router/tree/master"
+        },
+        "wisit-express": {
+            "version": "main",
+            "url": "https://github.com/Arikato111/wisit-express/tree/Release1.0"
         }
     },
     "scripts": {

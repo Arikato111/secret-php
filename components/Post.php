@@ -80,7 +80,7 @@ $Post = function ($post) {
         </div>
         <div class="m-3">
             <span><img class="inline-block w-6" src="/public/icons/f-heart.svg" alt="full heart icon">
-                <?php echo $db->getPostLikeCount($post['post_id']); ?>
+                <span id="likecount<?php echo $post['post_id']; ?>"><?php echo $db->getPostLikeCount($post['post_id']); ?></span>
             </span>
             <span class="float-right">
                 <?php echo $db->getPostCommentCount($post['post_id']) ?? 0; ?>
@@ -92,18 +92,25 @@ $Post = function ($post) {
         </div>
         <hr class="border">
         <div class="p-3 pb-0 text-gray-600">
-            <form method="post">
+            <div>
                 <input type="hidden" name="post_id" value="<?php echo $post['post_id']; ?>">
-                <?php if (!isset($_SESSION['usr']) || !$db->isLikePost($post['post_id'], $_SESSION['usr'])) : ?>
-                    <button name="like" class="py-1 px-3 hover:bg-gray-200 rounded-lg"><img class="inline-block w-6" src="/public/icons/heart.svg" alt="heart icon"> ถูกใจ</button>
-                <?php else : ?>
-                    <button name="like" class="py-1 px-3 hover:bg-gray-200 rounded-lg text-rose-500"><img class="inline-block w-6" src="/public/icons/heart-red.svg" alt="heart icon"> ถูกใจแล้ว</button>
-                <?php endif; ?>
+                <?php if (!isset($_SESSION['usr']) || !$db->isLikePost($post['post_id'], $_SESSION['usr'])) {
+
+                    $isLike = true;
+                } else {
+                    $isLike = false;
+                } ?>
+                <button id="like<?php echo $post['post_id']; ?>" onclick="getLike(<?php echo $post['post_id']; ?>)" class="<?php echo $isLike ? '' : 'hidden'; ?> py-1 px-3 hover:bg-gray-200 rounded-lg">
+                    <img class="inline-block w-6" src="/public/icons/heart.svg" alt="heart icon">
+                    ถูกใจ</button>
+                <button id="liked<?php echo $post['post_id']; ?>" onclick="getLike(<?php echo $post['post_id']; ?>)" class="<?php echo $isLike ? 'hidden' : ''; ?> py-1 px-3 hover:bg-gray-200 rounded-lg text-rose-500"><img class="inline-block w-6" src="/public/icons/heart-red.svg" alt="heart icon">
+                    ถูกใจแล้ว
+                </button>
                 <a href="/post/<?php echo $post['post_id'] ?? ""; ?>" class="py-2 px-3 hover:bg-gray-200 rounded-lg">
                     <img class="inline-block w-6" src="/public/icons/comment.svg" alt="comment icon">
                     ความคิดเห็น
                 </a>
-            </form>
+            </div>
         </div>
     </div>
 

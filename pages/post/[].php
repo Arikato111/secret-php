@@ -42,7 +42,7 @@ $usr_post = $db->getUser_ByID($post['post_usr_id']);
             <div class="mt-5 mb-3 text-right px-3">
                 <a class="inline-block bg-gray-500 px-3  py-2 text-white rounded-lg" onclick="window.history.back()" href="#">ย้อนกลับ</a>
             </div>
-            <?php $Post($post_id); ?>
+            <?php $Post($post); ?>
             <form class="form-control-group" method="post">
                 <input class="input-text m-0" maxlength="500" type="text" name="pd_name" id="" required>
                 <button name="createComment" class="btn primary">แสดงความคิดเห็น</button>
