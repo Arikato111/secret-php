@@ -537,4 +537,13 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAllBoardDetail_ByBID(int $b_id, bool $desc = false, int $limit = 0): array | bool
+    {
+        $sort = $desc ? 'ORDER BY bd_id DESC' : '';
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
+        $query = $this->conn->prepare("SELECT *FROM board_detail WHERE b_id = :b_id $sort $limitor ;");
+        $query->bindParam(':b_id', $b_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

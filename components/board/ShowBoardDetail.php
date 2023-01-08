@@ -19,6 +19,7 @@ if (isset($_POST['deleteBD'])) {
 }
 
 $allBD = $db->getAllBoardDetail(desc: true);
+$allBD = $db->getAllBoardDetail_ByBID(b_id: $b_id, desc: true, limit: 200);
 foreach ($allBD as $bd) :
     $usr_post = $db->getUser_ByID($bd['usr_id']);
     $id = rand();
