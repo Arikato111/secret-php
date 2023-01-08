@@ -546,4 +546,75 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAllPoll(int $limit = 0, bool $desc = false): array  | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : "";
+        $sort = $desc ? 'ORDER BY poll_id DESC' : "";
+        $query = $this->conn->prepare("SELECT * FROM poll $sort  $limitor");
+        $query->execute();
+        return $query->fetchAll();
+    }
+    public function getPoll_ByID(int $p_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM poll WHERE poll_id = :p_id ;");
+        $query->bindParam(':p_id', $p_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function searchPoll(string $search, int $limit = 0, bool $desc = false): array | bool
+    {
+        $search = "%$search%";
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
+        $sort = $desc ? "ORDER BY poll_id DESC" : '';
+
+        $query = $this->conn->prepare("SELECT * FROM poll WHERE poll_name LIKE :search $sort $limitor ;");
+        $query->bindParam(':search', $search, PDO::PARAM_STR);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getAllPollDetail_ByPID(int $p_id, int $limit = 0, $desc = false): array  | bool
+    {
+        $limitor = $limit != 0 ? "LIMIT $limit" : '';
+        $sort = $desc ? "ORDER BY pd_id DESC" : '';
+        $query = $this->conn->prepare("SELECT * FROM poll_detail WHERE poll_id = :p_id $sort $limitor ;");
+        $query->bindParam(':p_id', $p_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function getPollDetail_ByID(int $pd_id): array | bool
+    {
+        $query = $this->conn->prepare("SELECT * FROM poll_detail WHERE pd_id = :pd_id LIMIT 1;");
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+    public function isVoted(int $poll_id, $usr_id)
+    {
+        $query = $this->conn->prepare("SELECT * FROM poll_log WHERE
+        `poll_id` = :p_id AND `usr_id` = :usr_id LIMIT 1");
+        $query->bindParam(':p_id', $poll_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->execute();
+        return $query->rowCount() > 0;
+    }
+    public function insertVote(int $poll_id, int $usr_id): bool
+    {
+        $query = $this->conn->prepare("INSERT INTO `poll_log`
+        (`pl_id`, `poll_id`, `usr_id`) VALUES 
+        (NULL, :poll_id, :usr_id );");
+        $query->bindParam(':poll_id', $poll_id, PDO::PARAM_INT);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function PollDetailCount_Up(int $pd_id): bool
+    {
+        $query = $this->conn->prepare("UPDATE poll_detail SET `pd_count`=`pd_count`+1 WHERE pd_id = :pd_id LIMIT 1");
+        $query->bindParam(':pd_id', $pd_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
+    public function PollView_Up(int $p_id): bool {
+        $query = $this->conn->prepare("UPDATE poll SET `poll_view`=`poll_view`+1 WHERE poll_id = :poll_id LIMIT 1;");
+        $query->bindParam(':poll_id', $p_id, PDO::PARAM_INT);
+        return $query->execute();
+    }
 }

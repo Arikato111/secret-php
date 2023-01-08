@@ -1,30 +1,33 @@
 <?php
-$db = import('./Database/db');
+$db = new Database;
 $getParams = import('wisit-router/getParams');
 $p_id = (int) $getParams();
 
-if(isset($_POST['vote'])) {
-    if($db->query("SELECT * FROM poll_log WHERE
-    `poll_id` = $p_id AND `usr_id` = {$_SESSION['usr']} LIMIT 1")->num_rows != 0) {
-        header("Refresh:0");die;    
+if (isset($_POST['vote'])) {
+    $pd_id = (int) ($_POST['pd_id'] ?? 0);
+    $pollDetail = $db->getPollDetail_ByID($pd_id);
+
+    if (!$pollDetail) {
+        getAlert('ตัวเลือกไม่ถูกต้อง', 'danger');
+    } elseif (!isset($_SESSION['usr'])) {
+        getAlert('กรุณาเข้าสู่ระบบเพื่อใช้งาน', 'danger');
+    } elseif ($db->isVoted($p_id, $_SESSION['usr'])) {
+        getAlert('คุณได้ทำการโหวตแบบประเมินนี้แล้ว', 'danger');
     } else {
-        $db->query("INSERT INTO `poll_log`
-        (`pl_id`, `poll_id`, `usr_id`) VALUES 
-        (NULL,$p_id, {$_SESSION['usr']})");
-        $db->query("UPDATE poll_detail SET `pd_count`=`pd_count`+1 WHERE pd_id = {$_POST['pd_id']} LIMIT 1");
-        header("Refresh:0");die;
+        $db->insertVote($p_id, $_SESSION['usr']);
+        $db->PollDetailCount_Up($pd_id);
+        header("Refresh:0");
+        die;
     }
 }
 
-$allPollDetail = fetch_all($db->query("SELECT * FROM poll_detail WHERE poll_id = $p_id"));
+$allPollDetail = $db->getAllPollDetail_ByPID($p_id);
 $total = 0;
 foreach ($allPollDetail as $pd) {
     $total += (int) $pd['pd_count'];
 }
-
 if (isset($_SESSION['usr'])) {
-    $isVote = $db->query("SELECT * FROM poll_log WHERE
-    `poll_id` = $p_id AND `usr_id` = {$_SESSION['usr']} LIMIT 1")->num_rows == 0;
+    $isVote = !$db->isVoted($p_id, $_SESSION['usr']);
 } else {
     $isVote = false;
 }
@@ -38,7 +41,7 @@ if (isset($_SESSION['usr'])) {
     <?php foreach ($allPollDetail as $pd) :
         $total_count = $total == 0 ? 0 : (int)(($pd['pd_count']) / $total * 100); ?>
         <form method="POST" class="flex items-baseline justify-center">
-            <input type="hidden" name="pd_id" value="<?php echo $pd['pd_id']; ?>">
+            <input type="hidden" name="pd_id" value="<?php echo $pd['pd_id'] ?? 0; ?>">
             <div class="input-text">
                 <?php echo $pd['pd_name'] ?? ""; ?>
             </div>
@@ -53,7 +56,7 @@ if (isset($_SESSION['usr'])) {
             </div>
         </div>
     <?php endforeach;
-    if(sizeof($allPollDetail) == 0): ?>
-    <div class="text-center">ยังไม่มีตัวเลือก</div>
+    if (sizeof($allPollDetail) == 0) : ?>
+        <div class="text-center">ยังไม่มีตัวเลือก</div>
     <?php endif; ?>
 </div>
