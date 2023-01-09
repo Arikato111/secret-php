@@ -27,7 +27,7 @@ but this can be production and I try to write a real use case.
 
 ## Inside it
 
-- PHP + MySQL
+- PHP-8.1 + MySQL
 - [Tailwindcss](https://tailwindcss.com)
 - [control](https://github.com/Arikato111/control)
 - [spelte](https://github.com/Arikato111/spelte-php)
