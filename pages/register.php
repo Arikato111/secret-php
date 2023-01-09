@@ -76,6 +76,8 @@ if (isset($_POST['regis'])) {
         $username == 'question' ||
         $username == 'business' ||
         $username == 'ads' ||
+        $username == 'phpmyadmin' ||
+        $username == 'php' ||
         $username == 'api'
     ) {
         getAlert('ชื่อผู้ใช้ต้องเป็นภาษาอังกฤษและตัวเลขเท่านั้น', 'danger');
