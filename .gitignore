@@ -3,6 +3,3 @@ node_modules
 public/profile/*
 public/posts/*
 public/cat/*
-!public/profile
-!public/posts
-!public/cat
