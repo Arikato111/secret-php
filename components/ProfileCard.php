@@ -34,10 +34,12 @@ $export = function ($usr_profile) {
     }
 
     if (!$usr_profile) return require('./pages/_error.php');
-    if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');
-    if (isset($_POST['editImg'])) return import('./components/profile/EditImg');
-    if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
-    if (isset($_POST['log'])) return import('./components/profile/Log');
+    if ($_SESSION['usr'] ?? false) {
+        if (isset($_POST['editProfile'])) return import('./components/profile/EditProfile');
+        if (isset($_POST['editImg'])) return import('./components/profile/EditImg');
+        if (isset($_POST['editPassword'])) return import('./components/profile/EditPassword');
+        if (isset($_POST['log'])) return import('./components/profile/Log');
+    }
 ?>
 
 
