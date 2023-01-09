@@ -1,5 +1,5 @@
 node_modules
 .env
-public/profile/*
-public/posts/*
-public/cat/*
+public/profile/*.jpg
+public/posts/*.jpg
+public/cat/*.svg
