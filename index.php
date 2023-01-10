@@ -31,7 +31,7 @@ if ($getParams(0) == 'api') {
     <meta property="og:type" content="website" />
     <meta property="og:title" content="สำรวจ | กระดานสนทนา | ผู้คน" />
     <meta property="og:description" content="aden คือแพลตฟอร์มสำหรับผู้ที่อยากพูดคุยสื่อสารกับคนอื่นๆ อย่างเรียบง่ายและไม่ซับซ้อน" />
-    <meta property="og:image" content="https://aden.anytion.com/public/default/example-page.png" />
+    <meta property="og:image" content="https://aden.anytion.com/public/default/example-page.jpg" />
 
     <link rel="shortcut icon" href="/public/default/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="/public/style.css">
