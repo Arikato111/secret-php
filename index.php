@@ -31,7 +31,7 @@ if ($getParams(0) == 'api') {
     <meta property="og:type" content="website" />
     <meta property="og:title" content="aden" />
     <meta property="og:description" content="social media and open source project" />
-    <meta property="og:image" content="https://aden.anytion.com/public/default/example-page.png" />
+    <!-- <meta property="og:image" content="https://aden.anytion.com/public/default/example-page.png" /> -->
 
     <link rel="shortcut icon" href="/public/default/logo.svg" type="image/x-icon">
     <link rel="stylesheet" href="/public/style.css">
