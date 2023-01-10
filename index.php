@@ -24,13 +24,13 @@ if ($getParams(0) == 'api') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="title" content="aden" />
-    <meta name="description" content="social media and open source project" />
+    <meta name="title" content="สำรวจ | กระดานสนทนา | ผู้คน" />
+    <meta name="description" content="aden คือแพลตฟอร์มสำหรับผู้ที่อยากพูดคุยสื่อสารกับคนอื่นๆ อย่างเรียบง่ายและไม่ซับซ้อน" />
 
     <meta property="og:url" content="https://aden.anytion.com" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="aden" />
-    <meta property="og:description" content="social media and open source project" />
+    <meta property="og:title" content="สำรวจ | กระดานสนทนา | ผู้คน" />
+    <meta property="og:description" content="aden คือแพลตฟอร์มสำหรับผู้ที่อยากพูดคุยสื่อสารกับคนอื่นๆ อย่างเรียบง่ายและไม่ซับซ้อน" />
     <meta property="og:image" content="https://aden.anytion.com/public/default/example-page.png" />
 
     <link rel="shortcut icon" href="/public/default/logo.svg" type="image/x-icon">
