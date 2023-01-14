@@ -17,6 +17,18 @@ if (isset($_SESSION['usr'])) {
         session_unset();
         header('Location: /login?logout');
     })();
+} elseif (isset($_COOKIE['token1']) && isset($_COOKIE['token2'])) {
+    (function () {
+        $db = new Database;
+        $log = $db->getLog_ByToken($_COOKIE['token1'], $_COOKIE['token2']);
+        $usr = $db->getUser_ByID($log['usr_id']);
+        if ($usr) {
+            $_SESSION['usr'] = $usr['usr_id'];
+            $_SESSION['status'] = $usr['usr_status'];
+            header('Refresh:0');
+            die;
+        }
+    })();
 }
 
 if ($getParams(0) == 'admin') {
