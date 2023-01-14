@@ -21,12 +21,14 @@ if (isset($_SESSION['usr'])) {
     (function () {
         $db = new Database;
         $log = $db->getLog_ByToken($_COOKIE['token1'], $_COOKIE['token2']);
-        $usr = $db->getUser_ByID($log['usr_id']);
-        if ($usr) {
-            $_SESSION['usr'] = $usr['usr_id'];
-            $_SESSION['status'] = $usr['usr_status'];
-            header('Refresh:0');
-            die;
+        if ($log) {
+            $usr = $db->getUser_ByID($log['usr_id']);
+            if ($usr) {
+                $_SESSION['usr'] = $usr['usr_id'];
+                $_SESSION['status'] = $usr['usr_status'];
+                header('Refresh:0');
+                die;
+            }
         }
     })();
 }
