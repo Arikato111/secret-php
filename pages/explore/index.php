@@ -2,6 +2,10 @@
 $db = new Database;
 $Post = import('./components/Post');
 
+if($_GET['msg'] ?? false) {
+    getAlert($_GET['msg'], 'success');
+}
+
 $allPost = $db->getAllPost(limit: 100, desc: true);
 ?>
 

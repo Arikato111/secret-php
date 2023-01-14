@@ -10,7 +10,7 @@ $feedPost = $db->myFeed($_SESSION['usr']);
     <div class="col-span-3">
         <div class="menu-aside">
             <aside class="menu-nav">
-                <a class="menu-item" href="/create-post">สร้างโพสต์</a>
+                <a class="menu-item text-blue-600" href="/create-post">สร้างโพสต์</a>
                 <a class="menu-item" href="#top">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</a>
             </aside>
         </div>
@@ -22,7 +22,7 @@ $feedPost = $db->myFeed($_SESSION['usr']);
             <?php endforeach; ?>
         </div>
         <?php if (sizeof($feedPost) == 0) : ?>
-            <h3 class="heading mx-3">คุณยังไม่มีการติดตาม</h3>
+            <h3 class="heading mx-3">ยังไม่มีโพสต์ใหม่</h3>
             <div class="form-control mx-3 ">
                 <a class="btn primary text-xl" href="/people">ค้นหาผู้คนเพิ่มเติม</a>
             </div>

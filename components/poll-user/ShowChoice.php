@@ -33,7 +33,7 @@ if (isset($_SESSION['usr'])) {
 }
 ?>
 
-<?php if (!$isVote) : ?>
+<?php if (!$isVote && isset($_SESSION['usr'])) : ?>
     <div class="heading text-lg mx-3">คุณได้ทำการโหวตแล้ว</div>
 <?php endif; ?>
 

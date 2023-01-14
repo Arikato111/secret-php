@@ -10,21 +10,21 @@ if (isset($_POST['createPost']) && isset($_SESSION['usr'])) {
     $img_type = mime_content_type($_FILES['post_img']['tmp_name']);
     $img_size = $_FILES['post_img']['size'] ?? 0;
     if (
-        strlen($post_detail) > 1300 ||
+        strlen($post_detail) > 4300 ||
         strlen($post_detail) == 0
     ) {
-        getAlert('ข้อความมีขนาดยาวเกินไป', 'danger');
+        $error = 'ข้อความมีขนาดยาวเกินไป';
     } elseif (!($db->getCate_ByID($cat_id))) {
-        getAlert('หมวดหมูไม่ถูกต้อง กรุณาเลือกใหม่อีกครั้ง', 'danger');
+        $error = 'หมวดหมูไม่ถูกต้อง กรุณาเลือกใหม่อีกครั้ง';
     } elseif ($img_type !== 'image/jpeg' && $img_type != 'image/png') {
-        getAlert('รูปภาพต้องเป็น jpg, jpeg หรือ png เท่านั้น', 'danger');
+        $error = 'รูปภาพต้องเป็น jpg, jpeg หรือ png เท่านั้น';
     } elseif ($img_size > 2048000) {
-        getAlert('รูปภาพต้องมีขนาดไม่เกิน 2mb', 'danger');
+        $error = 'รูปภาพต้องมีขนาดไม่เกิน 2mb';
     } else {
         move_uploaded_file($_FILES['post_img']['tmp_name'], './public/posts/' . $img_name);
         $post_detail = htmlchar($post_detail);
         $db->insertPost($post_detail, $_SESSION['usr'], $cat_id, $img_name);
-        getAlert('สร้างโพสต์สำเร็จ', 'success');
+        header('Location: /explore/?msg=โพสต์สำเร็จ');
     }
 }
 $allCat = $db->getAllCategory();
@@ -39,8 +39,17 @@ $allCat = $db->getAllCategory();
     </div>
     <div class="col-span-6 px-3">
         <h3 class="heading">สร้างโพสต์</h3>
+        <?php if ($error ?? false) : ?>
+            <div class="form-control p-3">
+                <div class="text-center p-4 text-red-700 bg-red-100 rounded-lg" role="alert">
+                    <div class="text-lg">
+                        <?php echo $error ?? ''; ?>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
         <form method="post" class="form-control" enctype="multipart/form-data">
-            <textarea name="post_detail" maxlength="1300" class="input-text" rows="7" placeholder="ข้อความโพสต์" required></textarea>
+            <textarea name="post_detail" maxlength="1300" class="input-text" rows="7" placeholder="ข้อความโพสต์" required><?php echo $_POST['post_detail'] ?? ''; ?></textarea>
 
             <div class="mb-3">
 

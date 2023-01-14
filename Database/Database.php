@@ -275,7 +275,7 @@ class Database
     }
     public function getAllPost_ByUsrID(int $id): array | bool
     {
-        $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id;");
+        $query = $this->conn->prepare("SELECT * FROM post WHERE post_usr_id = :id ORDER BY post_id DESC;");
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
