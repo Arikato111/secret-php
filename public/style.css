@@ -30,3 +30,8 @@
   width: 5px;
   background-color: rgb(196, 196, 196);
 }
+
+html,
+body {
+  scroll-behavior: smooth;
+}
