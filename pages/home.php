@@ -10,7 +10,9 @@ $feedPost = $db->myFeed($_SESSION['usr']);
     <div class="col-span-3">
         <div class="menu-aside">
             <aside class="menu-nav">
-                <a class="menu-item text-blue-600" href="/create-post">สร้างโพสต์</a>
+                <a class="menu-item text-blue-600" href="/create-post">
+                    <img class="inline-block w-7 h-7" onerror="this.onerror=null;this.style.display='none'" src="/public/default/create-post.svg" alt="">
+                    สร้างโพสต์</a>
                 <a class="menu-item" href="#top">ค้นพบ <?php echo sizeof($feedPost); ?> โพสต์</a>
             </aside>
         </div>

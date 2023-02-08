@@ -53,7 +53,7 @@ foreach ($allBD as $bd) :
 
         <div class="flex items-center px-3">
             <div>
-                <img class="w-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/profile.png'" alt="profile image">
+                <img class="w-9 h-9 rounded-full inline-block" src="/public/profile/<?php echo $usr_post['usr_img'] ?? ""; ?>" onerror="this.onerror=null; this.src='/public/default/profile.png'" alt="profile image">
             </div>
             <div class="px-3">
                 <a class="hover:underline" href="/<?php echo $usr_post['usr_username'] ?? ""; ?>"><?php echo $usr_post['usr_name'] ?? "ไม่พบผู้ใช้งานนี้"; ?></a>
