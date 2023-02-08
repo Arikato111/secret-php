@@ -1,0 +1,31 @@
+<svg
+  width="500"
+  height="500"
+  viewBox="0 0 500 500"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  role="img"
+>
+  <style>
+    .header {
+      font: 600 72px "Segoe UI", Ubuntu, Sans-Serif;
+      fill: #2f80ed;
+      animation: fadeInAnimation 0.8s ease-in-out forwards;
+    }
+  </style>
+
+  <rect
+    x="0.5"
+    y="0.5"
+    rx="4.5"
+    height="99%"
+    stroke="#e4e2e2"
+    width="499"
+    fill="#fffefe"
+    stroke-opacity="1"
+  />
+
+  <g transform="translate(25, 25)">
+    <text x="120" y="230" class="header">aden</text>
+  </g>
+</svg>
