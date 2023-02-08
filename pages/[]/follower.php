@@ -10,7 +10,7 @@ if (!$usr_profile) return require('./pages/_error.php');
 $AllFollower = $db->findFollow(def: $usr_profile['usr_id']);
 ?>
 
-<title><?php echo $username; ?> | ผู้ติดตาม</title>
+<title>ผู้ติดตาม | <?php echo $username; ?> | ผู้ติดตาม</title>
 <div class="row">
     <div class="col-span-3">
         <?php import('./components/profile/Nav'); ?>

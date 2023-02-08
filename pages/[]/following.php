@@ -11,7 +11,7 @@ if (!$usr_profile) return require('./pages/_error.php');
 $AllFollowing = $db->findFollow(atk: $usr_profile['usr_id']);
 ?>
 
-<title><?php echo $username; ?> | กำลังติดตาม</title>
+<title>กำลังติดตาม | <?php echo $username; ?> | กำลังติดตาม</title>
 <div class="row">
     <div class="col-span-3">
         <?php import('./components/profile/Nav'); ?>

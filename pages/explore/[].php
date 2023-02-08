@@ -11,7 +11,7 @@ if (!$cate) return import('./pages/_error');
 $allPost = $db->getAllPost(limit: 100, desc: true, cat_id: $cate['cat_id']);
 ?>
 
-<title>สำรวจ | aden</title>
+<title>สำรวจ | <?php echo $cate['cat_name'] ?? ""; ?> | aden</title>
 <main class="py-3">
     <div class="row">
         <div class="col-span-3">

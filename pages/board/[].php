@@ -11,7 +11,7 @@ if (!$cate) {
 }
 ?>
 
-<title>กระดานสนทนา | aden</title>
+<title>กระทู้ | <?php echo $cate['cat_name'] ?? ""; ?> | aden</title>
 <div class="row">
     <div class="col-span-3">
         <?php import('./components/board/Nav'); ?>

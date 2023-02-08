@@ -1,4 +1,4 @@
-<title>กระดานสนทนา | aden</title>
+<title>กระทู้ | aden</title>
 <div class="row">
     <div class="col-span-3">
         <?php import('./components/board/Nav'); ?>

@@ -59,9 +59,9 @@ function checkPath($path)
                     </a>
                 </li>
                 <li>
-                    <a href="/board/" data-title="กระดานสนทนา" class="<?php checkPath('/board/'); ?> nav-item">
+                    <a href="/board/" data-title="กระทู้" class="<?php checkPath('/board/'); ?> nav-item">
                         <img class="w-7 sm:w-10 inline-block" src="/public/icons/question.svg" alt="home">
-                        <span class="sm:hidden">กระดานสนทนา</span>
+                        <span class="sm:hidden">กระทู้</span>
                     </a>
                 </li>
                 <li>
