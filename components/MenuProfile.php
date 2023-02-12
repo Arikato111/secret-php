@@ -29,7 +29,7 @@ if (isset($_SESSION['usr'])) {
                 <a href="/<?php echo $usr_nav['usr_username']; ?>" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">โปรไฟล์</a>
             </li>
             <li>
-                <a href="/login?logout" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ออกจากระบบ</a>
+                <a onclick="return confirm('ยืนยันการออกจากระบบ')" href="/login?logout" class="block px-4 py-2 text-sm text-rose-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">ออกจากระบบ</a>
             </li>
         </ul>
     </div>

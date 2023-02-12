@@ -73,7 +73,7 @@ $export = function ($usr_profile) {
                         </li>
                     </form>
                     <li>
-                        <form method="post" onsubmit="return confirm('ยืนยันการลบบัญชีของคุณ \n หากคุณลบบัญชี ข้อมูลทั้งหมดที่เกี่ยวกับคุณจะถูกลบไปด้วย คิดดีๆ ก่อนนะ');">
+                        <form method="post" onsubmit="return confirm('ยืนยันการลบบัญชีของคุณ \n หากคุณลบบัญชี ข้อมูลทั้งหมดที่เกี่ยวกับคุณจะถูกลบไปด้วย คิดดีๆ ก่อนนะ') ? confirmDelete(): false;">
                             <button name="deleteProfile" class="w-full text-left block px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</button>
                         </form>
                     </li>
@@ -111,6 +111,16 @@ $export = function ($usr_profile) {
             </form>
         </div>
     </div>
-
+    <script>
+        function confirmDelete() {
+            let answer = prompt("พิมพ์ 'ยืนยัน' เพื่อลบบัญชี");
+            if (answer == 'ยืนยัน') {
+                return true;
+            } else {
+                alert("ข้อความไม่ถูกต้อง ลบบัญชีไม่สำเร็จ")
+                return false;
+            }
+        }
+    </script>
     <!-- Content -->
 <?php }; ?>
