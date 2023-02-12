@@ -1,8 +1,8 @@
 <?php
 $getParams = import('wisit-router/getParams');
 
-if($getParams(0) == 'admin') {
-    if(isset($_SESSION['status']) && $_SESSION['status'] == 'admin') {
+if ($getParams(0) == 'admin') {
+    if (isset($_SESSION['status']) && $_SESSION['status'] == 'admin') {
         return require('./components/AdminNavbar.php');
     }
 }
@@ -37,25 +37,18 @@ function checkPath($path)
         endif; ?>
         <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
             <ul class="flex flex-col p-2 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                <?php if(isset($_SESSION['usr'])): ?>
-                <li>
-                    <a href="/home" data-title="หน้าหลัก" class="<?php checkPath('/home'); ?> nav-item">
-                        <img class="w-7 sm:w-10 inline-block" src="/public/icons/home.svg" alt="home">
-                        <span class="sm:hidden">หน้าหลัก</span>
-                    </a>
-                </li>
+                <?php if (isset($_SESSION['usr'])) : ?>
+                    <li>
+                        <a href="/home" data-title="หน้าหลัก" class="<?php checkPath('/home'); ?> nav-item">
+                            <img class="w-7 sm:w-10 inline-block" src="/public/icons/home.svg" alt="home">
+                            <span class="sm:hidden">หน้าหลัก</span>
+                        </a>
+                    </li>
                 <?php endif; ?>
                 <li>
                     <a href="/explore/" data-title="สำรวจ" class="<?php checkPath('/explore/'); ?> nav-item">
                         <img class="w-7 sm:w-10 inline-block" src="/public/icons/explore.svg" alt="explore">
                         <span class="sm:hidden">สำรวจ</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="/poll/" data-title="แบบประเมิน" class="<?php checkPath('/poll/'); ?> nav-item">
-                        <img class="w-7 sm:w-10 inline-block" src="/public/icons/poll.svg" alt="home">
-                        <span class="sm:hidden">แบบประเมิน</span>
-
                     </a>
                 </li>
                 <li>
@@ -68,6 +61,13 @@ function checkPath($path)
                     <a href="/people" data-title="ผู้คน" class="<?php checkPath('/people'); ?> block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-zinc-300 md:hover:text-blue-700 md:p-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
                         <img class="w-7 sm:w-10 inline-block" src="/public/icons/group.svg" alt="home">
                         <span class="sm:hidden">ผู้คน</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/poll/" data-title="แบบประเมิน" class="<?php checkPath('/poll/'); ?> nav-item">
+                        <img class="w-7 sm:w-10 inline-block" src="/public/icons/poll.svg" alt="home">
+                        <span class="sm:hidden">แบบประเมิน</span>
+
                     </a>
                 </li>
             </ul>
