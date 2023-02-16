@@ -37,7 +37,14 @@
         ⦁ แนวทางการใช้แบรนด์ aden
         ⦁ aden เพื่อธุรกิจ
         ⦁ ไทย
-        ⦁ <a target="_blank" class="hover:underline" href="https://github.com/Arikato111/social-web-php">open source</a>
-        
+        <?php
+        if (isset($_ENV['SPONSOR_URL'])) {
+        ?>
+            ⦁ <a class="hover:underline hover:text-blue-600" href="<?php echo $_ENV['SPONSOR_URL']; ?>">สนับสนุน</a>
+        <?php
+        }
+        ?>
+        ⦁ <a target="_blank" class="hover:underline hover:text-blue-600" href="https://github.com/Arikato111/social-web-php">open source</a>
+
     </div>
 </div>
