@@ -4,7 +4,7 @@ $db = new Database;
 $app->origin();
 
 $app->get('*', function ($req, $res) use ($db) {
-    $allUser = $db->getUser_All(hide_private: true);
+    $allUser = $db->getUser_All(hide_private: true, desc: true);
     if ($allUser) {
         $res->json($allUser);
     } else {
