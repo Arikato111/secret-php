@@ -8,7 +8,10 @@ $app->origin();
 $app->get('*', function ($req, $res) use ($db) {
     if ($_GET['cat'] ?? false) {
         $cat = $db->getCate_ByPath($_GET['cat']);
-        $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true, cat_id: $cat['cat_id']);
+        if (!$cat) {
+            $cat = ['cat_id' => 0];
+        }
+        $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true, cat_id: $cat['cat_id'] ?? 0);
     } else {
         $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true);
     }
