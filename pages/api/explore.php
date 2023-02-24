@@ -6,7 +6,12 @@ $db = new Database;
 $app->origin();
 
 $app->get('*', function ($req, $res) use ($db) {
-    $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true, cat_id: 1);
+    if ($_GET['cat'] ?? false) {
+        $cat = $db->getCate_ByPath($_GET['cat']);
+        $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true, cat_id: $cat['cat_id']);
+    } else {
+        $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true);
+    }
     $res->status(200);
     $res->json($allPost);
 });
