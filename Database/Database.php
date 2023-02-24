@@ -823,9 +823,15 @@ class Database
         $sort = $desc ? "ORDER BY post_id DESC " : "";
         $cat = $cat_id == 0 ? "" : " WHERE post_cat_id = $cat_id ";
         if ($limit > 0) {
-            $query = $this->conn->prepare("SELECT * FROM post LEFT JOIN usr ON usr.usr_id = post.post_usr_id LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort LIMIT $limit ;");
+            $query = $this->conn->prepare("SELECT post.*,
+             usr.usr_username, usr.usr_name, usr.usr_img, cat.cat_id, cat.cat_name,cat.cat_path FROM post 
+            LEFT JOIN usr  ON usr.usr_id = post.post_usr_id 
+            LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort LIMIT $limit ;");
         } else {
-            $query = $this->conn->prepare("SELECT * FROM post LEFT JOIN usr ON usr.usr_id = post.post_usr_id LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort ;");
+            $query = $this->conn->prepare("SELECT post.*,
+             usr.usr_username, usr.usr_name, usr.usr_img, cat.cat_id, cat.cat_name,cat.cat_path FROM post 
+            LEFT JOIN usr  ON usr.usr_id = post.post_usr_id 
+            LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort ;");
         }
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
