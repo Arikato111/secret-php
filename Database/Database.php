@@ -817,4 +817,17 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getAllPost_apiExplore(int $limit = 0, bool $desc = false, int $cat_id = 0): array | bool
+    {
+        $sort = $desc ? "ORDER BY post_id DESC " : "";
+        $cat = $cat_id == 0 ? "" : " WHERE post_cat_id = $cat_id ";
+        if ($limit > 0) {
+            $query = $this->conn->prepare("SELECT * FROM post LEFT JOIN usr ON usr.usr_id = post.post_usr_id LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort LIMIT $limit ;");
+        } else {
+            $query = $this->conn->prepare("SELECT * FROM post LEFT JOIN usr ON usr.usr_id = post.post_usr_id LEFT JOIN cat ON cat.cat_id = post.post_cat_id $cat $sort ;");
+        }
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

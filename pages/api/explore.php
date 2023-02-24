@@ -6,7 +6,7 @@ $db = new Database;
 $app->origin();
 
 $app->get('*', function ($req, $res) use ($db) {
-    $allPost = $db->getAllPost(limit: 100, desc: true);
+    $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true, cat_id: 1);
     $res->status(200);
     $res->json($allPost);
 });
