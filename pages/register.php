@@ -9,21 +9,22 @@
 <?php endif;
 
 if (isset($_POST['regis'])) {
-    [
-        'usr_name' => $name,
-        'usr_bio' => $bio,
-        'usr_address' => $address,
-        'usr_date' => $date,
-        'usr_email' => $email,
-        'usr_tel' => $tel,
-        'usr_username' => $username,
-        'usr_password' => $password,
-        'usr_password1' => $password1,
-    ] = $_POST;
+
+    $name = $_POST['usr_name'] ?? "";
+    $bio = $_POST['usr_bio'] ?? "";
+    $address = $_POST['usr_address'] ?? "";
+    $date = $_POST['usr_date'] ?? "";
+    $email = $_POST['usr_email'] ?? "";
+    $tel = $_POST['usr_tel'] ?? "";
+    $username = $_POST['usr_username'] ?? "";
+    $password = $_POST['usr_password'] ?? "";
+    $password1 = $_POST['usr_password1'] ?? "";
+
     $db = new Database;
 
     $address = htmlspecialchars($address);
-    $img_type = mime_content_type($_FILES['usr_img']['tmp_name']);
+    if (isset($_FILES['usr_img']))
+        $img_type = mime_content_type($_FILES['usr_img']['tmp_name']);
     // check size
     if (
         strlen($name) > 200 ||
