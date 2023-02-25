@@ -1,11 +1,10 @@
 <?php
-$app =  import('wisit-express');
 
-$app->post('*', function ($req, $res) {
-    $body = $req->body();
+Wexpress::post('*', function () {
+    $body = Req::body();
     $body = json_decode($body);
     if (!($_SESSION['usr'] ?? false) || !($body->post ?? false)) {
-        $res->json([
+        Res::json([
             'status' => 0,
             'msg' => 'you are not login'
         ]);
@@ -19,16 +18,16 @@ $app->post('*', function ($req, $res) {
             $db->insertLikePost($post_id, $_SESSION['usr']);
             $isLike = true;
         }
-        $res->json([
+        Res::json([
             'status' => 1,
             'isLike' => $isLike
         ]);
     }
 });
 
-$app->all('*', function ($req, $res) {
-    $res->status(400);
-    $res->json([
+Wexpress::all('*', function () {
+    Res::status(400);
+    Res::json([
         "staus" => 0,
         "msg" => "bad request",
     ]);

@@ -1,21 +1,14 @@
 <?php
-$app = import('wisit-express');
+$Notfound = import('./components/api/Notfound');
 $db = new Database;
-$app->origin();
 
-$app->get('*', function ($req, $res) use ($db) {
+Wexpress::get('*', function () use ($db) {
     $allUser = $db->getUser_All(hide_private: true, desc: true);
     if ($allUser) {
-        $res->json($allUser);
+        Res::json($allUser);
     } else {
-        echo "NULL";
+        Res::json([]);
     }
 });
 
-$app->all('*', function ($req, $res) {
-    $res->status(400);
-    $res->json([
-        "staus" => 0,
-        "msg" => "bad request",
-    ]);
-});
+Wexpress::all('*', $Notfound);

@@ -13,6 +13,8 @@ require('./components/lib/deleteUser.php');
 $getParams = import('wisit-router/getParams');
 // use for api
 if ($getParams(0) == 'api') {
+    import('wisit-express');
+    Wexpress::origin(); // allow origin
     return require('./pages/_main.php');
 }
 ?>

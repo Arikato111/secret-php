@@ -1,11 +1,8 @@
 <?php
-$app = import('wisit-express');
 $Notfound = import('./components/api/Notfound');
 $db = new Database;
 
-$app->origin();
-
-$app->get('*', function ($req, $res) use ($db) {
+Wexpress::get('*', function () use ($db) {
     if ($_GET['cat'] ?? false) {
         $cat = $db->getCate_ByPath($_GET['cat']);
         if (!$cat) {
@@ -15,9 +12,8 @@ $app->get('*', function ($req, $res) use ($db) {
     } else {
         $allPost = $db->getAllPost_apiExplore(limit: 100, desc: true);
     }
-    $res->status(200);
-    $res->json($allPost);
+    Res::status(200);
+    Res::json($allPost);
 });
 
-
-$app->all('*', $Notfound);
+Wexpress::all('*', $Notfound);

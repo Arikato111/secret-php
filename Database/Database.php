@@ -836,4 +836,26 @@ class Database
         $query->execute();
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function createToken(int $usr_id): array | bool
+    {
+        $token1 = sha1($usr_id . time() . rand());
+        $token2 = sha1($usr_id . time() . rand());
+        $date = date('Y-m-d');
+        $query  = $this->conn->prepare("INSERT INTO `login_log`
+        (`log_id`, `token1`, `token2`, `usr_id`, `log_date`) VALUES 
+        (NULL , :token1 , :token2 , :usr_id , :date )");
+        $query->bindParam(':token1', $token1, PDO::PARAM_STR);
+        $query->bindParam(':token2', $token2, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $query->bindParam(':date', $date, PDO::PARAM_STR);
+        $result = $query->execute();
+        if ($result) {
+            return [
+                'token1' => $token1,
+                'token2' => $token2
+            ];
+        } else {
+            return false;
+        }
+    }
 }

@@ -1,13 +1,10 @@
 <?php
-$app = import('wisit-express');
 $Notfound = import('./components/api/Notfound');
 $db = new Database;
 
-$app->origin();
-
-$app->get('*', function ($req,$res) use ($db) {
+Wexpress::get('*', function () use ($db) {
     $category = $db->getAllCategory();
-    $res->json($category);
+    Res::json($category);
 });
 
-$app->all('*', $Notfound);
+Wexpress::all('*', $Notfound);
