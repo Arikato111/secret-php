@@ -3,10 +3,8 @@ $Notfound = import('./components/api/Notfound');
 $db = new Database;
 
 Wexpress::post('*', function () use ($db) {
-    $body = Req::body();
-    $body = json_decode($body, true);
-    $username = $body['username'] ?? null;
-    $password = $body['password'] ?? null;
+    $username = $_POST['username'] ?? null;
+    $password = $_POST['password'] ?? null;
     if (
         !($username ?? false) ||
         !($password ?? false)
