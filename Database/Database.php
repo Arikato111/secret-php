@@ -765,8 +765,8 @@ class Database
         $query->bindParam(':date', $date, PDO::PARAM_STR);
         $result = $query->execute();
         if ($result) {
-            setcookie('token1', $token1, time() + (86400 * 30), "/");
-            setcookie('token2', $token2, time() + (86400 * 30), "/");
+            setcookie('token1', $token1, time() + (86400 * 30), "/", httponly: true, secure: true);
+            setcookie('token2', $token2, time() + (86400 * 30), "/", httponly: true, secure: true);
             return true;
         } else {
             return false;
