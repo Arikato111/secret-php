@@ -56,7 +56,7 @@ class Database
         $query->bindParam(':id', $id, PDO::PARAM_INT);
         $query->execute();
         if ($query->rowCount() > 0) {
-            return $query->fetch();
+            return $query->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
@@ -67,7 +67,7 @@ class Database
         $query->bindParam(':username', $username, PDO::PARAM_STR);
         $query->execute();
         if ($query->rowCount() > 0) {
-            return $query->fetch();
+            return $query->fetch(PDO::FETCH_ASSOC);
         } else {
             return false;
         }
