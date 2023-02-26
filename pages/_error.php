@@ -1,10 +1,8 @@
 <?php
+$Notfound = import('./components/api/Notfound');
 $getParams = import('wisit-router/getParams');
 if($getParams(0) == 'api') {
-    echo json_encode([
-        "status"=> 0,
-        "msg"=>"error not found"
-    ]);
+    Wexpress::all('*', $Notfound);
     die;
 }
 ?>
