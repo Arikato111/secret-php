@@ -2,10 +2,9 @@
 $Notfound = import('./components/api/Notfound');
 $db = new Database;
 
-Wexpress::get('*', function () use ($db) {
-    $header = Req::header();
-    $token1 = $header['token1'] ?? null;
-    $token2 = $header['token2'] ?? null;
+Wexpress::post('*', function () use ($db) {
+    $token1 = $_POST['token1'] ?? null;
+    $token2 = $_POST['token2'] ?? null;
     if ($token1 && $token2) {
         $log = $db->getLog_ByToken($token1, $token2);
         if ($log) {
