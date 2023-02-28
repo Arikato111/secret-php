@@ -17,13 +17,11 @@ Wexpress::post('*', function () use ($db) {
         }
     }
     Res::json(['status' => 0, 'message' => 'bad request']);
-    die;
 });
 
 Wexpress::delete('*', function () use ($db) {
-    $header = Req::header();
-    $token1 = $header['token1'] ?? null;
-    $token2 = $header['token2'] ?? null;
+    $token1 = $_POST['token1'] ?? null;
+    $token2 = $_POST['token2'] ?? null;
     if ($token1 && $token2) {
         $log = $db->getLog_ByToken($token1, $token2);
         if ($log) {
@@ -32,7 +30,6 @@ Wexpress::delete('*', function () use ($db) {
         }
     }
     Res::json(['status' => 0, 'message' => 'bad request']);
-    die;
 });
 
 Wexpress::all('*', $Notfound);
