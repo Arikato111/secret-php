@@ -2,7 +2,7 @@
 $Notfound = import('./components/api/Notfound');
 $db = new Database;
 
-Wexpress::post('*', function () use ($db) {
+$getUserByToken = function () use ($db) {
     $token1 = $_POST['token1'] ?? null;
     $token2 = $_POST['token2'] ?? null;
     if ($token1 && $token2) {
@@ -16,10 +16,9 @@ Wexpress::post('*', function () use ($db) {
             }
         }
     }
-    Res::json(['status' => 0, 'message' => 'bad request']);
-});
+};
 
-Wexpress::delete('*', function () use ($db) {
+$deleteToken = function () use ($db) {
     $token1 = $_POST['token1'] ?? null;
     $token2 = $_POST['token2'] ?? null;
     if ($token1 && $token2) {
@@ -27,7 +26,16 @@ Wexpress::delete('*', function () use ($db) {
         if ($log) {
             $db->deleteLog_ByID($log['log_id'] ?? 0);
             Res::json(['status' => 1, 'message' => 'delete token success']);
+            die;
         }
+    }
+};
+
+Wexpress::post('*', function () use ($getUserByToken, $deleteToken) {
+    if (isset($_GET['method']) && $_GET['method'] == 'delete') {
+        $deleteToken();
+    } else {
+        $getUserByToken();
     }
     Res::json(['status' => 0, 'message' => 'bad request']);
 });

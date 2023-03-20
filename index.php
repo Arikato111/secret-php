@@ -1,6 +1,8 @@
 <?php
 date_default_timezone_set("Asia/Bangkok");
 header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS");
+
 ob_start();
 session_start();
 require('./modules/use-import/main.m.php');

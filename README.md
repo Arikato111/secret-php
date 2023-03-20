@@ -36,3 +36,9 @@ but this can be production and I try to write a real use case.
   - [dotenv](https://github.com/Arikato111/php-dotenv/tree/main)
   - [wisit-router](https://github.com/Arikato111/wisit-router/tree/master)
   - [wisit-express](https://github.com/Arikato111/wisit-express/tree/Release1.0)
+
+## Need to know
+
+- about api method must use only GET, POST; 
+- when use others method use $_GET['method'] to check method
+- when frond-end request with others method will use params in url : example `/api/post?method=delete`
