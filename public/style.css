@@ -1,3 +1,7 @@
+pre {
+  font-family: initial !important;
+}
+
 [data-title] {
   position: inherit;
 }
@@ -35,3 +39,5 @@ html,
 body {
   scroll-behavior: smooth;
 }
+
+
