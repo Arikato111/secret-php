@@ -4,6 +4,7 @@ return function ($position = -1) {
     $params = explode('/', substr($getPath(), 1));
     if (!empty($params)) {
         if ($position > -1) {
+            if(count($params) -1 < $position) return false;
             return str_replace("%20", " ", $params[$position]);
         }
         return str_replace("%20", " ", $params[sizeof($params) - 1]);
