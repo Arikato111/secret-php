@@ -1,9 +1,8 @@
 {
-    "name": "myenv",
+    "name": "aden",
     "version": "1.0.0",
-    "description": "spelte template",
-    "author": "",
-    "license": "ISC",
+    "description": "social website with php",
+    "author": "Nawasan Wisitsingkhon",
     "package": {
         "use-import": {
             "version": "main",
