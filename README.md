@@ -24,6 +24,7 @@ but this can be production and I try to write a real use case.
 - **don't create others folder**
 - import `database.sql` to your database
 - create `.env` like `.env.example` and enter your database connection
+- enter your `firebaseConfig` at './public/google-login.js'
 - `yarn` or `npm i` to install packages
 - if using `linux` don't forget to change permission `public` folders and all inside
 - open [localhost](http://localhost) on your browser
