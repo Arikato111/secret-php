@@ -62,11 +62,13 @@ if (!$usr_profile) {
 
 ?>
 
+
 <div class="w-full">
     <div class="text-right">
         <a class="px-3 py-2 bg-gray-500 rounded-lg inline-block mt-3 text-white" href="/<?php echo $usr_profile['usr_username']; ?>">ย้อนกลับ</a>
     </div>
     <h3 class="heading">แก้ไขโปรไฟล์</h3>
+    <?php import(__DIR__, './GoogleConnect.php'); ?>
     <form class="form-control" enctype="multipart/form-data" method="post">
         <input type="hidden" name="editProfile">
 

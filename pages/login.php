@@ -41,14 +41,23 @@ if (isset($_POST['login'])) {
 <?php endif; ?>
 <main class="frame">
     <h3 class="heading">เข้าสู่ระบบ</h3>
-    <form class="form-control" method="post">
-        <input name="usr_username" value="<?php echo $username ?? ""; ?>" class="input-text" placeholder="ชื่อผู้ใช้" maxlength="50" size="50" type="text" required>
-        <input name="usr_password" class="input-text" type="password" placeholder="รหัสผ่าน" required>
-        <div class="text-right">
-            <button name="login" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-md ">เข้าสู่ระบบ</button>
+    <div class="form-control">
+        <form method="POST">
+            <input name="usr_username" value="<?php echo $username ?? ""; ?>" class="input-text" placeholder="ชื่อผู้ใช้" maxlength="50" size="50" type="text" required>
+            <input name="usr_password" class="input-text" type="password" placeholder="รหัสผ่าน" required>
+            <div class="text-right">
+                <button name="login" class="bg-blue-600 hover:bg-blue-500 text-white px-3 py-2 rounded-md ">เข้าสู่ระบบ</button>
+            </div>
+        </form>
+        <div class="text-center">
+            <div class="form-control inline-block w-max border hover:bg-slate-100/50">
+                <button id="getLogin" class="flex justify-center items-center"><img class="w-7 mx-2" src="/public/default/google-logo.png" alt="google logo">เข้าสู่ระบบด้วย google</button>
+            </div>
         </div>
         <div class="text-center">
             ยังไม่มีบัญชี? <a class="text-blue-700 hover:underline" href="/register">สมัครสมาชิก</a>
         </div>
-    </form>
+    </div>
 </main>
+
+<script type="module" src="/public/google-login.js"></script>

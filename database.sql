@@ -190,7 +190,8 @@ CREATE TABLE `usr` (
   `usr_status` varchar(10) NOT NULL,
   `usr_view` int(11) NOT NULL,
   `usr_regis_date` date NOT NULL,
-  `usr_img` varchar(50) NOT NULL
+  `usr_img` varchar(50) NOT NULL,
+  `google-token` char(30) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --

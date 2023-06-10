@@ -858,4 +858,21 @@ class Database
             return false;
         }
     }
+    public function pushGoogleToken(int $usr_id, string $googleToken)
+    {
+        $query = $this->conn->prepare("UPDATE usr SET `google-token` = :google_token WHERE `usr_id` = :usr_id LIMIT 1;");
+        $query->bindParam(':google_token', $googleToken, PDO::PARAM_STR);
+        $query->bindParam(':usr_id', $usr_id, PDO::PARAM_INT);
+        $result = $query->execute();
+        return $result;
+    }
+    public function getUser_ByGoogle(string $googleToken)
+    {
+        $query = $this->conn->prepare("SELECT * FROM usr WHERE `google-token` = :google_token LIMIT 1;");
+        $query->bindParam(':google_token', $googleToken, PDO::PARAM_STR);
+        $result = $query->execute();
+        $usr = $query->fetch();
+        if ($usr ?? false) return $usr;
+        else false;
+    }
 }
