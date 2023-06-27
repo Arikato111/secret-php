@@ -24,7 +24,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const GoogleProvider = new GoogleAuthProvider();
 
-async function loginGoogle() {
+async function connectGoogle() {
   const auth = getAuth();
   const data = await signInWithPopup(auth, GoogleProvider);
   console.log(data.user.uid.length);
@@ -34,11 +34,17 @@ async function loginGoogle() {
     method: "POST",
     body: form,
   })
-    .then((res) => res.text())
-    .then((data) => window.location.reload());
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.status == 0) {
+        alert("บัญชีนี้ถูกใช้งานแล้ว กรุณาเลือกบัญชีอื่น");
+      } else {
+        window.location.reload();
+      }
+    });
 }
 const ConnectGoogleBtn = document.getElementById("getConnectGoogle");
-if (ConnectGoogleBtn) ConnectGoogleBtn.onclick = loginGoogle;
+if (ConnectGoogleBtn) ConnectGoogleBtn.onclick = connectGoogle;
 
 const LoginBtn = document.getElementById("getLogin");
 if (LoginBtn)
@@ -46,16 +52,20 @@ if (LoginBtn)
     const auth = getAuth();
     const data = await signInWithPopup(auth, GoogleProvider);
     const form = new FormData();
-    console.log(data.user.uid)
+    console.log(data.user.uid);
     form.append("google-token", data.user.uid);
     fetch("/api/login-by-google", {
       method: "POST",
       body: form,
-    }).then(res => res.json()).then(data => {
-        console.log(data)
-        if(data.status == 1) window.location.replace('/')
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.status == 1) window.location.replace("/");
         else {
-            alert("บัญชีไม่ถูกต้อง หรือยังไม่ได้ทำการผูกบัญชี กรุณาลองใหม่อีกคร้ัง")
+          alert(
+            "บัญชีไม่ถูกต้อง หรือยังไม่ได้ทำการผูกบัญชี กรุณาลองใหม่อีกคร้ัง"
+          );
         }
-    });
+      });
   };
