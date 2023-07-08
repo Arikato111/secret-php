@@ -24,8 +24,8 @@ but this can be production and I try to write a real use case.
 
  - #### [social web react](https://github.com/Arikato111/social-web-react)  -> this is the front-end website to working with api (not release)
 
- - #### [android app](https://github.com/Arikato111/social-web-php/tree/flutter-app) -> application version on android but it's just open website in app. `I'm not sure it really works.`
-    - [download app click here](https://github.com/Arikato111/social-web-php/blob/flutter-app/release/v1.0.0.apk?raw=true)
+ - #### [social web flutter](https://github.com/Arikato111/social-web-flutter) -> android app with Flutter, It's just front-end to working with api. 
+    - [download app or view release](https://github.com/Arikato111/social-web-flutter/releases)
 ## Get started
 
 #### with apache
