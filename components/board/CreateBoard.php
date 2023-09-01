@@ -1,5 +1,4 @@
-<?php
-$db = new Database;
+<?php $db = new Database;
 
 if (isset($_POST['createBoard'])) {
     $board_name = $_POST['b_name'] ?? "";
@@ -9,8 +8,8 @@ if (isset($_POST['createBoard'])) {
     if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) {
         getAlert('กรุณาเข้าสู่ระบบเพื่อใช้งาน', 'danger');
     } elseif (
-        strlen($board_name) > 200 ||
-        strlen($board_name) == 0
+        mb_strlen($board_name) > 200 ||
+        mb_strlen($board_name) == 0
     ) {
         getAlert("ข้อความต้องไม่เกิน 200 ตัวอักษร", 'danger');
     } elseif (!$cat_check) {

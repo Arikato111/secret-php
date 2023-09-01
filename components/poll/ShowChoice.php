@@ -13,8 +13,8 @@ if (isset($_POST['updateChoice'])) {
     $pd_name = $_POST['pd_name'] ?? '';
 
     if (
-        strlen($pd_name) > 100 ||
-        strlen(($pd_name)) == 0
+        mb_strlen($pd_name) > 100 ||
+        mb_strlen(($pd_name)) == 0
     ) {
         getAlert('ข้อความต้องมีขนาดไม่เกิน 100 ตัวอักษร', 'danger');
     } else {

@@ -15,15 +15,15 @@ if (isset($_POST['saveEditProfile'])) {
     $address = htmlspecialchars($address);
     // check size
     if (
-        strlen($name) > 200 ||
-        strlen($name) == 0 ||
-        strlen($bio) > 200 ||
-        strlen($bio) == 0 ||
-        strlen($address) > 250 ||
-        strlen($address) == 0  ||
-        strlen($email) > 100 ||
-        strlen($email) == 0 ||
-        strlen($tel) != 10
+        mb_strlen($name) > 200 ||
+        mb_strlen($name) == 0 ||
+        mb_strlen($bio) > 200 ||
+        mb_strlen($bio) == 0 ||
+        mb_strlen($address) > 250 ||
+        mb_strlen($address) == 0  ||
+        mb_strlen($email) > 100 ||
+        mb_strlen($email) == 0 ||
+        mb_strlen($tel) != 10
     ) {
         getAlert('ข้อมูลไม่ถูกต้อง', 'danger');
     } elseif (

@@ -27,19 +27,19 @@ if (isset($_POST['regis'])) {
         $img_type = mime_content_type($_FILES['usr_img']['tmp_name']);
     // check size
     if (
-        strlen($name) > 200 ||
-        strlen($name) < 1 ||
-        strlen($bio) > 200 ||
-        strlen($bio) < 1 ||
-        strlen($address) > 250 ||
-        strlen($address) < 1  ||
-        strlen($email) > 100 ||
-        strlen($email) == 0 ||
-        strlen($tel) != 10 ||
-        strlen($username) > 50 ||
-        strlen($username) == 0 ||
-        strlen($password) > 50 ||
-        strlen($password1) > 50 ||
+        mb_strlen($name) > 200 ||
+        mb_strlen($name) < 1 ||
+        mb_strlen($bio) > 200 ||
+        mb_strlen($bio) < 1 ||
+        mb_strlen($address) > 250 ||
+        mb_strlen($address) < 1  ||
+        mb_strlen($email) > 100 ||
+        mb_strlen($email) == 0 ||
+        mb_strlen($tel) != 10 ||
+        mb_strlen($username) > 50 ||
+        mb_strlen($username) == 0 ||
+        mb_strlen($password) > 50 ||
+        mb_strlen($password1) > 50 ||
         !isset($_FILES['usr_img'])
     ) {
         getAlert('ข้อมูลไม่ถูกต้อง', 'danger');

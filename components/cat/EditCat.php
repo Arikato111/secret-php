@@ -28,10 +28,10 @@ if (isset($_POST['updateCate'])) {
     $cat_path = $_POST['cat_path'] ?? '';
 
     if (
-        strlen($cat_name) > 50 ||
-        strlen($cat_name) == 0 ||
-        strlen($cat_path)  > 50 ||
-        strlen($cat_path) == 0
+        mb_strlen($cat_name) > 50 ||
+        mb_strlen($cat_name) == 0 ||
+        mb_strlen($cat_path)  > 50 ||
+        mb_strlen($cat_path) == 0
     ) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 50 ตัวอักษร', 'danger');
     } elseif (preg_match('/[^ก-ฮเa-zA-Z]/', $cat_name)) {

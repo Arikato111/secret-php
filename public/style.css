@@ -1,5 +1,5 @@
 pre {
-  font-family: initial !important;
+  font-family: inherit !important;
 }
 
 [data-title] {

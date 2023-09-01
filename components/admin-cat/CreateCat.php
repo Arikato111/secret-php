@@ -8,10 +8,10 @@ if (isset($_POST['createCat'])) {
     $img_type = isset($_FILES['cat_img']['tmp_name']) ? mime_content_type($_FILES['cat_img']['tmp_name']) : '';
 
     if (
-        strlen($cat_name) > 50 ||
-        strlen($cat_name) == 0 ||
-        strlen($cat_path)  > 50 ||
-        strlen($cat_path) == 0
+        mb_strlen($cat_name) > 50 ||
+        mb_strlen($cat_name) == 0 ||
+        mb_strlen($cat_path)  > 50 ||
+        mb_strlen($cat_path) == 0
     ) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 50 ตัวอักษร', 'danger');
     } elseif (preg_match('/[^ก-ฮเa-zA-Z]/', $cat_name)) {

@@ -9,8 +9,8 @@ if (isset($_POST['createPollDetail'])) {
     if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) {
         getAlert('กรุณาเข้าสู่ระบบเพื่อใช้งาน', 'danger');
     } elseif (
-        strlen($bd_name) > 200 ||
-        strlen($bd_name) == 0
+        mb_strlen($bd_name) > 200 ||
+        mb_strlen($bd_name) == 0
     ) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 200 ตัวอักษร', 'danger');
     } else {

@@ -5,7 +5,7 @@ $poll = $db->getPoll_ByID($p_id);
 if (isset($_POST['updatePollName'])) {
     $poll_name = $_POST['poll_name'] ?? "";
 
-    if (strlen($poll_name) > 200 || strlen($poll_name) == 0) {
+    if (mb_strlen($poll_name) > 200 || mb_strlen($poll_name) == 0) {
         getAlert('ข้อความต้องมีความยาวไม่เกิน 200 ตัวอักษร', 'danger');
     } else {
         $poll_name = htmlchar($poll_name);

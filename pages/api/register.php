@@ -22,18 +22,18 @@ Wexpress::post(
         }
         // check size
         if (
-            strlen($name) > 200 ||
-            strlen($name) < 1 ||
-            strlen($bio) > 200 ||
-            strlen($bio) < 1 ||
-            strlen($address) > 250 ||
-            strlen($address) < 1  ||
-            strlen($email) > 100 ||
-            strlen($email) == 0 ||
-            strlen($tel) != 10 ||
-            strlen($username) > 50 ||
-            strlen($username) == 0 ||
-            strlen($password) > 50 ||
+            mb_strlen($name) > 200 ||
+            mb_strlen($name) < 1 ||
+            mb_strlen($bio) > 200 ||
+            mb_strlen($bio) < 1 ||
+            mb_strlen($address) > 250 ||
+            mb_strlen($address) < 1  ||
+            mb_strlen($email) > 100 ||
+            mb_strlen($email) == 0 ||
+            mb_strlen($tel) != 10 ||
+            mb_strlen($username) > 50 ||
+            mb_strlen($username) == 0 ||
+            mb_strlen($password) > 50 ||
             !isset($_FILES['usr_img']) ||
             $_FILES['usr_img']['size'] > 2048000 ||
             $img_type != 'image/jpeg' && $img_type != 'image/png' ||

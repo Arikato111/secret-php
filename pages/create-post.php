@@ -10,8 +10,8 @@ if (isset($_POST['createPost']) && isset($_SESSION['usr'])) {
     $img_type = mime_content_type($_FILES['post_img']['tmp_name']);
     $img_size = $_FILES['post_img']['size'] ?? 0;
     if (
-        strlen($post_detail) > 4300 ||
-        strlen($post_detail) == 0
+        mb_strlen($post_detail) > 4300 ||
+        mb_strlen($post_detail) == 0
     ) {
         $error = 'ข้อความมีขนาดยาวเกินไป';
     } elseif (!($db->getCate_ByID($cat_id))) {

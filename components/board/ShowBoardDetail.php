@@ -9,7 +9,7 @@ if (isset($_POST['deleteBD'])) {
 
     if (!isset($_SESSION['usr']) || empty($_SESSION['usr'])) {
         getAlert('กรุณาเข้าสู่ระบบเพื่อใช้งาน', 'danger');
-    } elseif (!$board || $boardDetail['usr_id'] != $_SESSION['usr'] && (!isset($_SESSION['status']) || $_SESSION['status'] != 'admin')) {
+    } elseif ($boardDetail['usr_id'] != $_SESSION['usr'] && (!isset($_SESSION['status']) || $_SESSION['status'] != 'admin')) {
         getAlert('You have no permission', 'danger');
     } else {
         $db->deleteBoardDetail_ByID($bd_id);
