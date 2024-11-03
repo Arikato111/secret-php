@@ -26,6 +26,7 @@ but this can be production and I try to write a real use case.
 
  - #### [social web flutter](https://github.com/Arikato111/social-web-flutter) -> android app with Flutter, It's just front-end to working with api. 
     - [download app or view release](https://github.com/Arikato111/social-web-flutter/releases)
+
 ## Get started
 
 #### with apache
@@ -42,6 +43,15 @@ but this can be production and I try to write a real use case.
 - login with the admin account
   - username : `nawasan`
   - password : `admin`
+
+### with docker 
+
+docker is for example
+
+- copy `.env.example` to `.env`
+- run `make up` command
+- change permissions for `public` directory
+- open [localhost](http://localhost)
 
 ## Inside it
 
