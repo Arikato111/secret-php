@@ -1,0 +1,46 @@
+services:
+  webserver:
+    container_name: webserver
+    restart: always
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 80:80
+    volumes:
+      - ..:/var/www/html/:rwo
+
+
+  mysql:
+    container_name: mysql
+    image: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: admin123
+      MYSQL_DATABASE: social_web
+      MYSQL_USER: social
+      MYSQL_PASSWORD: admin123
+    volumes:
+      - ../database.sql:/docker-entrypoint-initdb.d/database.sql
+      - social_database:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    restart: always
+    ports:
+      - 8080:80
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: admin123
+      MYSQL_ROOT_PASSWORD: admin123
+
+volumes:
+  social_database:
+  public_web:
